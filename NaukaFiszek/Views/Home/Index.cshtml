@@ -1,0 +1,44 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top" id="MainMenu">
+        <div class="container">
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span>Zestawy</span>
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="@Url.Action("DodajZestaw","Zestaw")">Dodaj zestaw</a><br />
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="container body-content">
+        <div id="container">
+            <div id="content">
+
+            </div>
+        </div>
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Moja aplikacja ASP.NET</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/Common.js"></script>
+    <script src="~/Scripts/MainMenu.js"></script>
+</body>
+</html>

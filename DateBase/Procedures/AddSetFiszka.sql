@@ -1,0 +1,7 @@
+﻿CREATE PROCEDURE [dbo].[AddSetFiszka]
+	@Name VARCHAR(50)
+AS
+BEGIN
+INSERT INTO [SetsFiszka] ([Name]) VALUES(@Name)
+SELECT SCOPE_IDENTITY()
+END

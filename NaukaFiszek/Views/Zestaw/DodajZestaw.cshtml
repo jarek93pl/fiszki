@@ -1,0 +1,16 @@
+﻿@{
+    Layout = null;
+}
+<label for="NameSet">Nazwa zestawu</label>
+<input type="text" id="NameSet" />
+<button id="AddNewSet">Dodaj zestaw</button>
+<script type="text/javascript">
+    $('#AddNewSet').click(function () {
+        var data = {
+            nameSet: $('#NameSet').val()
+        };
+        Post('@Url.Action("DodajZestaw","Zestaw")', data, function (data) {
+
+        });
+    });
+</script>

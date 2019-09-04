@@ -1,0 +1,1 @@
+﻿$('#MainMenu a').click(loadPage);

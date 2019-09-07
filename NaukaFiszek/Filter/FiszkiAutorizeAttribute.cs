@@ -11,12 +11,23 @@ namespace NaukaFiszek.Filter
     //ActionFilterAttribute, IAuthenticationFilter
     public class FiszkiAutorizeAttribute : ActionFilterAttribute, IAuthenticationFilter
     {
+        const string textDoWylogowania = "WylogowanieXDRwylogowanieXDR";
+        public bool IsAjaxRequest { get; set; } 
         public void OnAuthentication(AuthenticationContext filterContext)
         {
-            User user = User.CurentUser(filterContext.HttpContext.Session);
+            UserFiszek user = UserFiszek.CurentUser;
             if (user == null)
             {
-                filterContext.Result =new  RedirectResult("/Rejestracja/Logowanie");
+                if (IsAjaxRequest)
+                {
+                    ContentResult result = new ContentResult();
+                    result.Content = textDoWylogowania;
+                    filterContext.Result = result;
+                }
+                else
+                {
+                    filterContext.Result = new RedirectResult("/Rejestracja/Logowanie");
+                }
             }
         }
 

@@ -124,13 +124,14 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RejestracjaController.cs" />
     <Compile Include="Controllers\ZestawController.cs" />
-    <Compile Include="Filter\Autorize.cs" />
+    <Compile Include="Filter\FiszkiAutorizeAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\Hash.cs" />
-    <Compile Include="Logic\User.cs" />
+    <Compile Include="Logic\UserFiszek.cs" />
     <Compile Include="Models\AuthorizationDetails.cs" />
+    <Compile Include="Models\UserDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -157,6 +158,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\MainMenu.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Zestaw\ListaZestawów.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -171,10 +173,13 @@
     <Content Include="Views\Zestaw\DodajZestaw.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Rejestracja\Logowanie.cshtml" />
+    <Content Include="Views\Rejestracja\Zarejestruj.cshtml" />
+    <Content Include="Views\Zestaw\ListaZestawów.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Fiszka\" />
+    <Folder Include="Views\UserDetails\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -193,6 +198,10 @@
     <ProjectReference Include="..\Conector\Conector.csproj">
       <Project>{FDEC2F92-CEEA-4894-87A7-D8134C465822}</Project>
       <Name>Conector</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DTO\DTO.csproj">
+      <Project>{e947c891-ed5a-4b98-b575-06b8791d773c}</Project>
+      <Name>DTO</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

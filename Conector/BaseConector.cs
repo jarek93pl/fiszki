@@ -42,6 +42,7 @@ namespace Conector
             catch (SqlException e)
             {
                 Debug.WriteLine("Error Generated. Details: " + e.ToString());
+                throw;
             }
             finally
             {
@@ -49,7 +50,15 @@ namespace Conector
         }
         public int LoadInt(string name, Dictionary<string, string> parameters)
         {
-            return Convert.ToInt32(LoadDecimal(name, parameters));
+            int value = 0;
+            BaseFunction(name, parameters, (reader) =>
+            {
+                if (reader.Read())
+                {
+                    value = reader.GetInt32(0);
+                }
+            });
+            return value;
         }
         public decimal LoadDecimal(string name, Dictionary<string, string> parameters)
         {

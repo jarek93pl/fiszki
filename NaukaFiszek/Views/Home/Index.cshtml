@@ -20,9 +20,17 @@
                 </button>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="@Url.Action("DodajZestaw","Zestaw")">Dodaj zestaw</a><br />
+                    <a class="dropdown-item" href="@Url.Action("ListaZestawów","Zestaw")">Lista zestawów</a><br />
                 </div>
             </div>
-
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span>Urzytkownik</span>
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" id="wyloguj" href="@Url.Action("Wyloguj","Rejestracja")">Wyloguj</a><br />
+                </div>
+            </div>
         </div>
     </div>
     <div class="container body-content">

@@ -1,1 +1,1 @@
-﻿$('#MainMenu a').click(loadPage);
+﻿$('#MainMenu  a:not(#wyloguj)').click( loadPage);

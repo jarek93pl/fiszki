@@ -12,7 +12,7 @@ namespace Tests
         {
             using (SetFiszka set = new SetFiszka())
             {
-                set.AddSetFiszka("dana");
+                set.AddSetFiszka("dana",1);
             }
             
         }

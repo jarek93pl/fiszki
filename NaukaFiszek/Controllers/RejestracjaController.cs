@@ -23,7 +23,7 @@ namespace NaukaFiszek.Controllers
         {
             try
             {
-                UserFiszek user = UserFiszek.Register(userDetails);
+                UserFiche user = UserFiche.Register(userDetails);
             }
             catch (Exception ex)
             {
@@ -37,13 +37,13 @@ namespace NaukaFiszek.Controllers
 
         public ActionResult Wyloguj()
         {
-            UserFiszek.LogOut(Session);
+            UserFiche.LogOut(Session);
             return RedirectToAction("Logowanie");
         }
         [HttpPost]
         public ActionResult Logowanie(AuthorizationDetails authorizationDetails)
         {
-            UserFiszek user = UserFiszek.AutorizeUser(authorizationDetails);
+            UserFiche user = UserFiche.AutorizeUser(authorizationDetails);
             if (user == null)
             {
                 ModelState.AddModelError("Password", "błędne hasło");

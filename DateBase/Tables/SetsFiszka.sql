@@ -1,7 +1,0 @@
-﻿CREATE TABLE [dbo].[SetsFiszka]
-(
-	[Id] INT NOT NULL PRIMARY KEY IDENTITY(1,1),
-	[Name] VARCHAR(50),
-	[UserId] INT,
-	CONSTRAINT FK_PersonOrder FOREIGN KEY ([UserId]) REFERENCES [Users](ID),
-)

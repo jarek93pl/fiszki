@@ -1,8 +1,0 @@
-﻿CREATE PROCEDURE [dbo].[AddSetFiszka]
-	@Name VARCHAR(50),
-	@UserId INT
-AS
-BEGIN
-INSERT INTO [SetsFiszka] ([Name],[UserId]) VALUES(@Name,@UserId)
-SELECT CAST( SCOPE_IDENTITY() AS INT)
-END

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="c7f66ac1-4e86-41bc-be4e-ab503a8d6890" ChangeDateTime="09/07/2019 21:46:48">
+    <Property Name="ElementName" Value="[dbo].[Fiszki]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="ParentElementName" Value="[dbo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[Fiche]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="2d71b971-a468-4dab-8afe-35ef90616c6d" ChangeDateTime="09/07/2019 21:47:40">
+    <Property Name="ElementName" Value="[dbo].[SetsFiszka]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="ParentElementName" Value="[dbo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[SetsFiche]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="66183029-cdef-4c54-96f6-3d708fa9d006" ChangeDateTime="09/07/2019 21:47:54">
+    <Property Name="ElementName" Value="[dbo].[PromptFiszkaContent]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="ParentElementName" Value="[dbo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[PromptFicheContent]" />
+  </Operation>
+</Operations>

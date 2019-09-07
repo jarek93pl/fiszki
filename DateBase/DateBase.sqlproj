@@ -66,18 +66,23 @@
     <None Include="Comparer.scmp" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Tables\SetsFiszka.sql" />
-    <Build Include="Procedures\AddSetFiszka.sql" />
+    <Build Include="Tables\SetsFiche.sql" />
+    <Build Include="Procedures\AddSetFiche.sql" />
     <Build Include="Tables\Users.sql" />
     <Build Include="Procedures\AutorizeUser.sql" />
     <Build Include="Procedures\AddUser.sql" />
-    <Build Include="Procedures\SearchSetsFiszka.sql" />
-    <Build Include="Procedures\RemoveSetFiszka.sql" />
-    <Build Include="Tables\Fiszki.sql" />
-    <Build Include="Tables\PromptFiszkaContent.sql" />
+    <Build Include="Procedures\SearchSetsFiche.sql" />
+    <Build Include="Procedures\RemoveSetFiche.sql" />
+    <Build Include="Tables\Fiche.sql" />
+    <Build Include="Tables\PromptFicheContent.sql" />
     <Build Include="Tables\DictionaryTypeContent.sql" />
+    <Build Include="Tables\ExpandedAnswer.sql" />
+    <Build Include="Procedures\LoadSetFiche.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="StartScripts\Script.TypeContent.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="DateBase.refactorlog" />
   </ItemGroup>
 </Project>

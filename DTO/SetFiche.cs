@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DTO
 {
-    public class SetFiszka
+    public class SetFiche
     {
         public string Name { get; set; }
         public string UserName { get; set; }

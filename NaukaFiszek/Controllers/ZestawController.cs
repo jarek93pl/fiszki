@@ -20,20 +20,20 @@ namespace NaukaFiszek.Controllers
         [HttpPost]
         public string DodajZestaw(string nameSet)
         {
-            SetFiszka setFiszka = new SetFiszka();
-            return setFiszka.AddSetFiszka(nameSet, UserFiszek.CurentUser.Id).ToString();
+            SetFiche setFiche = new SetFiche();
+            return setFiche.AddSetFiche(nameSet, UserFiche.CurentUser.Id).ToString();
         }
         [FiszkiAutorize(IsAjaxRequest = true)]
         public ActionResult ListaZestawów()
         {
-            SetFiszka setFiszka = new SetFiszka();
-            return View(setFiszka.SearchSetsFiszka(UserFiszek.CurentUser.Id));
+            SetFiche setFiszka = new SetFiche();
+            return View(setFiszka.SearchSetsFiche(UserFiche.CurentUser.Id));
         }
         [HttpPost]
         public void Delete(int id)
         {
-            SetFiszka setFiszka = new SetFiszka();
-            setFiszka.Remove(id);
+            SetFiche setFiche = new SetFiche();
+            setFiche.Remove(id);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace NaukaFiszek.Filter
         public bool IsAjaxRequest { get; set; } 
         public void OnAuthentication(AuthenticationContext filterContext)
         {
-            UserFiszek user = UserFiszek.CurentUser;
+            UserFiche user = UserFiche.CurentUser;
             if (user == null)
             {
                 if (IsAjaxRequest)

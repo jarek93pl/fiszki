@@ -10,9 +10,9 @@ namespace Tests
         [TestMethod]
         public void TestMethod1()
         {
-            using (SetFiszka set = new SetFiszka())
+            using (SetFiche set = new SetFiche())
             {
-                set.AddSetFiszka("dana",1);
+                set.AddSetFiche("dana",1);
             }
             
         }

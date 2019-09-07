@@ -124,13 +124,15 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RejestracjaController.cs" />
     <Compile Include="Controllers\ZestawController.cs" />
+    <Compile Include="Enums\ContentType.cs" />
     <Compile Include="Filter\FiszkiAutorizeAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\Hash.cs" />
-    <Compile Include="Logic\UserFiszek.cs" />
+    <Compile Include="Logic\UserFiche.cs" />
     <Compile Include="Models\AuthorizationDetails.cs" />
+    <Compile Include="Models\Fiche.cs" />
     <Compile Include="Models\UserDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

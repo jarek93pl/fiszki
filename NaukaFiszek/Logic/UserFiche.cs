@@ -8,20 +8,20 @@ using System.Web;
 
 namespace NaukaFiszek.Logic
 {
-    public class UserFiszek
+    public class UserFiche
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        private UserFiszek()
+        private UserFiche()
         {
 
         }
         const string sessionName = "NaukaFiszek.Logic.User.CurentUser";
-        public static UserFiszek CurentUser
+        public static UserFiche CurentUser
         {
             get
             {
-                return (UserFiszek)HttpContext.Current.Session[sessionName];
+                return (UserFiche)HttpContext.Current.Session[sessionName];
             }
             set
             {
@@ -34,7 +34,7 @@ namespace NaukaFiszek.Logic
             session[sessionName] = null;
         }
 
-        public static UserFiszek AutorizeUser(AuthorizationDetails authorizationDetails)
+        public static UserFiche AutorizeUser(AuthorizationDetails authorizationDetails)
         {
 
             using (Conector.User user = new Conector.User())
@@ -42,7 +42,7 @@ namespace NaukaFiszek.Logic
                 int id = user.Autorize(authorizationDetails.Login, Helper.Hash.SHA1Hash(authorizationDetails.Password));
                 if (id != 0)
                 {
-                    UserFiszek userReturned = new UserFiszek();
+                    UserFiche userReturned = new UserFiche();
                     CurentUser = userReturned;
                     userReturned.Id = id;
                     return userReturned;
@@ -56,7 +56,7 @@ namespace NaukaFiszek.Logic
 
         }
 
-        public static UserFiszek Register(UserDetails userDetails)
+        public static UserFiche Register(UserDetails userDetails)
         {
             using (Conector.User user = new Conector.User())
             {

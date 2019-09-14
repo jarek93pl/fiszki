@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NaukaFiszek.Filter;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,8 +9,8 @@ namespace NaukaFiszek.Controllers
 {
     public class FiszkaController : Controller
     {
-        // GET: Fiszka
-        public ActionResult Index()
+        //[FiszkiAutorize(IsAjaxRequest = true)]
+        public ActionResult Dodaj()
         {
             return View();
         }

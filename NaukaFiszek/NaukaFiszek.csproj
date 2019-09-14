@@ -120,19 +120,21 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ComonController.cs" />
     <Compile Include="Controllers\FiszkaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RejestracjaController.cs" />
     <Compile Include="Controllers\ZestawController.cs" />
-    <Compile Include="Enums\ContentType.cs" />
     <Compile Include="Filter\FiszkiAutorizeAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\ComonFunctionalities.cs" />
     <Compile Include="Helper\Hash.cs" />
     <Compile Include="Logic\UserFiche.cs" />
     <Compile Include="Models\AuthorizationDetails.cs" />
-    <Compile Include="Models\Fiche.cs" />
+    <Compile Include="Models\FileData.cs" />
+    <Compile Include="Models\SetFicheDetails.cs" />
     <Compile Include="Models\UserDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -147,8 +149,10 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="App_Code\ComonFiche.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\Common.js" />
+    <Content Include="Scripts\Fiszka\Dodaj.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -160,6 +164,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\MainMenu.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Zestaw\Edytuj.js" />
     <Content Include="Scripts\Zestaw\ListaZestawów.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -177,10 +182,11 @@
     <Content Include="Views\Rejestracja\Logowanie.cshtml" />
     <Content Include="Views\Rejestracja\Zarejestruj.cshtml" />
     <Content Include="Views\Zestaw\ListaZestawów.cshtml" />
+    <Content Include="Views\Zestaw\Edytuj.cshtml" />
+    <Content Include="Views\Fiszka\Dodaj.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Fiszka\" />
     <Folder Include="Views\UserDetails\" />
   </ItemGroup>
   <ItemGroup>

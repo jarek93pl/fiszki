@@ -24,7 +24,7 @@ namespace Conector
                 return System.Configuration.ConfigurationManager.ConnectionStrings["Main"].ConnectionString;
             }
         }
-        public void BaseFunction(string name, Dictionary<string, string> parameters, Action<SqlDataReader> functionBody)
+        protected void BaseFunction(string name, Dictionary<string, string> parameters, Action<SqlDataReader> functionBody)
         {
             try
             {
@@ -48,7 +48,7 @@ namespace Conector
             {
             }
         }
-        public int LoadInt(string name, Dictionary<string, string> parameters)
+        protected int LoadInt(string name, Dictionary<string, string> parameters)
         {
             int value = 0;
             BaseFunction(name, parameters, (reader) =>
@@ -60,7 +60,7 @@ namespace Conector
             });
             return value;
         }
-        public decimal LoadDecimal(string name, Dictionary<string, string> parameters)
+        protected decimal LoadDecimal(string name, Dictionary<string, string> parameters)
         {
             decimal value = 0;
             BaseFunction(name, parameters, (reader) =>
@@ -72,7 +72,7 @@ namespace Conector
             });
             return value;
         }
-        public List<T> LoadList<T>(string name, Dictionary<string, string> parameters, Func<Loader, T> func)
+        protected List<T> LoadList<T>(string name, Dictionary<string, string> parameters, Func<Loader, T> func)
         {
             List<T> returnedData = new List<T>();
             BaseFunction(name, parameters, (reader) =>

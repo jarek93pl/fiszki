@@ -3,12 +3,16 @@ function loadPage(e) {
     loadPageUsingUrl(e, this.href);
 }
 function loadPageUsingUrl(e, adres) {
+    loadPageUsingBase(e, adres, 'content');
+}
+
+function loadPageUsingBase(e, adres, nameHtml) {
 
     e.preventDefault();
-    $('#content').remove();
+    $('#' + nameHtml).remove();
     $('#container').html("<div id='content'></div>");
-    $('#content').load(adres, function () {
-        CheckRedairect($('#content').text());
+    $('#' + nameHtml).load(adres, function () {
+        CheckRedairect($('#' + nameHtml).text());
     });
 }
 function Post(url, data, completed) {
@@ -18,8 +22,7 @@ function Post(url, data, completed) {
 
     request.onload = function () {
         if (request.status === 200 && CheckRedairect(request.response)) {
-            if (request.response === "")
-            {
+            if (request.response === "") {
                 completed(undefined);
             }
             else {
@@ -30,6 +33,7 @@ function Post(url, data, completed) {
     request.send(JSON.stringify(data));
 
 }
+
 function CheckRedairect(text) {
     if (text === 'WylogowanieXDRwylogowanieXDR') {
         window.location.href = '';
@@ -37,3 +41,21 @@ function CheckRedairect(text) {
     }
     return true;
 }
+function SendFile(control, type) {
+
+    var reader = new FileReader();
+    reader.onload = function () {
+
+        var arrayBuffer = this.result,
+            array = new Uint8Array(arrayBuffer),
+            binaryString = String.fromCharCode.apply(null, array);
+        Post('Comon/SaveFile', { DataFileValue: btoa(binaryString), TypeValue: type, Extension: control.value.split('.').pop() }, function () {
+
+        });
+        console.log(binaryString);
+    };
+    reader.readAsArrayBuffer(control.files[0]);
+}
+
+
+

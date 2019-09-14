@@ -41,6 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\ContentType.cs" />
+    <Compile Include="Enums\FileType.cs" />
+    <Compile Include="Fiche.cs" />
+    <Compile Include="FicheResponse.cs" />
     <Compile Include="SetFiche.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

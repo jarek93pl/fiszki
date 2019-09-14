@@ -1,6 +1,7 @@
 ﻿using Conector;
 using NaukaFiszek.Filter;
 using NaukaFiszek.Logic;
+using NaukaFiszek.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,20 +21,44 @@ namespace NaukaFiszek.Controllers
         [HttpPost]
         public string DodajZestaw(string nameSet)
         {
-            SetFiche setFiche = new SetFiche();
-            return setFiche.AddSetFiche(nameSet, UserFiche.CurentUser.Id).ToString();
+            using (SetFiche setFiche = new SetFiche())
+            {
+                return setFiche.AddSetFiche(nameSet, UserFiche.CurentUser.Id).ToString();
+            }
         }
         [FiszkiAutorize(IsAjaxRequest = true)]
         public ActionResult ListaZestawów()
         {
-            SetFiche setFiszka = new SetFiche();
-            return View(setFiszka.SearchSetsFiche(UserFiche.CurentUser.Id));
+            using (SetFiche setFiszka = new SetFiche())
+            {
+                return View(setFiszka.SearchSetsFiche(UserFiche.CurentUser.Id, null));
+            }
         }
+        [FiszkiAutorize(IsAjaxRequest = true)]
         [HttpPost]
         public void Delete(int id)
         {
-            SetFiche setFiche = new SetFiche();
-            setFiche.Remove(id);
+            using (SetFiche setFiche = new SetFiche())
+            {
+                setFiche.Remove(id);
+            }
         }
+
+        [FiszkiAutorize(IsAjaxRequest = true)]
+        public ActionResult Edytuj(int id)
+        {
+            SetFicheDetails setFicheDetails = new SetFicheDetails();
+            using (Fiche fiche = new Fiche())
+            {
+                setFicheDetails.Fiches = fiche.SearchFiches(id);
+            }
+            using (SetFiche setFiche = new SetFiche())
+            {
+                var fiche = setFiche.SearchSetsFiche(UserFiche.CurentUser.Id, id).First();
+                setFicheDetails.Name = fiche.Name;
+            }
+            return View(setFicheDetails);
+        }
+
     }
 }

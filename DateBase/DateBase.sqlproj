@@ -61,23 +61,28 @@
     <Folder Include="Tables" />
     <Folder Include="Procedures" />
     <Folder Include="StartScripts" />
+    <Folder Include="Procedures\User" />
+    <Folder Include="Procedures\SetFiche" />
+    <Folder Include="Procedures\Fiche" />
+    <Folder Include="Procedures\Common" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Comparer.scmp" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\SetsFiche.sql" />
-    <Build Include="Procedures\AddSetFiche.sql" />
     <Build Include="Tables\Users.sql" />
-    <Build Include="Procedures\AutorizeUser.sql" />
-    <Build Include="Procedures\AddUser.sql" />
-    <Build Include="Procedures\SearchSetsFiche.sql" />
-    <Build Include="Procedures\RemoveSetFiche.sql" />
     <Build Include="Tables\Fiche.sql" />
-    <Build Include="Tables\PromptFicheContent.sql" />
     <Build Include="Tables\DictionaryTypeContent.sql" />
     <Build Include="Tables\ExpandedAnswer.sql" />
-    <Build Include="Procedures\LoadSetFiche.sql" />
+    <Build Include="Procedures\User\AutorizeUser.sql" />
+    <Build Include="Procedures\User\AddUser.sql" />
+    <Build Include="Procedures\SetFiche\AddSetFiche.sql" />
+    <Build Include="Procedures\SetFiche\RemoveSetFiche.sql" />
+    <Build Include="Procedures\SetFiche\SearchSetsFiche.sql" />
+    <Build Include="Procedures\Fiche\SearchFiches.sql" />
+    <Build Include="Tables\File.sql" />
+    <Build Include="Procedures\Common\SaveFile.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="StartScripts\Script.TypeContent.sql" />

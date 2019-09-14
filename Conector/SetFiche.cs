@@ -17,10 +17,17 @@ namespace Conector
             keyValuePairs.Add("@UserId", userId.ToString());
             return Convert.ToInt32(LoadInt("AddSetFiche", keyValuePairs).ToString());
         }
-        public List<DTO.SetFiche> SearchSetsFiche(int userId)
+        public List<DTO.SetFiche> SearchSetsFiche(int? userId, int? id)
         {
             Dictionary<string, string> keyValuePairs = new Dictionary<string, string>();
-            keyValuePairs.Add("@UserId", userId.ToString());
+            if (userId.HasValue)
+            {
+                keyValuePairs.Add("@UserId", userId.ToString());
+            }
+            if (id.HasValue)
+            {
+                keyValuePairs.Add("@SetFicheId", id.ToString());
+            }
             return LoadList<DTO.SetFiche>("SearchSetsFiche", keyValuePairs, ReaderListSetsFiche);
         }
 
@@ -33,7 +40,7 @@ namespace Conector
             set.Id = arg.GetInt("id");
             return set;
         }
-        public int Remove( int elementId)
+        public int Remove(int elementId)
         {
             Dictionary<string, string> keyValuePairs = new Dictionary<string, string>();
             keyValuePairs.Add("@elementId", elementId.ToString());

@@ -1,0 +1,9 @@
+﻿@helper SenderFile(string id)
+{
+
+    <div class="form-group">
+        <input type="file" id=@(id+"-file") class="form-control" />
+        <input type="button" id=@(id+"-button") class="form-control" value="Dodaj plik" />
+    </div>
+}
+

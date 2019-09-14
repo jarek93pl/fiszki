@@ -1,0 +1,5 @@
+﻿CREATE TABLE [dbo].[Files]
+(
+
+	[Id] INT NOT NULL PRIMARY KEY
+)

@@ -4,7 +4,7 @@
 @model NaukaFiszek.Models.SetFicheDetails
 <label></label>
 <p>
-    @Html.ActionLink("Dodaj Fiszke", "Dodaj","Fiszka")
+    @Html.ActionLink("Dodaj Fiszke", "Dodaj", "Fiszka", new { idFicheSet = Model.IdSetFiche }, null)
 </p>
 <table class="table">
     <tr>
@@ -15,7 +15,7 @@
             @Html.DisplayNameFor(model => model.Fiches.First().Response)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Fiches.First().NameType)
+            @Html.DisplayNameFor(model => model.Fiches.First().TypePromptString)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Fiches.First().NameTypePrompt)
@@ -33,18 +33,19 @@
                 @Html.DisplayFor(modelItem => item.Response)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.NameType)
+                @Html.DisplayFor(modelItem => item.TypePromptString)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.NameTypePrompt)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Edytuj", "Edit", "Fiszka", new { id = item.Id }, null)
+                @Html.ActionLink("Details", "Details", new { id = item.Id })
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>
         </tr>
     }
+    @Html.HiddenFor(model => model.IdSetFiche)
 
 </table>
 <script src="~/Scripts/Zestaw/Edytuj.js"></script>

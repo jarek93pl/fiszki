@@ -19,14 +19,20 @@ namespace Tests
             }
 
         }
-
-
         [TestMethod]
         public void SaveFileTest()
         {
             ComonController con = new ComonController();
-            var result = con.SaveFile(new NaukaFiszek.Models.FileData() { Type = FileType.PromptContent, DataFile = File.ReadAllBytes("tx.txt"), Extension = "txt" });
+            con.SaveFile(new NaukaFiszek.Models.FileData() { Type = FileType.PromptContent, DataFile = File.ReadAllBytes("tx.txt"), Extension = "txt" });
+
+        }
+        [TestMethod]
+        public void LoadExtenison()
+        {
+            ComonController con = new ComonController();
+            var file = con.LoadFile(3);
 
         }
     }
 }
+

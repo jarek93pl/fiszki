@@ -6,12 +6,16 @@ using System.Threading.Tasks;
 
 namespace Conector
 {
-    public class Common : BaseConector
+    public class Comon : BaseConector
     {
         public int SaveFile(string extension)
         {
-            return LoadInt("SaveFile", new Dictionary<string, string>() { { "FileExtension", extension } });
+            return LoadInt("SaveFile", new Dictionary<string, object>() { { "FileExtension", extension } });
 
+        }
+        public string GetExtension(int id)
+        {
+            return LoadString("GetExtension", new Dictionary<string, object>() { { "id", id.ToString() } });
         }
     }
 }

@@ -134,6 +134,8 @@
     <Compile Include="Logic\UserFiche.cs" />
     <Compile Include="Models\AuthorizationDetails.cs" />
     <Compile Include="Models\FileData.cs" />
+    <Compile Include="Models\IdPost.cs" />
+    <Compile Include="Models\SaveFileResponse.cs" />
     <Compile Include="Models\SetFicheDetails.cs" />
     <Compile Include="Models\UserDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -184,6 +186,8 @@
     <Content Include="Views\Zestaw\ListaZestawów.cshtml" />
     <Content Include="Views\Zestaw\Edytuj.cshtml" />
     <Content Include="Views\Fiszka\Dodaj.cshtml" />
+    <Content Include="Views\Fiszka\ResponseEditor.cshtml" />
+    <Content Include="Views\Fiszka\ResponseRow.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

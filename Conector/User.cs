@@ -10,14 +10,14 @@ namespace Conector
     {
         public int Autorize(string name, string password)
         {
-            Dictionary<string, string> keyValuePairs = new Dictionary<string, string>();
+            Dictionary<string, object> keyValuePairs = new Dictionary<string, object>();
             keyValuePairs.Add("@Login", name);
             keyValuePairs.Add("@password", password);
             return LoadInt("AutorizeUser", keyValuePairs);
         }
         public int AddUser(string name, string password)
         {
-            Dictionary<string, string> keyValuePairs = new Dictionary<string, string>();
+            Dictionary<string, object> keyValuePairs = new Dictionary<string, object>();
             keyValuePairs.Add("@Login", name);
             keyValuePairs.Add("@password", password);
             return Convert.ToInt32(LoadDecimal("AddUser", keyValuePairs));

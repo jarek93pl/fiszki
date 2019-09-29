@@ -7,9 +7,10 @@ namespace DTO.Enums
 {
     public enum ContentType
     {
+
+        Text = 0,
         Image = 1,
         Sound = 2,
-        Movie = 3,
-        Text = 4
+        Movie = 3
     }
 }

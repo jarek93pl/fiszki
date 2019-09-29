@@ -36,6 +36,19 @@ namespace Conector
         {
             return reader.GetInt32(GetId(name));
         }
+        public int? GetIntNullable(string name)
+        {
+            if (!reader.IsDBNull(GetId(name)))
+            {
+                return reader.GetInt32(GetId(name));
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+
 
     }
 }

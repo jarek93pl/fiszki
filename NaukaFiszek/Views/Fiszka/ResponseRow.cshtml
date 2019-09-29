@@ -1,0 +1,17 @@
+﻿@{
+    Layout = null;
+}
+@model DTO.FicheResponse
+<tr id=@(Model.Id == 0 ? "IsNewFicheResponseRow":Model.Id.ToString()) class="responseTableRow">
+    <td class="NameFicheResponseRow" id="xlis">
+        @Model.Name
+    </td>
+    <td class="TypeFichRow">
+        @Model.ContentTypeToDispley
+    </td>
+    <td>
+        <a class="EditResponse" href="edit">Edit</a>
+        <a class="DeleteResponse" href="delete">Delete</a>
+    </td>
+    @Html.HiddenFor(model => model.IdFile,new { @class="IdFileResponseRow"})
+</tr>

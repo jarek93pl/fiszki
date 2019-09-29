@@ -57,6 +57,7 @@ namespace NaukaFiszek.Controllers
                 var fiche = setFiche.SearchSetsFiche(UserFiche.CurentUser.Id, id).First();
                 setFicheDetails.Name = fiche.Name;
             }
+            setFicheDetails.IdSetFiche = id;
             return View(setFicheDetails);
         }
 

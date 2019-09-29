@@ -16,21 +16,24 @@ function loadPageUsingBase(e, adres, nameHtml) {
     });
 }
 function Post(url, data, completed) {
-    var request = new XMLHttpRequest();
-    request.open('POST', url, false);
-    request.setRequestHeader("Content-Type", "application/json");
-
-    request.onload = function () {
-        if (request.status === 200 && CheckRedairect(request.response)) {
-            if (request.response === "") {
+    $.ajax({
+        url: url,
+        type: "POST",
+        cache: false,
+        data: JSON.stringify(data),
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            if (data === "") {
                 completed(undefined);
             }
             else {
-                completed(JSON.parse(request.response));
+                completed(data);
             }
+        },
+        error: function (jqXhr, textStatus, errorThrown) {
+            alert(errorThrown);
         }
-    };
-    request.send(JSON.stringify(data));
+    });
 
 }
 
@@ -41,21 +44,21 @@ function CheckRedairect(text) {
     }
     return true;
 }
-function SendFile(control, type) {
 
+function SendFile(control, type, responseFunc) {
     var reader = new FileReader();
     reader.onload = function () {
 
-        var arrayBuffer = this.result,
-            array = new Uint8Array(arrayBuffer),
-            binaryString = String.fromCharCode.apply(null, array);
-        Post('Comon/SaveFile', { DataFileValue: btoa(binaryString), TypeValue: type, Extension: control.value.split('.').pop() }, function () {
-
-        });
-        console.log(binaryString);
+        var arrayBuffer = this.result;
+        binaryString = String.fromCharCode.apply(null, new Uint8Array(arrayBuffer));
+        Post('../Comon/SaveFile', { DataFileValue: btoa(binaryString), TypeValue: type, Extension: control.value.split('.').pop() }, responseFunc);
     };
     reader.readAsArrayBuffer(control.files[0]);
 }
-
+function GetGuid() {
+    return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
+        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+    );
+}
 
 

@@ -65,6 +65,7 @@
     <Folder Include="Procedures\SetFiche" />
     <Folder Include="Procedures\Fiche" />
     <Folder Include="Procedures\Common" />
+    <Folder Include="Type" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Comparer.scmp" />
@@ -74,7 +75,6 @@
     <Build Include="Tables\Users.sql" />
     <Build Include="Tables\Fiche.sql" />
     <Build Include="Tables\DictionaryTypeContent.sql" />
-    <Build Include="Tables\ExpandedAnswer.sql" />
     <Build Include="Procedures\User\AutorizeUser.sql" />
     <Build Include="Procedures\User\AddUser.sql" />
     <Build Include="Procedures\SetFiche\AddSetFiche.sql" />
@@ -83,6 +83,13 @@
     <Build Include="Procedures\Fiche\SearchFiches.sql" />
     <Build Include="Tables\File.sql" />
     <Build Include="Procedures\Common\SaveFile.sql" />
+    <Build Include="Procedures\Common\GetExtension.sql" />
+    <Build Include="Procedures\Fiche\SaveFiche.sql" />
+    <Build Include="Tables\FicheResponses.sql" />
+    <Build Include="Procedures\Fiche\MergeFicheResponses.sql" />
+    <Build Include="Type\FicheResponseType.sql" />
+    <Build Include="Procedures\Fiche\DeleteResponse.sql" />
+    <Build Include="Procedures\Fiche\SearchResponse.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="StartScripts\Script.TypeContent.sql" />

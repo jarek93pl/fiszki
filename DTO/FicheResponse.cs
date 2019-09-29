@@ -11,6 +11,20 @@ namespace DTO
     {
         public string Name { get; set; }
         public ContentType TypePrompt { get; set; }
-        public byte[] Data { get; set; }
+        public int? IdFile { get; set; }
+        public int Id { get; set; }
+
+        public string ContentTypeToDispley
+        {
+            get
+            {
+                return ((int)TypePrompt).ToString();
+            }
+            set
+            {
+
+                TypePrompt = (ContentType)Convert.ToInt32(value);
+            }
+        }
     }
 }

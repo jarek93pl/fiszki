@@ -12,14 +12,14 @@ namespace Conector
     {
         public int AddSetFiche(string name, int userId)
         {
-            Dictionary<string, string> keyValuePairs = new Dictionary<string, string>();
+            Dictionary<string, object> keyValuePairs = new Dictionary<string, object>();
             keyValuePairs.Add("@Name", name);
             keyValuePairs.Add("@UserId", userId.ToString());
             return Convert.ToInt32(LoadInt("AddSetFiche", keyValuePairs).ToString());
         }
         public List<DTO.SetFiche> SearchSetsFiche(int? userId, int? id)
         {
-            Dictionary<string, string> keyValuePairs = new Dictionary<string, string>();
+            Dictionary<string, object> keyValuePairs = new Dictionary<string, object>();
             if (userId.HasValue)
             {
                 keyValuePairs.Add("@UserId", userId.ToString());
@@ -42,7 +42,7 @@ namespace Conector
         }
         public int Remove(int elementId)
         {
-            Dictionary<string, string> keyValuePairs = new Dictionary<string, string>();
+            Dictionary<string, object> keyValuePairs = new Dictionary<string, object>();
             keyValuePairs.Add("@elementId", elementId.ToString());
             return Convert.ToInt32(LoadInt("RemoveSetFiche", keyValuePairs).ToString());
         }

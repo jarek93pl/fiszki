@@ -24,7 +24,7 @@ namespace Conector
                 return System.Configuration.ConfigurationManager.ConnectionStrings["Main"].ConnectionString;
             }
         }
-        protected void BaseFunction(string name, Dictionary<string, string> parameters, Action<SqlDataReader> functionBody)
+        protected void BaseFunction(string name, Dictionary<string, object> parameters, Action<SqlDataReader> functionBody)
         {
             try
             {
@@ -36,8 +36,7 @@ namespace Conector
                 }
                 SqlDataReader dr = cmd.ExecuteReader();
                 functionBody(dr);
-
-
+                dr.Close();
             }
             catch (SqlException e)
             {
@@ -48,7 +47,7 @@ namespace Conector
             {
             }
         }
-        protected int LoadInt(string name, Dictionary<string, string> parameters)
+        protected int LoadInt(string name, Dictionary<string, object> parameters)
         {
             int value = 0;
             BaseFunction(name, parameters, (reader) =>
@@ -60,7 +59,7 @@ namespace Conector
             });
             return value;
         }
-        protected decimal LoadDecimal(string name, Dictionary<string, string> parameters)
+        protected decimal LoadDecimal(string name, Dictionary<string, object> parameters)
         {
             decimal value = 0;
             BaseFunction(name, parameters, (reader) =>
@@ -72,7 +71,19 @@ namespace Conector
             });
             return value;
         }
-        protected List<T> LoadList<T>(string name, Dictionary<string, string> parameters, Func<Loader, T> func)
+        protected string LoadString(string name, Dictionary<string, object> parameters)
+        {
+            string value = "";
+            BaseFunction(name, parameters, (reader) =>
+            {
+                if (reader.Read())
+                {
+                    value = reader.GetString(0);
+                }
+            });
+            return value;
+        }
+        protected List<T> LoadList<T>(string name, Dictionary<string, object> parameters, Func<Loader, T> func)
         {
             List<T> returnedData = new List<T>();
             BaseFunction(name, parameters, (reader) =>

@@ -10,10 +10,31 @@ namespace DTO
     {
         public string Prompt { get; set; }
         public string Response { get; set; }
-        public string NameType { get; set; }
         public ContentType TypePrompt { get; set; }
+        public int IntTypePrompt {
+            get
+            {
+                return (int)TypePrompt;
+            }
+            set
+            {
+                TypePrompt = (ContentType)value;
+            }
+        }
+        public string TypePromptString
+        {
+            get
+            {
+                return TypePrompt.ToString();
+            }
+            set
+            { 
+            }
+        }
         public string NameTypePrompt { get; set; }
         public int Id { get; set; }
-        public List<FicheResponse> FicheResponses { get; set; }
-}
+        public int? IdPromptFile { get; set; }
+        public int IdFicheSet { get; set; }
+        public FicheResponse[] FicheResponses { get; set; }
+    }
 }

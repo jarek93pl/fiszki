@@ -46,6 +46,26 @@ function CheckRedairect(text) {
 }
 
 function SendFile(control, type, responseFunc) {
+
+    var formData = new FormData();
+
+    var file = control.files[0];
+    formData.append("FileUpload", file);
+
+
+    $.ajax({
+        type: 'post',
+        url: '../Comon/SaveFile',
+        data: formData,
+        dataType: 'json',
+        contentType: false,
+        processData: false,
+        success: responseFunc,
+        error: function (error) {
+            alert("errror");
+        }
+    });
+    /*
     var reader = new FileReader();
     reader.onload = function () {
 
@@ -54,6 +74,7 @@ function SendFile(control, type, responseFunc) {
         Post('../Comon/SaveFile', { DataFileValue: btoa(binaryString), TypeValue: type, Extension: control.value.split('.').pop() }, responseFunc);
     };
     reader.readAsArrayBuffer(control.files[0]);
+    */
 }
 function GetGuid() {
     return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>

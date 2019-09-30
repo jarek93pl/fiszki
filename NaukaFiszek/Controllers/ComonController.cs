@@ -23,15 +23,22 @@ namespace NaukaFiszek.Controllers
             }
         }
         [HttpPost]
-        public JsonResult SaveFile(FileData fileData)
+        public JsonResult SaveFile()
         {
+
+            HttpPostedFileBase file = Request.Files[0];
             int FileId;
             using (Conector.Comon common = new Conector.Comon())
             {
-                FileId = common.SaveFile(fileData.Extension);
-                global::System.IO.File.WriteAllBytes(Path.Combine(PathContent, FileId.ToString()), fileData.DataFile);
+                FileId = common.SaveFile(Path.GetExtension(file.FileName));
+
+                MemoryStream target = new MemoryStream();
+                file.InputStream.CopyTo(target);
+                byte[] data = target.ToArray();
+
+                global::System.IO.File.WriteAllBytes(Path.Combine(PathContent, FileId.ToString()), data);
             }
-            return  Json( new SaveFileResponse() { Id = FileId });
+            return Json(new SaveFileResponse() { Id = FileId });
         }
 
 

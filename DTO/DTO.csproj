@@ -43,10 +43,13 @@
   <ItemGroup>
     <Compile Include="Enums\ContentType.cs" />
     <Compile Include="Enums\FileType.cs" />
+    <Compile Include="Enums\TypeAnswear.cs" />
     <Compile Include="Fiche.cs" />
     <Compile Include="FicheResponse.cs" />
     <Compile Include="SetFiche.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TeachBag.cs" />
+    <Compile Include="TeachSetFiche.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

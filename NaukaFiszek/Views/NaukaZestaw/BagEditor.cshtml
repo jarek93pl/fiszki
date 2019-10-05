@@ -1,0 +1,49 @@
+﻿@model DTO.TeachBag
+@{
+    Layout = null;
+}
+<div style="position: absolute; left: 50%;">
+    <div style="position: relative; left: -50%; border:  10px; border-color:blue;">
+        <div class="form-horizontal" id="BagEditor" hidden="hidden">
+            <h4>Edytuj koszyk</h4>
+            <hr />
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.PeriodTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.PeriodTime, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.IsLimitTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.IsLimitTime)
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" id="LimitTimeInSekContainer" hidden="hidden">
+                @Html.LabelFor(model => model.LimitTimeInSek, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.LimitTimeInSek)
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.TypeAnswear, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EnumDropDownListFor(model => model.TypeAnswear)
+                    </div>
+                </div>
+            </div>
+            @Html.HiddenFor(model => model.Id);
+            <div>
+                <input type="submit" value="Save" class="btn btn-default" id="BagApprover" />
+                <input type="submit" value="Ukryj" class="btn btn-default" id="BagEditorHider" />
+            </div>
+        </div>
+    </div>
+</div>

@@ -23,7 +23,7 @@ namespace Tests
         public void SaveFileTest()
         {
             ComonController con = new ComonController();
-            con.SaveFile(new NaukaFiszek.Models.FileData() { Type = FileType.PromptContent, DataFile = File.ReadAllBytes("tx.txt"), Extension = "txt" });
+            //con.SaveFile(new NaukaFiszek.Models.FileData() { Type = FileType.PromptContent, DataFile = File.ReadAllBytes("tx.txt"), Extension = "txt" });
 
         }
         [TestMethod]

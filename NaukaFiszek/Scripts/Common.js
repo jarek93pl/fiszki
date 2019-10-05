@@ -55,7 +55,7 @@ function SendFile(control, type, responseFunc) {
 
     $.ajax({
         type: 'post',
-        url: '../Comon/SaveFile',
+        url: '/Comon/SaveFile',
         data: formData,
         dataType: 'json',
         contentType: false,

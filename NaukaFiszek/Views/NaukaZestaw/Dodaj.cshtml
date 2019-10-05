@@ -1,0 +1,54 @@
+﻿@model DTO.TeachSetFiche
+@{
+    Layout = null;
+}
+
+<div class="form-horizontal">
+    <h4>Tworzenie zestawu uczącego</h4>
+    <hr />
+
+    @Html.HiddenFor(Model => Model.IdSetFiche)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+
+    <p>
+        @Html.ActionLink("Create New", "Create", null, new { id = "NewBagLink" })
+    </p>
+    <table class="table" id="BagTable">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.teachBags[0].PeriodTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.teachBags[0].TypeAnswearText)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.teachBags[0].IsLimitTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.teachBags[0].LimitTimeInSek)
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </table>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" id="SendTeachSet" />
+        </div>
+    </div>
+</div>
+@Html.Partial("BagEditor", new DTO.TeachBag())
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/Common.js"></script>
+<script src="~/Scripts/NaukaZestaw/Common.js"></script>
+<script src="~/Scripts/NaukaZestaw/Dodaj.js"></script>
+<script src="~/Scripts/NaukaZestaw/BagEditor.js"></script>
+<script src="~/Scripts/NaukaZestaw/BagRow.js"></script>

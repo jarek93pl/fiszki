@@ -7,6 +7,14 @@ namespace NaukaFiszek.Models
 {
     public class IdPost
     {
+        public IdPost()
+        {
+
+        }
+        public IdPost(int id)
+        {
+            this.id = id;
+        }
         public int id { get; set; }
     }
 }

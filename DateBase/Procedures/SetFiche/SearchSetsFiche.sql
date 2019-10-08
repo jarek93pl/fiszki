@@ -11,6 +11,6 @@ SELECT	[s].[Id][id],
 FROM [SetsFiche] [s]
 JOIN [Users] [u] ON [u].Id=[s].UserId
 WHERE 
-	([UserId] = @UserId OR [UserId] IS NULL)  AND
+	([UserId] = @UserId OR @UserId IS NULL)  AND
 	([s].[Id] = @SetFicheId OR @SetFicheId IS NULL )
 END

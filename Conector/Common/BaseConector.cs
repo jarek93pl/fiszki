@@ -8,6 +8,7 @@ using System.Diagnostics;
 
 namespace Conector
 {
+    [DebuggerStepThrough]
     public class BaseConector : IDisposable
     {
         SqlConnection conection;
@@ -41,7 +42,7 @@ namespace Conector
             catch (SqlException e)
             {
                 Debug.WriteLine("Error Generated. Details: " + e.ToString());
-                throw;
+                throw new Exception($"funkcja {name}",e);
             }
             finally
             {
@@ -59,6 +60,7 @@ namespace Conector
             });
             return value;
         }
+        protected void NonReturned(string name, Dictionary<string, object> parameters) => BaseFunction(name, parameters, (reader) => { });
         protected decimal LoadDecimal(string name, Dictionary<string, object> parameters)
         {
             decimal value = 0;

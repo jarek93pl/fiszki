@@ -15,7 +15,7 @@ function loadPageUsingBase(e, adres, nameHtml) {
         CheckRedairect($('#' + nameHtml).text());
     });
 }
-function Post(url, data, completed) {
+function PostAction(url, data, completed) {
     $.ajax({
         url: url,
         type: "POST",
@@ -36,16 +36,7 @@ function Post(url, data, completed) {
     });
 
 }
-
-function CheckRedairect(text) {
-    if (text === 'WylogowanieXDRwylogowanieXDR') {
-        window.location.href = '';
-        return false;
-    }
-    return true;
-}
-
-function SendFile(control, type, responseFunc) {
+function SendFileAction(control, type, responseFunc) {
 
     var formData = new FormData();
 
@@ -76,6 +67,14 @@ function SendFile(control, type, responseFunc) {
     reader.readAsArrayBuffer(control.files[0]);
     */
 }
+function CheckRedairect(text) {
+    if (text === 'WylogowanieXDRwylogowanieXDR') {
+        window.location.href = '';
+        return false;
+    }
+    return true;
+}
+
 function GetGuid() {
     return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
         (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)

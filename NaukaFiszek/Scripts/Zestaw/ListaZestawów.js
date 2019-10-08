@@ -5,7 +5,7 @@
 $('.Remuver').click(function (e) {
     e.preventDefault();
     var id = $(this).attr('id');
-    Post(this.href, { "id": id }, function () {
+    PostAction(this.href, { "id": id }, function () {
         $('.SetElement#' + id).remove();
     });
 });

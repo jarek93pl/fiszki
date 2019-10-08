@@ -12,10 +12,12 @@ namespace NaukaFiszek.Logic
     {
         public int Id { get; set; }
         public string Name { get; set; }
+#if REALSE
         private UserFiche()
         {
 
         }
+#endif
         const string sessionName = "NaukaFiszek.Logic.User.CurentUser";
         public static UserFiche CurentUser
         {

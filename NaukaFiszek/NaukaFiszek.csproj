@@ -170,7 +170,8 @@
     <Content Include="Scripts\MainMenu.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\NaukaZestaw\Common.js" />
-    <Content Include="Scripts\NaukaZestaw\Dodaj.js" />
+    <Content Include="Scripts\NaukaZestaw\Add.js" />
+    <Content Include="Scripts\NaukaZestaw\List.js" />
     <Content Include="Scripts\Zestaw\Edytuj.js" />
     <Content Include="Scripts\Zestaw\ListaZestawów.js" />
     <Content Include="Web.config" />
@@ -193,12 +194,14 @@
     <Content Include="Views\Fiszka\Dodaj.cshtml" />
     <Content Include="Views\Fiszka\ResponseEditor.cshtml" />
     <Content Include="Views\Fiszka\ResponseRow.cshtml" />
-    <Content Include="Views\NaukaZestaw\Dodaj.cshtml" />
+    <Content Include="Views\NaukaZestaw\Add.cshtml" />
     <Content Include="Views\NaukaZestaw\BagEditor.cshtml" />
     <Content Include="Views\NaukaZestaw\BagRow.cshtml" />
+    <Content Include="Views\NaukaZestaw\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Default\" />
     <Folder Include="Views\UserDetails\" />
   </ItemGroup>
   <ItemGroup>

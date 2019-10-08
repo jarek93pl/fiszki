@@ -23,6 +23,15 @@
                     <a class="dropdown-item" href="@Url.Action("ListaZestawów","Zestaw")">Lista zestawów</a><br />
                 </div>
             </div>
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span>Uczenie się</span>
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="@Url.Action("List","NaukaZestaw")">Ucz się samemu</a><br />
+                </div>
+            </div>
             <div class="btn-group">
                 <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span>Urzytkownik</span>
@@ -48,6 +57,7 @@
     @Scripts.Render("~/bundles/bootstrap")
 
     <script src="~/Scripts/Common.js"></script>
+    <script src="~/Scripts/NaukaZestaw/Common.js"></script>
     <script src="~/Scripts/MainMenu.js"></script>
 </body>
 </html>

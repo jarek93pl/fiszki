@@ -9,7 +9,7 @@
         var data = {
             nameSet: $('#NameSet').val()
         };
-        Post('@Url.Action("DodajZestaw","Zestaw")', data, function (data) {
+        PostAction('@Url.Action("DodajZestaw","Zestaw")', data, function (data) {
 
         });
     });

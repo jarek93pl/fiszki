@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Conector
 {
+    [DebuggerStepThrough]
     public class Loader
     {
         Dictionary<string, int> cash = new Dictionary<string, int>();
@@ -30,25 +32,54 @@ namespace Conector
         }
         public string GetString(string name)
         {
-            return reader.GetString(GetId(name));
+            try
+            {
+                return reader.GetString(GetId(name));
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(name, ex);
+            }
         }
         public int GetInt(string name)
         {
-            return reader.GetInt32(GetId(name));
-        }
-        public int? GetIntNullable(string name)
-        {
-            if (!reader.IsDBNull(GetId(name)))
+            try
             {
                 return reader.GetInt32(GetId(name));
             }
-            else
+            catch (Exception ex)
             {
-                return null;
+                throw new Exception(name, ex);
             }
         }
-
-
-
+        public DateTime GetDate(string name)
+        {
+            try
+            {
+                return reader.GetDateTime(GetId(name));
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(name, ex);
+            }
+        }
+        public int? GetIntNullable(string name)
+        {
+            try
+            {
+                if (!reader.IsDBNull(GetId(name)))
+                {
+                    return reader.GetInt32(GetId(name));
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(name, ex);
+            }
+        }
     }
 }

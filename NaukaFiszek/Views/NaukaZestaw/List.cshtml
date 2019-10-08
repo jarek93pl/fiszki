@@ -1,0 +1,43 @@
+﻿@{
+    Layout = null;
+}
+@model IEnumerable<DTO.TeachSetFiche>
+
+<p>
+    @Html.ActionLink("Dodaj nowy", "Add", null, new { @class = "AddNewButton" });
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NameSet)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataCreated)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr id=@item.Id>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NameSet)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataCreated)
+            </td>
+            <td>
+                @Html.ActionLink("Ucz się", "learn", "Nauka", new { id = item.Id }, new { @class = "LearnButton" }) |
+                @Html.ActionLink("Usuń", "Delete", null, new { @class = "DeleteButton" })
+            </td>
+        </tr>
+    }
+
+</table>
+<script src="~/Scripts/NaukaZestaw/List.js"></script>

@@ -1,4 +1,4 @@
-﻿var prefixadress = ''; //'/Fiszka/'; 
+﻿var prefixadress = '/Fiszka/'; 
 function FicheResponse(name, ContentType, IdFile, id) {
     this.Name = name;
     this.ContentType = ContentType;
@@ -95,14 +95,14 @@ $('#ContainerficheResponsesEdit').on('change', '#TypePromptResponseEditor', func
 
 $('#AddFileDiv').on('change', '#PromptFile', function () {
 
-    SendFile(document.getElementById('PromptFile'), 1, function (data) {
+    SendFileAction(document.getElementById('PromptFile'), 1, function (data) {
         $('#IdPromptFile').val(data.Id);
     });
 });
 
 $('#AddFileDivResponse').on('change', '#PromptFileResponse', function () {
 
-    SendFile(document.getElementById('PromptFileResponse'), 2, function (data) {
+    SendFileAction(document.getElementById('PromptFileResponse'), 2, function (data) {
         $('#IdFileResponseEditor').val(data.Id);
     });
 });
@@ -132,7 +132,7 @@ $('#Responses').on('click', '.DeleteResponse',
         e.preventDefault();
         var idText = $(this).parents('.responseTableRow').attr('id');
         if (!isNaN(idText) && parseInt(idText) > 0) {
-            Post(prefixadress + 'DeleteResponse', { id: idText }, function () {
+            PostAction(prefixadress + 'DeleteResponse', { id: idText }, function () {
                 $('#' + idText).remove();
             });
         }
@@ -170,7 +170,7 @@ $('#ResponseEditorEdit').click(function (e) {
 });
 $('#SendFiche').click(function (e) {
     e.preventDefault();
-    Post(prefixadress + 'Dodaj',
+    PostAction(prefixadress + 'Dodaj',
         {
             Prompt: $('#Prompt').val(),
             Response: $('#Response').val(),

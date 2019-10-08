@@ -8,7 +8,7 @@ function LoadDataFromBagEditor() {
         $('#BagEditor #PeriodTime').val(),
         $('#BagEditor #IsLimitTime').is(":checked"),
         $('#BagEditor #LimitTimeInSek').val(),
-        $('#BagEditor #id').val(),
+        $('#BagEditor #Id').val(),
         $('#BagEditor #TypeAnswear').val()
     );
 }
@@ -18,6 +18,15 @@ function SetBagEditor(data) {
     $('#BagEditor #LimitTimeInSek').val(data.LimitTimeInSek);
     $('#BagEditor #Id').val(data.Id);
     $('#BagEditor #TypeAnswear').val(data.TypeAnswear);
+}
+
+function CreateNew(e) {
+    $.get(TeachBagAdress('BagRow'), function (data) {
+        $('#BagTable').append(data);
+        var editorData = LoadDataFromBagEditor();
+        editorData.Id = GetGuid();
+        SetLastRow(editorData);
+    });
 }
 $('#BagApprover').click(function (e) {
     var load = LoadDataFromBagEditor();
@@ -44,12 +53,3 @@ $('#BagEditor #IsLimitTime').change(function () {
         $('#BagEditor #LimitTimeInSekContainer').hide();
     }
 });
-
-function CreateNew(e) {
-    $.get(TeachBagAdress('BagRow'), function (data) {
-        $('#BagTable').append(data);
-        var editorData = LoadDataFromBagEditor();
-        editorData.Id = GetGuid();
-        SetLastRow(editorData);
-    });
-}

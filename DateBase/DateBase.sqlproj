@@ -66,6 +66,7 @@
     <Folder Include="Procedures\Fiche" />
     <Folder Include="Procedures\Common" />
     <Folder Include="Type" />
+    <Folder Include="Procedures\TeachSet" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Comparer.scmp" />
@@ -90,6 +91,13 @@
     <Build Include="Type\FicheResponseType.sql" />
     <Build Include="Procedures\Fiche\DeleteResponse.sql" />
     <Build Include="Procedures\Fiche\SearchResponse.sql" />
+    <Build Include="Procedures\TeachSet\AddTeachSetFiche.sql" />
+    <Build Include="Tables\TeachSetsFiche.sql" />
+    <Build Include="Tables\TeachBags.sql" />
+    <Build Include="Procedures\TeachSet\AddTeachBags.sql" />
+    <Build Include="Type\TeachBags.sql" />
+    <Build Include="Procedures\TeachSet\SearchSetsFiche.sql" />
+    <Build Include="Procedures\TeachSet\DeleteTeachSet.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="StartScripts\Script.TypeContent.sql" />

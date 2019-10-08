@@ -1,4 +1,4 @@
-﻿var prefixAdress = '';
+﻿var prefixAdress =  '/NaukaZestaw/';
 function TeachBagAdress(adress) {
     return prefixAdress + adress;
 }

@@ -61,6 +61,7 @@ namespace NaukaFiszek.Controllers
                 ficheConector.SendFiche(fiche);
             }
         }
+        [HttpGet]
         public ActionResult ResponseEditorWithData(int? idFicheSet)
         {
             return View(new FicheResponse()
@@ -68,12 +69,12 @@ namespace NaukaFiszek.Controllers
                 Id = idFicheSet ?? 0
             });
         }
-
         [HttpGet]
         public ActionResult ResponseRow()
         {
             return View(new FicheResponse());
         }
+        [HttpGet]
         public ActionResult ResponseRowWithData(FicheResponse fiche)
         {
             return View("ResponseRow", fiche);

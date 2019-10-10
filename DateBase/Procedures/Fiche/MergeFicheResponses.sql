@@ -10,10 +10,11 @@ MERGE [FicheResponses] [fr]
 	[fr].[IdFile] =[tf].[IdFile],
 	[fr].[TypePrompt] = [tf].[IdFile],
 	[fr].[Name] = [tf].[IdFile],
+	[fr].[IsCorect] = [tf].[IsCorect],
 	@CountChange+=1
   WHEN NOT MATCHED THEN 
-  INSERT ([IdFile],[TypePrompt],[Name],[IdFiche])
-  VALUES ([tf].[IdFile],[tf].[TypePrompt],[tf].[Name],@IDFiche);
+  INSERT ([IdFile],[TypePrompt],[Name],[IdFiche],[IsCorect])
+  VALUES ([tf].[IdFile],[tf].[TypePrompt],[tf].[Name],@IDFiche,[tf].[IsCorect]);
   SELECT @CountChange
 END
 

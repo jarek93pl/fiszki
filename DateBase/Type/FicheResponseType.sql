@@ -4,5 +4,6 @@ AS TABLE (
 	[Id] INT,
 	[IdFile] INT,
 	[TypePrompt] INT,
-	[Name] VARCHAR(50)
+	[Name] VARCHAR(50),
+	[IsCorect] BIT
 )

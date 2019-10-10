@@ -13,6 +13,7 @@ namespace DTO
         public ContentType TypePrompt { get; set; }
         public int? IdFile { get; set; }
         public int Id { get; set; }
+        public bool IsCorect { get; set; }
 
         public string ContentTypeToDispley
         {

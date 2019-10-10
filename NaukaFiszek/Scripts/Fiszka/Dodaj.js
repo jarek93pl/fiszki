@@ -1,9 +1,10 @@
-﻿var prefixadress = '/Fiszka/'; 
-function FicheResponse(name, ContentType, IdFile, id) {
+﻿var prefixadress =  '/Fiszka/';
+function FicheResponse(name, ContentType, IdFile, IsCorect, id) {
     this.Name = name;
     this.ContentType = ContentType;
     this.IdFile = IdFile;
     this.id = id;
+    this.IsCorect = IsCorect;
     this.ShowAlert = function () {
         alert('Name: ' + this.name + " ContentType:" + this.ContentType + " IdFile: " + this.IdFile + " id: " + id);
 
@@ -21,6 +22,7 @@ function LoadFromIdResponse(idRow) {
     return FicheResponse($(prefix + 'NameFicheResponseRow').text(),
         $(prefix + 'TypeFichRow').text(),
         $(prefix + 'IdFileResponseRow').val(),
+        $(prefix + 'IsCorectFichRow').text() === 'Tak',
         idRow);
 
 }
@@ -29,6 +31,7 @@ function SaveFromIdResponse(idRow, data) {
     $(prefix + 'TypeFichRow').text(data.ContentType);
     $(prefix + 'IdFileResponseRow').val(data.IdFile);
     $(prefix + 'NameFicheResponseRow').text(data.Name);
+    $(prefix + 'IsCorectFichRow').text(data.IsCorect ? 'Tak' : 'Nie');
 
 }
 function LoadEditor() {
@@ -36,15 +39,17 @@ function LoadEditor() {
         $('#FicheNameEditor').val(),
         $('#TypePromptResponseEditor').val(),
         $('#IdFileResponseEditor').val(),
+        $('#IsCorect').is(":checked"),
         $('.ClassFicheEditor').val());
     return data;
 }
 function SetEditor(data) {
 
-    $('#FicheNameEditor').val(data.Name),
-        $('#TypePromptResponseEditor').val(data.ContentType),
-        $('#IdFileResponseEditor').val(data.IdFile),
-        $('.ClassFicheEditor').val(data.id);
+    $('#FicheNameEditor').val(data.Name);
+    $('#TypePromptResponseEditor').val(data.ContentType);
+    $('#IdFileResponseEditor').val(data.IdFile);
+    $('#IsCorect').prop('checked', data.IsCorect);
+    $('.ClassFicheEditor').val(data.id);
 }
 
 function LoadResponses() {
@@ -58,6 +63,7 @@ function LoadResponses() {
                 ContentTypeToDispley: CurrentRow.ContentType,
                 Id: ChangeZero(CurrentRow.id),
                 IdFile: CurrentRow.IdFile,
+                IsCorect: CurrentRow.IsCorect,
                 Name: CurrentRow.Name
             }
         );
@@ -109,7 +115,7 @@ $('#AddFileDivResponse').on('change', '#PromptFileResponse', function () {
 
 $('#CreateResponse').click(function (e) {
     e.preventDefault();
-    SetEditor(FicheResponse('', '', '', ''));
+    SetEditor(FicheResponse('', '', '', '', ''));
     $('#ficheResponsesEdit').show();
     $('#ResponseEditorAdd').show();
     $('#ResponseEditorEdit').hide();

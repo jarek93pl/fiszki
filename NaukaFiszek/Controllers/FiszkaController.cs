@@ -30,7 +30,7 @@ namespace NaukaFiszek.Controllers
                 FicheResponses = new FicheResponse[]
                 {
 #if ToTest
-                    new FicheResponse(){Id=1,Name="ble"},
+                    new FicheResponse(){Id=1,Name="ble",IsCorect=true},
                     new FicheResponse(){Id=2,Name="ble ble"}
 #endif
                 }

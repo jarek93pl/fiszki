@@ -9,9 +9,10 @@
     <td class="TypeFichRow">
         @Model.ContentTypeToDispley
     </td>
+    <td class="IsCorectFichRow">@(Model.IsCorect ? "Tak" : "Nie")</td>
     <td>
         <a class="EditResponse" href="edit">Edit</a>
         <a class="DeleteResponse" href="delete">Delete</a>
     </td>
-    @Html.HiddenFor(model => model.IdFile,new { @class="IdFileResponseRow"})
+    @Html.HiddenFor(model => model.IdFile, new { @class = "IdFileResponseRow" })
 </tr>

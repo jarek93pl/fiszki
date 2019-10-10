@@ -65,11 +65,12 @@ namespace Conector
             dataTable.Columns.Add("IdFile", typeof(int));
             dataTable.Columns.Add("TypePrompt", typeof(int));
             dataTable.Columns.Add("Name", typeof(string));
+            dataTable.Columns.Add("IsCorect", typeof(string));
             if (fiches!=null)
             {
                 foreach (var item in fiches)
                 {
-                    dataTable.Rows.Add(item.Id, item.IdFile == 0 ? null : item.IdFile, item.TypePrompt, item.Name);
+                    dataTable.Rows.Add(item.Id, item.IdFile == 0 ? null : item.IdFile, item.TypePrompt, item.Name,item.IsCorect);
                 }
             }
             return dataTable;

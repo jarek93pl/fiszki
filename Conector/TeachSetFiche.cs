@@ -39,7 +39,7 @@ namespace Conector
                 {
                     { "UserId",userId }
                 }
-                ,Reader
+                , Reader
                 );
         }
         private DataTable LoadTeachBag(IEnumerable<DTO.TeachBag> teachBags)
@@ -48,9 +48,11 @@ namespace Conector
             data.Columns.Add("TypeAnswear", typeof(int));
             data.Columns.Add("PeriodTime", typeof(TimeSpan));
             data.Columns.Add("LimitTimeSek", typeof(int));
+            data.Columns.Add("Number", typeof(int));
+            int CurrentNumber = 0;
             foreach (var item in teachBags)
             {
-                data.Rows.Add(item.TypeAnswear, item.PeriodTime, item.LimitTimeInSek);
+                data.Rows.Add(item.TypeAnswear, item.PeriodTime, item.LimitTimeInSek, CurrentNumber++);
             }
             return data;
         }

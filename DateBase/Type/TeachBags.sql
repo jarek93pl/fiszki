@@ -2,5 +2,6 @@
 (
 	[TypeAnswear] INT,
 	[PeriodTime] TIME,
-	[LimitTimeSek] INT NULL
+	[LimitTimeSek] INT NULL,
+	[Number] INT
 )

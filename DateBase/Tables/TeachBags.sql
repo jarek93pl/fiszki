@@ -5,7 +5,8 @@
 	[Name] VARCHAR(50),
 	[TypeAnswear] INT,
 	[PeriodTime] TIME,
-	[LimitTimeSek] INT NULL
+	[LimitTimeSek] INT NULL,
+	[Number] INT
 	CONSTRAINT FK_IdTeachFiche FOREIGN KEY ([IdTeachSet]) REFERENCES [TeachSetsFiche]([Id]),
 	CONSTRAINT FK_TeachBag FOREIGN KEY ([TypeAnswear]) REFERENCES [DictionaryTypeContent]([Id])
 

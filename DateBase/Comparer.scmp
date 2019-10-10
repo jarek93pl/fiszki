@@ -908,7 +908,7 @@
   </SchemaCompareSettingsService>
   <SchemaCompareViewSettings>
     <GroupBy>2</GroupBy>
-    <ZoomLevel>100</ZoomLevel>
+    <ZoomLevel>82,6446280991735</ZoomLevel>
     <Filter>Equals_Objects,Not_Supported_Deploy</Filter>
   </SchemaCompareViewSettings>
 </SchemaComparison>

@@ -1,0 +1,28 @@
+﻿@model DTO.Fiche
+@{
+    Layout = null;
+    string urlFile = Url.Action("LoadFile", "Comon", new { id = Model.IdPromptFile });
+}
+<div class="form-group">
+    <label for=""></label>
+    <div class="col-md-10">
+        <h2>@Model.Prompt</h2>
+
+        @if (Model.TypePrompt == DTO.Enums.ContentType.Sound)
+        {
+            <audio controls="controls">
+                <source src=@urlFile />
+            </audio>
+        }
+        @if (Model.TypePrompt == DTO.Enums.ContentType.Image)
+        {
+            <img src=@urlFile />
+        }
+        @if (Model.TypePrompt == DTO.Enums.ContentType.Movie)
+        {
+            <video controls="controls">
+                <source src=@urlFile />
+            </video>
+        }
+    </div>
+</div>

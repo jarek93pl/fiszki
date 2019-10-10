@@ -122,6 +122,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ComonController.cs" />
     <Compile Include="Controllers\FiszkaController.cs" />
+    <Compile Include="Controllers\GraController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NaukaZestawController.cs" />
     <Compile Include="Controllers\RejestracjaController.cs" />
@@ -135,6 +136,7 @@
     <Compile Include="Logic\UserFiche.cs" />
     <Compile Include="Models\AuthorizationDetails.cs" />
     <Compile Include="Models\FileData.cs" />
+    <Compile Include="Models\GameState.cs" />
     <Compile Include="Models\IdPost.cs" />
     <Compile Include="Models\SaveFileResponse.cs" />
     <Compile Include="Models\SetFicheDetails.cs" />
@@ -198,6 +200,8 @@
     <Content Include="Views\NaukaZestaw\BagEditor.cshtml" />
     <Content Include="Views\NaukaZestaw\BagRow.cshtml" />
     <Content Include="Views\NaukaZestaw\List.cshtml" />
+    <Content Include="Views\Gra\Prompt.cshtml" />
+    <Content Include="Views\Gra\WriteText.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

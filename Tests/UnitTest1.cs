@@ -33,6 +33,16 @@ namespace Tests
             var file = con.LoadFile(3);
 
         }
+
+        [TestMethod]
+        public void SendAnswear()
+        {
+            using (Game set = new Game())
+            {
+                set.SendAnswear(15, 1005, true);
+            }
+
+        }
     }
 }
 

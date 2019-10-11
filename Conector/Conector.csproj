@@ -46,6 +46,7 @@
     <Compile Include="Common\BaseConector.cs" />
     <Compile Include="Fiche.cs" />
     <Compile Include="Common\Loader.cs" />
+    <Compile Include="Game.cs" />
     <Compile Include="SetFiche.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TeachSetFiche.cs" />

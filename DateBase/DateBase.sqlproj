@@ -67,6 +67,7 @@
     <Folder Include="Procedures\Common" />
     <Folder Include="Type" />
     <Folder Include="Procedures\TeachSet" />
+    <Folder Include="Procedures\Game" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Comparer.scmp" />
@@ -98,6 +99,10 @@
     <Build Include="Type\TeachBags.sql" />
     <Build Include="Procedures\TeachSet\SearchSetsFiche.sql" />
     <Build Include="Procedures\TeachSet\DeleteTeachSet.sql" />
+    <Build Include="Tables\FicheTeachState.sql" />
+    <Build Include="Tables\FicheAnswear.sql" />
+    <Build Include="Procedures\Game\NextFicheToTeach.sql" />
+    <Build Include="Procedures\Game\SendAnswear.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="StartScripts\Script.TypeContent.sql" />

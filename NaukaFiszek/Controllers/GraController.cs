@@ -18,15 +18,16 @@ namespace NaukaFiszek.Controllers
             return View(fiche);
         }
         [HttpGet]
-        public ActionResult WriteText(int idFiche, bool isMultiPlayer = false)
+        public ActionResult WriteText(GameState game)
         {
             using (Conector.Fiche fiche = new Conector.Fiche())
             {
-                var currentFiche = fiche.LoadFiche(idFiche);
-                GameState game = new GameState();
-                game.IsMultiPlayer = isMultiPlayer;
-                return View();
+                //var currentFiche = fiche.LoadFiche(idFiche);
+                //GameState game = new GameState();
+                //game.IsMultiPlayer = isMultiPlayer;
+                //return View();
             }
+            throw new NotImplementedException();
         }
 
     }

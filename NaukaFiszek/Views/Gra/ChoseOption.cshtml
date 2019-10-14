@@ -1,0 +1,51 @@
+﻿@model DTO.Models.GameState
+@{
+    Layout = null;
+}
+<style>
+    .WrongResponse {
+        color:red;
+    }
+
+    .CorrectResponse {
+        color: green;
+    }
+</style>
+<div class="form-horizontal">
+    <h4>Wybierz poprawne odpowiedzi</h4>
+    <hr />
+    @Html.Partial("Prompt", Model.Fiche)
+    <div class="form-group">
+        <div class="col-md-10">
+            @foreach (var item in Model.Fiche.FicheResponses)
+            {
+                string urlFile = Url.Action("LoadFile", "Comon", new { id = item.IdFile });
+                string idChexbox = "ResponseCheckbox" + item.Id;
+                <div class="bottom ResponseDiv">
+                    <input class="AnswerCheckbox" type="checkbox" id=@idChexbox name="checkbox" />
+                    <label class="AnswerLabel" for=@idChexbox>@item.Name</label>
+                    <br />
+                    @if (item.TypePrompt == DTO.Enums.ContentType.Sound)
+                    {
+                        <audio controls="controls">
+                            <source src=@urlFile />
+                        </audio>
+                    }
+                    @if (item.TypePrompt == DTO.Enums.ContentType.Image)
+                    {
+                        <img src=@urlFile />
+                    }
+                    @if (item.TypePrompt == DTO.Enums.ContentType.Movie)
+                    {
+                        <video controls="controls">
+                            <source src=@urlFile />
+                        </video>
+                    }
+                    <input type="hidden" class="CorrectMark" value=@(item.IsCorect?"1":"0" ) />
+                </div>
+            }
+        </div>
+    </div>
+</div>
+@Html.Partial("Common")
+<script src="~/Scripts/Game/ChoseOption.js"></script>

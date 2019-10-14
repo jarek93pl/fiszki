@@ -151,6 +151,7 @@
     <Content Include="App_Code\ComonFiche.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\Common.js" />
+    <Content Include="Scripts\Game\ChoseOption.js" />
     <Content Include="Scripts\Game\UserChose.js" />
     <Content Include="Scripts\Game\Common.js" />
     <Content Include="Scripts\Game\WriteText.js" />
@@ -201,6 +202,7 @@
     <Content Include="Views\Gra\WriteText.cshtml" />
     <Content Include="Views\Gra\Common.cshtml" />
     <Content Include="Views\Gra\UserChose.cshtml" />
+    <Content Include="Views\Gra\ChoseOption.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

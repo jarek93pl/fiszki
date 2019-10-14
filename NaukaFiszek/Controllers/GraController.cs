@@ -38,6 +38,8 @@ namespace NaukaFiszek.Controllers
                         DTO.Enums.TypeAnswear.WriteTextUserChose => WriteText(game),
                         DTO.Enums.TypeAnswear.WriteText => WriteText(game),
                         DTO.Enums.TypeAnswear.UserChose => UserChose(game),
+                        DTO.Enums.TypeAnswear.ChoseOption => UserChose(game),
+                        _ => null
                     };
                 }
 
@@ -53,7 +55,25 @@ namespace NaukaFiszek.Controllers
         {
             return View(game);
         }
-        [FiszkiAutorize(IsAjaxRequest = true)]
+        [HttpGet]
+        public ActionResult ChoseOption(GameState game)
+        {
+            game = new GameState();
+            game.Fiche = new Fiche()
+            {
+                Prompt = "gt",
+                FicheResponses = new FicheResponse[]
+                {
+                    new FicheResponse(){Name ="n1"},
+                    new FicheResponse(){Name ="c2", IsCorect =true},
+                    new FicheResponse(){Name ="n3"},
+                    new FicheResponse(){Name ="c4", IsCorect =true}
+                }
+            };
+
+            return View(game);
+        }
+        //[FiszkiAutorize(IsAjaxRequest = true)]
         [HttpPost]
         public void SendAnswear(SendAnswearRequest request)
         {

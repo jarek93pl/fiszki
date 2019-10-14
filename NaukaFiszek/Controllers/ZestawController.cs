@@ -1,7 +1,6 @@
 ﻿using Conector;
 using NaukaFiszek.Filter;
 using NaukaFiszek.Logic;
-using NaukaFiszek.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,7 +46,7 @@ namespace NaukaFiszek.Controllers
         [FiszkiAutorize(IsAjaxRequest = true)]
         public ActionResult Edytuj(int id)
         {
-            SetFicheDetails setFicheDetails = new SetFicheDetails();
+            DTO.Models.SetFicheDetails setFicheDetails = new DTO.Models.SetFicheDetails();
             using (Fiche fiche = new Fiche())
             {
                 setFicheDetails.Fiches = fiche.SearchFiches(id);

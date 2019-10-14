@@ -2,7 +2,7 @@
 using DTO;
 using DTO.Enums;
 using NaukaFiszek.Filter;
-using NaukaFiszek.Models;
+using DTO.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

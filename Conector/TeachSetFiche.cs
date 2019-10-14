@@ -9,12 +9,13 @@ namespace Conector
 {
     public class TeachSetFiche : BaseConector
     {
-        public void Add(DTO.TeachSetFiche teachSetFiche)
+        public void Add(DTO.Models.TeachSetFiche teachSetFiche)
         {
             teachSetFiche.IdSetFiche = LoadInt("AddTeachSetFiche", new Dictionary<string, object>()
             {
                 {"Name",teachSetFiche.Name},
-                {"IdSetFiche", teachSetFiche.IdSetFiche }
+                {"IdSetFiche", teachSetFiche.IdSetFiche },
+                {"FirstTypeAnswear", teachSetFiche.FirstTypeAnswear }
             });
             using (DataTable data = LoadTeachBag(teachSetFiche.teachBags))
             {
@@ -32,9 +33,9 @@ namespace Conector
                 { "Id",id }
             });
         }
-        public List<DTO.TeachSetFiche> SearchTeachSetsByUser(int userId)
+        public List<DTO.Models.TeachSetFiche> SearchTeachSetsByUser(int userId)
         {
-            return LoadList<DTO.TeachSetFiche>("SearchTeachSetsFiche",
+            return LoadList<DTO.Models.TeachSetFiche>("SearchTeachSetsFiche",
                 new Dictionary<string, object>()
                 {
                     { "UserId",userId }
@@ -42,7 +43,7 @@ namespace Conector
                 , Reader
                 );
         }
-        private DataTable LoadTeachBag(IEnumerable<DTO.TeachBag> teachBags)
+        private DataTable LoadTeachBag(IEnumerable<DTO.Models.TeachBag> teachBags)
         {
             DataTable data = new DataTable();
             data.Columns.Add("TypeAnswear", typeof(int));
@@ -57,9 +58,9 @@ namespace Conector
             return data;
         }
 
-        private DTO.TeachSetFiche Reader(Loader arg)
+        private DTO.Models.TeachSetFiche Reader(Loader arg)
         {
-            return new DTO.TeachSetFiche()
+            return new DTO.Models.TeachSetFiche()
             {
                 IdSetFiche = arg.GetInt("IdSet"),
                 Id = arg.GetInt("Id"),

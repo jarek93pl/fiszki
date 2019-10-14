@@ -1,7 +1,7 @@
 ﻿@{
     Layout = null;
 }
-@model DTO.Fiche
+@model DTO.Models.Fiche
 
 
 <div class="form-horizontal">
@@ -58,7 +58,7 @@
     </table>
 </div>
 <div id="ContainerficheResponsesEdit">
-    @Html.Partial("ResponseEditor", new DTO.FicheResponse())
+    @Html.Partial("ResponseEditor", new DTO.Models.FicheResponse())
 </div>
 <input type="submit" value="Save" class="btn btn-default" id="SendFiche" />
 <br />

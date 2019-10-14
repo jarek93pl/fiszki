@@ -1,20 +1,22 @@
-﻿@model NaukaFiszek.Models.GameState
+﻿@model DTO.Models.GameState
 @{
     Layout = null;
 }
-
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/Common.js"></script>
 <div class="form-horizontal">
     <h4>Napisz odpowiedź</h4>
     <hr />
-    @Html.Partial("Prompt",Model);
+    @Html.Partial("Prompt", Model.Fiche)
     <div class="form-group">
-        <label for=""></label>
         <div class="col-md-10">
 
+            <label for="Twoja odpowiedź" class="control-label col-md-2"></label>
+            <input type="text" id="AnswearText" class="form-control text-box single-line">
 
         </div>
     </div>
-
 </div>
-
+@Html.Partial("Common")
+<script src="~/Scripts/Game/WriteText.js"></script>
 

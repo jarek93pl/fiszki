@@ -1,4 +1,7 @@
-﻿using System;
+﻿using DTO;
+using DTO.Enums;
+using DTO.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,12 +11,14 @@ namespace Conector
 {
     public class Game : BaseConector
     {
-        public int NextFiche(int idTeachSet)
+        public NextFiche NextFiche(int idTeachSet)
         {
-            return LoadInt("NextFicheToTeach", new Dictionary<string, object>() { { "IdTeachSet", idTeachSet } });
+            return LoadList("NextFicheToTeach", new Dictionary<string, object>() { { "IdTeachSet", idTeachSet }, }, ReaderNextFiche).First();
         }
 
-        public int SendAnswear(int idTeachSet,int IdFiche,bool IsCorrect)
+        private NextFiche ReaderNextFiche(Loader arg) => new NextFiche() { IdFiche = arg.GetInt("IdFiche"),IdTeachSet = arg.GetInt("IdTeachSet"),TypeAnswear =(TypeAnswear) arg.GetInt("TypeAnswear") };
+
+        public int SendAnswear(int idTeachSet, int IdFiche, bool IsCorrect)
         {
             return LoadInt("SendAnswear", new Dictionary<string, object>() {
                 { "IdTeachSet", idTeachSet },

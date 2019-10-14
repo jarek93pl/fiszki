@@ -1,0 +1,35 @@
+﻿@model DTO.Models.GameState
+@{
+    Layout = null;
+}
+<style type="text/css">
+#CorrectAnswearText
+{
+    font-size:200%;
+    border-color:black;
+}
+.CorrectResponse
+{
+    color:green;
+}
+.WrongResponse
+{
+    color: red;
+}
+</style>
+    <div class="form-group">
+
+        <button id="AdmitAnswear" class="form-control">Sprawdź</button>
+        <span class="form-control" id="CorrectAnswearText" hidden="hidden">odpowiedź to : @Model.Fiche.Response</span>
+        <br />
+        <div hidden="hidden" id="UserChoseDiv">
+            <button id="Know" class="form-control">Wiem</button>
+            <button id="NotKnow" class="form-control">Nie wiem</button>
+        </div>
+        <a href=@Url.Action("NextFicheTeach","Gra",new { id=Model.IdTeachSet}) id="NextFiche" hidden="hidden">Następna fiszka</a>
+
+    </div>
+@Html.HiddenFor(model => model.IdTeachSet)
+@Html.HiddenFor(model => model.Fiche.Id)
+@Html.HiddenFor(model => model.IntTypeAnswear, new { id = "TypeAnswear" })
+<script src="~/Scripts/Game/Common.js"></script>

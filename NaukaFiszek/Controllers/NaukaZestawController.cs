@@ -1,8 +1,8 @@
-﻿//#define ToTest
+﻿#define ToTest
 using DTO;
 using NaukaFiszek.Filter;
 using NaukaFiszek.Logic;
-using NaukaFiszek.Models;
+using DTO.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

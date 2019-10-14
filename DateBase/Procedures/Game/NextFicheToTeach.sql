@@ -5,17 +5,20 @@ BEGIN
 DECLARE @Fiches as TABLE
 (
 	[Number] INT PRIMARY KEY IDENTITY(0,1),
-	[IdFiche] INT
+	[IdFiche] INT,
+	[NumberAnswear] INT
+	
 );
-
 DECLARE @IdSet INT;
+DECLARE @TypeAnswearFirst INT;
 
-SELECT @IdSet = [ts].[IdSetFiche]
+SELECT @IdSet = [ts].[IdSetFiche],
+@TypeAnswearFirst=[ts].[FirstTypeAnswear]
 FROM [TeachSetsFiche] [ts]
 WHERE [ts].[Id]= @IdTeachSet
 
-INSERT INTO @Fiches([IdFiche])
-SELECT [f].[Id]
+INSERT INTO @Fiches([IdFiche],[NumberAnswear])
+SELECT [f].[Id],[ts].[NumberCorect]
 FROM [Fiche] [f] 
 LEFT JOIN [FicheTeachState] [ts] ON [ts].IdFiche =[f].[Id]
 WHERE 
@@ -32,8 +35,11 @@ END
 ELSE
 BEGIN
 DECLARE @RandId INT= ABS(CHECKSUM(NewId())) % @Size;
-SELECT [IdFiche]
-FROM @Fiches
-WHERE [Number] = @RandId
+SELECT [f].[IdFiche]
+,@IdTeachSet[IdTeachSet] ,
+CASE WHEN [tb].[TypeAnswear] IS NULL  THEN @TypeAnswearFirst ELSE [tb].[TypeAnswear] END [TypeAnswear]
+FROM @Fiches [f]
+LEFT JOIN [TeachBags] [tb] ON [tb].[Number]=[f].[NumberAnswear] AND [tb].[IdTeachSet]=@IdTeachSet
+WHERE [f].[Number] = @RandId
 END
 END

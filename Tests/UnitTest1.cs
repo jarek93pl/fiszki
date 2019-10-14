@@ -33,6 +33,15 @@ namespace Tests
             var file = con.LoadFile(3);
 
         }
+        [TestMethod]
+        public void LoadNextFiche()
+        {
+            using (Conector.Game g = new Conector.Game())
+            {
+                var data = g.NextFiche(15);
+            }
+
+        }
 
         [TestMethod]
         public void SendAnswear()

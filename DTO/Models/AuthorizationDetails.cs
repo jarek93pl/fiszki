@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace NaukaFiszek.Models
+namespace DTO.Models
 {
     public class AuthorizationDetails
     {

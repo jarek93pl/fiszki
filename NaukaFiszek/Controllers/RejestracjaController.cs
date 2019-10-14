@@ -1,5 +1,5 @@
 ﻿using NaukaFiszek.Logic;
-using NaukaFiszek.Models;
+using DTO.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

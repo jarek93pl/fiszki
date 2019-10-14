@@ -1,7 +1,8 @@
 ﻿@{
     Layout = null;
 }
-@model IEnumerable<DTO.TeachSetFiche>
+@using DTO.Enums
+@model IEnumerable<DTO.Models.TeachSetFiche>
 
 <p>
     @Html.ActionLink("Dodaj nowy", "Add", null, new { @class = "AddNewButton" });

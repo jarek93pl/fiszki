@@ -12,6 +12,7 @@ $('#SendTeachSet').click(function (e) {
     }
     PostAction(TeachBagAdress('Add'),
         {
+            FirstTypeAnswearInt: $('#FirstTypeAnswear').val(),
             IdSetFiche: iddSetFiche,
             Name: $('#Name').val(),
             teachBags: LoadTeachBag()

@@ -1,7 +1,7 @@
 ﻿@{
     Layout = null;
 }
-@model DTO.FicheResponse
+@model DTO.Models.FicheResponse
 <tr id=@(Model.Id == 0 ? "IsNewFicheResponseRow":Model.Id.ToString()) class="responseTableRow">
     <td class="NameFicheResponseRow" id="xlis">
         @Model.Name

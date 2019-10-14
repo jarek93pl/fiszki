@@ -1,4 +1,4 @@
-﻿using DTO;
+﻿using DTO.Models;
 using DTO.Enums;
 using System;
 using System.Collections.Generic;
@@ -11,13 +11,13 @@ namespace Conector
 {
     public class Fiche : BaseConector
     {
-        public List<DTO.Fiche> SearchFiches(int SetFicheId)
+        public List<DTO.Models.Fiche> SearchFiches(int SetFicheId)
         {
-            return LoadList<DTO.Fiche>("SearchFiches", new Dictionary<string, object>() { { "@SetFicheId", SetFicheId.ToString() } }, Reader);
+            return LoadList<DTO.Models.Fiche>("SearchFiches", new Dictionary<string, object>() { { "@SetFicheId", SetFicheId.ToString() } }, Reader);
         }
-        public DTO.Fiche LoadFiche(int FicheId)
+        public DTO.Models.Fiche LoadFiche(int FicheId)
         {
-            DTO.Fiche fiche = LoadList<DTO.Fiche>("SearchFiches", new Dictionary<string, object>() { { "@FicheId", FicheId.ToString() } }, Reader).First();
+            DTO.Models.Fiche fiche = LoadList<DTO.Models.Fiche>("SearchFiches", new Dictionary<string, object>() { { "@FicheId", FicheId.ToString() } }, Reader).First();
             fiche.FicheResponses = LoadFicheResponse(FicheId);
             return fiche;
         }
@@ -38,7 +38,7 @@ namespace Conector
             };
         }
 
-        public void SendFiche(DTO.Fiche sendFiche)
+        public void SendFiche(DTO.Models.Fiche sendFiche)
         {
             sendFiche.Id = LoadInt("SaveFiche", new Dictionary<string, object>() {
                 { "Prompt" ,sendFiche.Prompt },
@@ -79,9 +79,9 @@ namespace Conector
         {
             LoadInt("DeleteResponse", new Dictionary<string, object>() { { "id", id } });
         }
-        private DTO.Fiche Reader(Loader arg)
+        private DTO.Models.Fiche Reader(Loader arg)
         {
-            DTO.Fiche returned = new DTO.Fiche();
+            DTO.Models.Fiche returned = new DTO.Models.Fiche();
             returned.Prompt = arg.GetString("Prompt");
             returned.Response = arg.GetString("Response");
             returned.NameTypePrompt = arg.GetString("NameTypePrompt");

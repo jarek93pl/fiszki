@@ -49,6 +49,7 @@
     <Compile Include="Models\AuthorizationDetails.cs" />
     <Compile Include="Models\FileData.cs" />
     <Compile Include="Models\GameState.cs" />
+    <Compile Include="Models\HangmanGameState.cs" />
     <Compile Include="Models\IdPost.cs" />
     <Compile Include="Models\SaveFileResponse.cs" />
     <Compile Include="Models\SendAnswearRequest.cs" />

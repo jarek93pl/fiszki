@@ -39,12 +39,19 @@ namespace NaukaFiszek.Controllers
                         DTO.Enums.TypeAnswear.WriteText => WriteText(game),
                         DTO.Enums.TypeAnswear.UserChose => UserChose(game),
                         DTO.Enums.TypeAnswear.ChoseOption => UserChose(game),
+                        DTO.Enums.TypeAnswear.Hangman => Hangman(game),
                         _ => null
                     };
                 }
 
             }
         }
+        [HttpGet]
+        public ActionResult Hangman(GameState game)
+        {
+            return View(new HangmanGameState() { Fiche = new Fiche() { Response = "efwef" } });
+        }
+
         [HttpGet]
         public ActionResult UserChose(GameState game)
         {
@@ -58,19 +65,10 @@ namespace NaukaFiszek.Controllers
         [HttpGet]
         public ActionResult ChoseOption(GameState game)
         {
-            game = new GameState();
-            game.Fiche = new Fiche()
+            if (game.Fiche.Response.Length == 0)
             {
-                Prompt = "gt",
-                FicheResponses = new FicheResponse[]
-                {
-                    new FicheResponse(){Name ="n1"},
-                    new FicheResponse(){Name ="c2", IsCorect =true},
-                    new FicheResponse(){Name ="n3"},
-                    new FicheResponse(){Name ="c4", IsCorect =true}
-                }
-            };
-
+                return UserChose(game);
+            }
             return View(game);
         }
         //[FiszkiAutorize(IsAjaxRequest = true)]
@@ -79,7 +77,7 @@ namespace NaukaFiszek.Controllers
         {
             using (Conector.Game conector = new Conector.Game())
             {
-                conector.SendAnswear(request.idTeachSet, request.IdFiche, request.IsCorrect);
+               // conector.SendAnswear(request.idTeachSet, request.IdFiche, request.IsCorrect);
             }
         }
         public ActionResult Common()

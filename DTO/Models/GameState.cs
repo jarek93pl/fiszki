@@ -8,15 +8,21 @@ namespace DTO.Models
 {
     public class GameState
     {
+        public GameState()
+        {
+        }
+        public GameState(GameState game)
+        {
+            Fiche = game.Fiche;
+            IdTeachSet = game.IdTeachSet;
+            TypeAnswear = game.TypeAnswear;
+        }
+
         public bool IsMultiPlayer
         {
             get
             {
                 return false;
-            }
-            set
-            {
-
             }
         }
         public int IdTeachSet { get; set; }

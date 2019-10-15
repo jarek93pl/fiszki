@@ -21,4 +21,4 @@ ShowAnswear = function (IsCorrect) {
 
 AdmitedAnswear = function () {
     AnswerDisabled();
-}
+};

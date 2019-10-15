@@ -7,6 +7,23 @@ function CommonShowAnswear(result) {
     }
     $('#NextFiche').show();
 }
+function CommonAdmitAnswear() {
+    if (AdmitedAnswear !== null) {
+        AdmitedAnswear();
+    }
+    if (CheckAnswear !== null) {
+        var IsCorrectAnswear = CheckAnswear();
+        if (IsCorrectAnswear === null) {
+            return;
+        }
+        CommonShowAnswear(IsCorrectAnswear);
+        SendAnswear(IsCorrectAnswear);
+    }
+    else {
+        CommonShowAnswear(null);
+        $('#UserChoseDiv').show();
+    }
+}
 function ShowAnswearText(IsCorrect) {
     var className;
     if (IsCorrect !== null) {
@@ -17,7 +34,8 @@ function ShowAnswearText(IsCorrect) {
         else {
             className = 'WrongResponse';
         }
-    }
+    } 
+    $('#CorrectAnswearLabel').show();
     $('#CorrectAnswearText').show();
     $('#CorrectAnswearText').addClass(className);
 }
@@ -29,18 +47,7 @@ function SendAnswear(IsCorrect) {
 }
 $('#AdmitAnswear').click(function () {
     $(this).hide();
-    if (AdmitedAnswear !== null) {
-        AdmitedAnswear();
-    }
-    if (CheckAnswear !== null) {
-        var IsCorrectAnswear = CheckAnswear();
-        CommonShowAnswear(IsCorrectAnswear);
-        SendAnswear(IsCorrectAnswear);
-    }
-    else {
-        CommonShowAnswear(null);
-        $('#UserChoseDiv').show();
-    }
+    CommonAdmitAnswear();
 });
 
 $('#Know').click(function () {

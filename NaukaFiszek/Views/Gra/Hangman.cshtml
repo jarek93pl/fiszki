@@ -1,0 +1,57 @@
+﻿@model DTO.Models.HangmanGameState
+@{
+    Layout = null;
+}
+<style>
+    .CharResponse {
+        border-style: solid;
+        border-color: red;
+        width: 100px;
+        height: 100px;
+        display: inline-block;
+        font-size: 72px;
+        text-align: center;
+    }
+
+    #hangMan {
+        background: url("../Content/man.png");
+        width: 75px;
+        height: 200px;
+    }
+</style>
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/Common.js"></script>
+<img id="hangMan" src="~/Content/img_trans.gif" />
+<div></div>
+<div class="form-horizontal">
+    <h2>Wisielec</h2>
+    <hr />
+
+    <div class="form-group">
+
+        @foreach (var item in Model.Fiche.Response)
+        {
+            <span class="CharResponse" data-hidechar=@item></span>
+        }
+
+    </div>
+
+    @Html.Partial("Prompt", Model.Fiche)
+    <div class="form-group">
+
+        @foreach (var item in DTO.Models.HangmanGameState.Alphabet)
+        {
+            <button class="buttonChar">@item</button>
+        }
+        <br />
+        <span class="form-control">Lista prób :</span>
+        <ol id="MissedList">
+            
+        </ol>
+        <br />
+        <input type="text" id="UserTryText" class="form-control" />
+        <button id="CheckUserTryText" class="form-control">Sprawdź</button>
+    </div>
+</div>
+@Html.Partial("Common")
+<script src="~/Scripts/Game/Hangman.js"></script>

@@ -80,5 +80,46 @@ function GetGuid() {
         (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
     );
 }
+var TimeShowingErrorMs = 5000;
+function ValidatingControl(selector, functionToValidating, ErrorMessage) {
 
+    RemoveErrorElementBySelector(selector);
+    if (!functionToValidating()) {
+        $('#ListError').append('<li style="color:red" class="ErrorRowCommon"> <input type="hidden" value="' + selector + '" />' + ErrorMessage + '</li>');
+        $(selector).addClass('ErrorElement');
+        CheckVisibilityErrorAlert();
 
+        setTimeout(function () {
+            RemoveErrorElementBySelector(selector);
+            CheckVisibilityErrorAlert();
+        }, TimeShowingErrorMs);
+        return false;
+    }
+    else {
+        RemoveErrorElementBySelector(selector);
+        $(selector).removeClass('ErrorElement');
+        CheckVisibilityErrorAlert();
+        return true;
+    }
+}
+function RemoveErrorElementBySelector(selector) {
+
+    $('[value="' + selector + '"]').parent('.ErrorRowCommon').remove();
+}
+function ValidatingControlMinLenght2(selector, ErrorMessage) {
+    return ValidatingControl(selector, function () {
+        return $(selector).val().length > 2;
+    }, ErrorMessage);
+}
+function ValidatingControlMinLenght2ById(id) {
+    ValidatingControlMinLenght2('#' + id, "Pole " + $('[for=' + id + ']').text() + " musi mieć przynajmniej 2 znaki");
+}
+function CheckVisibilityErrorAlert() {
+    var $listErrorDiv = $('#ErrorAlert');
+    if ($('#ListError').children().length === 0) {
+        $listErrorDiv.hide();
+    }
+    else {
+        $listErrorDiv.show();
+    }
+}

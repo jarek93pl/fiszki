@@ -207,6 +207,7 @@
     <Content Include="Views\Gra\UserChose.cshtml" />
     <Content Include="Views\Gra\ChoseOption.cshtml" />
     <Content Include="Views\Gra\Hangman.cshtml" />
+    <Content Include="Views\Home\ErrorAlert.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

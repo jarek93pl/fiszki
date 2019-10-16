@@ -2,7 +2,7 @@
     loadPageUsingUrl(e, $(this).attr('href'));
 });
 
-$('.Remuver').click(function (e) {
+$('.Remover').click(function (e) {
     e.preventDefault();
     var id = $(this).attr('id');
     PostAction(this.href, { "id": id }, function () {

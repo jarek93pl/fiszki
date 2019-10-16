@@ -10,8 +10,17 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <style>
+        .ErrorElement{
+            color:red;
+            border-color:red;
+            border-style:solid;
+           
+        }
+    </style>
 </head>
 <body>
+    @Html.Partial("ErrorAlert")
     <div class="navbar navbar-inverse navbar-fixed-top" id="MainMenu">
         <div class="container">
             <div class="btn-group">

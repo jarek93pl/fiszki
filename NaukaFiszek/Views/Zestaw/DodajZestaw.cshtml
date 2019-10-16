@@ -1,6 +1,8 @@
 ﻿@{
     Layout = null;
 }
+<h4>Dodawanie zestawu</h4>
+<br />
 <label for="NameSet">Nazwa zestawu</label>
 <input type="text" id="NameSet" />
 <button id="AddNewSet">Dodaj zestaw</button>
@@ -9,8 +11,11 @@
         var data = {
             nameSet: $('#NameSet').val()
         };
+        if (ValidatingControlMinLenght2ById('NameSet')) {
+
         PostAction('@Url.Action("DodajZestaw","Zestaw")', data, function (data) {
 
         });
+        }
     });
 </script>

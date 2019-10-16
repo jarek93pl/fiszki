@@ -15,5 +15,9 @@ namespace NaukaFiszek.Controllers
         {
             return View();
         }
+        public ActionResult ErrorAlert()
+        {
+            return View();
+        }
     }
 }

@@ -26,12 +26,16 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Authorization.Password, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.PasswordFor(model => model.Authorization.Password, new { htmlAttributes = new { @class = "form-control" } })
-                <input type="password" id="passwordToValidaty" />
+                @Html.PasswordFor(model => model.Authorization.Password )
                 @Html.ValidationMessageFor(model => model.Authorization.Password, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        <div class="form-group">
+            <label class="control-label col-md-2" for="passwordToValidaty">Powtórz hasło</label>
+            <div class="col-md-10">
+                <input type="password" id="passwordToValidaty" />
+            </div>
+        </div>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

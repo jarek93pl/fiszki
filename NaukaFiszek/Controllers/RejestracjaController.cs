@@ -23,16 +23,26 @@ namespace NaukaFiszek.Controllers
         {
             try
             {
-                UserFiche user = UserFiche.Register(userDetails);
+                if (userDetails.Authorization.Login.Length < 3)
+                {
+                    ModelState.AddModelError($"{nameof(userDetails.Authorization)}.{nameof(userDetails.Authorization.Login)}", "Login jest zbyt krótki");
+                }
+                if (userDetails.Authorization.Password.Length < 8)
+                {
+                    ModelState.AddModelError($"{nameof(userDetails.Authorization)}.{nameof(userDetails.Authorization.Password)}", "Hasło jest zbyt krótkie");
+                }
+                else
+                {
+                    UserFiche user = UserFiche.Register(userDetails);
+                    return RedirectToAction("Index", "Home");
+                }
+
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("Authorization.Login", "istnieje już urzytkownik o podanym loginie");
-                return View();
+                ModelState.AddModelError($"{nameof(userDetails.Authorization)}.{nameof(userDetails.Authorization.Login)}", "istnieje już urzytkownik o podanym loginie");
             }
-
-
-            return RedirectToAction("Index", "Home");
+            return View();
         }
 
         public ActionResult Wyloguj()

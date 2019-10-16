@@ -10,10 +10,12 @@ DECLARE @Fiches as TABLE
 	
 );
 DECLARE @IdSet INT;
+DECLARE @LimitTimeSekFirst INT;
 DECLARE @TypeAnswearFirst INT;
 
 SELECT @IdSet = [ts].[IdSetFiche],
-@TypeAnswearFirst=[ts].[FirstTypeAnswear]
+@TypeAnswearFirst=[ts].[FirstTypeAnswear],
+@LimitTimeSekFirst=[ts].[LimitTimeSek]
 FROM [TeachSetsFiche] [ts]
 WHERE [ts].[Id]= @IdTeachSet
 
@@ -37,7 +39,8 @@ BEGIN
 DECLARE @RandId INT= ABS(CHECKSUM(NewId())) % @Size;
 SELECT [f].[IdFiche]
 ,@IdTeachSet[IdTeachSet] ,
-CASE WHEN [tb].[TypeAnswear] IS NULL  THEN @TypeAnswearFirst ELSE [tb].[TypeAnswear] END [TypeAnswear]
+CASE WHEN [tb].[TypeAnswear] IS NULL  THEN @TypeAnswearFirst ELSE [tb].[TypeAnswear] END [TypeAnswear],
+CASE WHEN [tb].[LimitTimeSek] IS NULL  THEN @LimitTimeSekFirst ELSE [tb].[LimitTimeSek] END [LimitTimeSek]
 FROM @Fiches [f]
 LEFT JOIN [TeachBags] [tb] ON [tb].[Number]=[f].[NumberAnswear] AND [tb].[IdTeachSet]=@IdTeachSet
 WHERE [f].[Number] = @RandId

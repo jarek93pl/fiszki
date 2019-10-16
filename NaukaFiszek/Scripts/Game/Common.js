@@ -1,6 +1,21 @@
 ﻿var AdmitedAnswear = null;//na potrzeby gry wielosobowej 
 var CheckAnswear = null;
 var ShowAnswear = null;
+var TimeEnded = false;
+var TimeToEnd=0;
+if ($('#LimitTimeSek').val() !== '0') {
+    TimeToEnd = parseInt($('#LimitTimeSek').val());
+  var TimerToEnd=  setInterval(function () {
+        TimeToEnd--;
+        $('#TimeText').text("pozostało " + TimeToEnd + " sek");
+        if (TimeToEnd<0) {
+            TimeEnded = true;
+            $('#TimeText').text("Czas się skończył");
+            clearInterval(TimerToEnd);
+            CommonAdmitAnswear();
+        }
+    }, 1000);
+}
 function CommonShowAnswear(result) {
     if (ShowAnswear !== null) {
         ShowAnswear(result);
@@ -11,11 +26,16 @@ function CommonAdmitAnswear() {
     if (AdmitedAnswear !== null) {
         AdmitedAnswear();
     }
-    if (CheckAnswear !== null) {
+    if (CheckAnswear !== null || TimeEnded) {
         var IsCorrectAnswear = CheckAnswear();
+
+        if (TimeEnded) {
+            IsCorrectAnswear = false;
+        }
         if (IsCorrectAnswear === null) {
             return;
         }
+       
         CommonShowAnswear(IsCorrectAnswear);
         SendAnswear(IsCorrectAnswear);
     }

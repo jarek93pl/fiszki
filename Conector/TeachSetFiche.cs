@@ -15,7 +15,8 @@ namespace Conector
             {
                 {"Name",teachSetFiche.Name},
                 {"IdSetFiche", teachSetFiche.IdSetFiche },
-                {"FirstTypeAnswear", teachSetFiche.FirstTypeAnswear }
+                {"FirstTypeAnswear", teachSetFiche.FirstTypeAnswear },
+                {"LimitTimeSek", teachSetFiche.LimitTimeInSekSet }
             });
             using (DataTable data = LoadTeachBag(teachSetFiche.teachBags))
             {

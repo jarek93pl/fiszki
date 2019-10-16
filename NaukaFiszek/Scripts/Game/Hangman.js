@@ -1,4 +1,4 @@
-﻿$('AdmitAnswear').hide();
+﻿$('#AdmitAnswear').hide();
 var CountTry = 0;
 
 function DontShowChar() {
@@ -50,7 +50,7 @@ $('.buttonChar').click(function () {
     }).each(function () {
         ShowChar(this);
     });
-    if (hideCharBefore.length === DontShowChar().length) {
+    if (CountHideCharBefore === DontShowChar().length) {
         Missed();
     }
     else {

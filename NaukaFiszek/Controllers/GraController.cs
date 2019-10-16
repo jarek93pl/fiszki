@@ -20,6 +20,7 @@ namespace NaukaFiszek.Controllers
         /// </summary>
         /// <param name="id">numer zestawu uczącego</param>
         /// <returns></returns>
+        [FiszkiAutorize(IsAjaxRequest = true)]
         [HttpGet]
         public ActionResult NextFicheTeach(int id = 15)
         {
@@ -32,6 +33,7 @@ namespace NaukaFiszek.Controllers
                     game.Fiche = ficheConector.LoadFiche(randFiche.IdFiche);
                     game.IdTeachSet = id;
                     game.TypeAnswear = randFiche.TypeAnswear;
+                    game.LimitTimeSek = randFiche.LimitTimeSek;
                     return (game.TypeAnswear) switch
                     {
 
@@ -49,7 +51,12 @@ namespace NaukaFiszek.Controllers
         [HttpGet]
         public ActionResult Hangman(GameState game)
         {
-            return View(new HangmanGameState() { Fiche = new Fiche() { Response = "efwef" } });
+            HangmanGameState hangmanGame = new HangmanGameState(game);
+            if (hangmanGame.IsHangman)
+            {
+                return UserChose(game);
+            }
+            return View(new HangmanGameState(hangmanGame));
         }
 
         [HttpGet]
@@ -71,13 +78,13 @@ namespace NaukaFiszek.Controllers
             }
             return View(game);
         }
-        //[FiszkiAutorize(IsAjaxRequest = true)]
+        [FiszkiAutorize(IsAjaxRequest = true)]
         [HttpPost]
         public void SendAnswear(SendAnswearRequest request)
         {
             using (Conector.Game conector = new Conector.Game())
             {
-               // conector.SendAnswear(request.idTeachSet, request.IdFiche, request.IsCorrect);
+                 conector.SendAnswear(request.idTeachSet, request.IdFiche, request.IsCorrect);
             }
         }
         public ActionResult Common()

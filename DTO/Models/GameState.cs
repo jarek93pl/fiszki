@@ -16,6 +16,7 @@ namespace DTO.Models
             Fiche = game.Fiche;
             IdTeachSet = game.IdTeachSet;
             TypeAnswear = game.TypeAnswear;
+            LimitTimeSek = game.LimitTimeSek;
         }
 
         public bool IsMultiPlayer
@@ -28,6 +29,7 @@ namespace DTO.Models
         public int IdTeachSet { get; set; }
         public Fiche Fiche { get; set; }
         public TypeAnswear TypeAnswear { get; set; }
+        public int LimitTimeSek { get; set; }
         public int IntTypeAnswear
         {
             get
@@ -39,5 +41,6 @@ namespace DTO.Models
                 TypeAnswear = (TypeAnswear)value;
             }
         }
+
     }
 }

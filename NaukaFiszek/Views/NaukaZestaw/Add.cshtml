@@ -4,63 +4,82 @@
     Layout = null;
 }
 
-<div class="form-horizontal">
-    <h4>Tworzenie zestawu uczącego</h4>
-    <hr />
-    @Html.HiddenFor(mod => mod.IdSetFiche)
-    @if (Model.AvailableSetFiches != null)
-    {
-        <select id="FicheSetList">
-            @foreach (var item in Model.AvailableSetFiches)
-            {
-                <option id=@item.Id>@item.Name</option>
-            }
-        </select>
-    }
-    <div class="form-group">
-        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+    <div class="form-horizontal">
+        <h4>Tworzenie zestawu uczącego</h4>
+        <hr />
+        @Html.HiddenFor(mod => mod.IdSetFiche)
+        @if (Model.AvailableSetFiches != null)
+        {
+            <select id="FicheSetList">
+                @foreach (var item in Model.AvailableSetFiches)
+                {
+                    <option id=@item.Id>@item.Name</option>
+                }
+            </select>
+        }
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
         </div>
-    </div>
 
-    <p>
-        @Html.ActionLink("Create New", "Create", null, new { id = "NewBagLink" })
-    </p>
-    <table class="table" id="BagTable">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.teachBags[0].PeriodTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.teachBags[0].TypeAnswearText)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.teachBags[0].IsLimitTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.teachBags[0].LimitTimeInSek)
-            </th>
-            <th>
+        <div class="form-group">
+            @Html.LabelFor(model => model.FirstTypeAnswear, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EnumDropDownListFor(model => model.FirstTypeAnswear)
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsLimitTimeSet, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.IsLimitTimeSet)
+                </div>
+            </div>
+        </div>
 
-            </th>
-        </tr>
-    </table>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.FirstTypeAnswear, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <div class="checkbox">
-                @Html.EnumDropDownListFor(model => model.FirstTypeAnswear)
+        <div class="form-group" id="LimitTimeInSekSetContainer" hidden="hidden">
+            @Html.LabelFor(model => model.LimitTimeInSekSet, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.LimitTimeInSekSet)
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" id="SendTeachSet" />
             </div>
         </div>
     </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" id="SendTeachSet" />
-        </div>
-    </div>
-</div>
+
+        <p>
+            @Html.ActionLink("Create New", "Create", null, new { id = "NewBagLink" })
+        </p>
+        <table class="table" id="BagTable">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.teachBags[0].PeriodTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.teachBags[0].TypeAnswearText)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.teachBags[0].IsLimitTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.teachBags[0].LimitTimeInSek)
+                </th>
+                <th>
+
+                </th>
+            </tr>
+        </table>
+
+      
 @Html.Partial("BagEditor", new DTO.Models.TeachBag())
 <script src="~/Scripts/NaukaZestaw/Add.js"></script>
 <script src="~/Scripts/NaukaZestaw/BagEditor.js"></script>

@@ -9,6 +9,7 @@ namespace DTO.Models
 {
     public class NextFiche
     {
+        public int LimitTimeSek { get; set; }
         public int IdFiche { get; set; }
         public int IdTeachSet { get; set; }
         public TypeAnswear TypeAnswear { get; set; }

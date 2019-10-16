@@ -15,6 +15,7 @@ $('#SendTeachSet').click(function (e) {
             FirstTypeAnswearInt: $('#FirstTypeAnswear').val(),
             IdSetFiche: iddSetFiche,
             Name: $('#Name').val(),
+            LimitTimeInSekSet: $('#LimitTimeInSekSet').val(),
             teachBags: LoadTeachBag()
         },
         function () {
@@ -22,4 +23,14 @@ $('#SendTeachSet').click(function (e) {
         }
     );
     e.preventDefault();
+});
+
+$('#IsLimitTimeSet').change(function () {
+    if ($('#IsLimitTimeSet').is(":checked")) {
+        $('#LimitTimeInSekSetContainer').show();
+    }
+    else {
+        $('#LimitTimeInSekSetContainer').hide();
+        $('#LimitTimeInSekSet').val('0');
+    }
 });

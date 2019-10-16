@@ -184,6 +184,7 @@ $('#SendFiche').click(function (e) {
             Id: $('#Id').val(),
             IdPromptFile: $('#IdPromptFile').val(),
             IdFicheSet: $('#IdFicheSet').val(),
+            LimitTimeInSek: $('#LimitTimeInSek').val(),
             FicheResponses: LoadResponses()
         }
         , function () {

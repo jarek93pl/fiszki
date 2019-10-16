@@ -15,8 +15,13 @@ namespace Conector
         {
             return LoadList("NextFicheToTeach", new Dictionary<string, object>() { { "IdTeachSet", idTeachSet }, }, ReaderNextFiche).First();
         }
-
-        private NextFiche ReaderNextFiche(Loader arg) => new NextFiche() { IdFiche = arg.GetInt("IdFiche"),IdTeachSet = arg.GetInt("IdTeachSet"),TypeAnswear =(TypeAnswear) arg.GetInt("TypeAnswear") };
+        private NextFiche ReaderNextFiche(Loader arg) => new NextFiche()
+        {
+            IdFiche = arg.GetInt("IdFiche"),
+            IdTeachSet = arg.GetInt("IdTeachSet"),
+            TypeAnswear = (TypeAnswear)arg.GetInt("TypeAnswear"),
+            LimitTimeSek = arg.GetInt("LimitTimeSek")
+        };
 
         public int SendAnswear(int idTeachSet, int IdFiche, bool IsCorrect)
         {

@@ -1,5 +1,5 @@
-﻿ShowAnswear = function (IsCorrect) {
-    ShowAnswearText(IsCorrect);
+﻿ShowAnswer = function (IsCorrect) {
+    ShowAnswerText(IsCorrect);
 };
 
-AdmitedAnswear = AdmitedAnswearWrite;
+AdmitedAnswer = AdmitedAnswerWrite;

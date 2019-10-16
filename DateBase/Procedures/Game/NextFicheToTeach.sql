@@ -6,20 +6,20 @@ DECLARE @Fiches as TABLE
 (
 	[Number] INT PRIMARY KEY IDENTITY(0,1),
 	[IdFiche] INT,
-	[NumberAnswear] INT
+	[NumberAnswer] INT
 	
 );
 DECLARE @IdSet INT;
 DECLARE @LimitTimeSekFirst INT;
-DECLARE @TypeAnswearFirst INT;
+DECLARE @TypeAnswerFirst INT;
 
 SELECT @IdSet = [ts].[IdSetFiche],
-@TypeAnswearFirst=[ts].[FirstTypeAnswear],
+@TypeAnswerFirst=[ts].[FirstTypeAnswer],
 @LimitTimeSekFirst=[ts].[LimitTimeSek]
 FROM [TeachSetsFiche] [ts]
 WHERE [ts].[Id]= @IdTeachSet
 
-INSERT INTO @Fiches([IdFiche],[NumberAnswear])
+INSERT INTO @Fiches([IdFiche],[NumberAnswer])
 SELECT [f].[Id],[ts].[NumberCorect]
 FROM [Fiche] [f] 
 LEFT JOIN [FicheTeachState] [ts] ON [ts].IdFiche =[f].[Id]
@@ -39,10 +39,10 @@ BEGIN
 DECLARE @RandId INT= ABS(CHECKSUM(NewId())) % @Size;
 SELECT [f].[IdFiche]
 ,@IdTeachSet[IdTeachSet] ,
-CASE WHEN [tb].[TypeAnswear] IS NULL  THEN @TypeAnswearFirst ELSE [tb].[TypeAnswear] END [TypeAnswear],
+CASE WHEN [tb].[TypeAnswer] IS NULL  THEN @TypeAnswerFirst ELSE [tb].[TypeAnswer] END [TypeAnswer],
 CASE WHEN [tb].[LimitTimeSek] IS NULL  THEN @LimitTimeSekFirst ELSE [tb].[LimitTimeSek] END [LimitTimeSek]
 FROM @Fiches [f]
-LEFT JOIN [TeachBags] [tb] ON [tb].[Number]=[f].[NumberAnswear] AND [tb].[IdTeachSet]=@IdTeachSet
+LEFT JOIN [TeachBags] [tb] ON [tb].[Number]=[f].[NumberAnswer] AND [tb].[IdTeachSet]=@IdTeachSet
 WHERE [f].[Number] = @RandId
 END
 END

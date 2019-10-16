@@ -44,11 +44,11 @@ namespace Tests
         }
 
         [TestMethod]
-        public void SendAnswear()
+        public void SendAnswer()
         {
             using (Game set = new Game())
             {
-                set.SendAnswear(15, 1005, true);
+                set.SendAnswer(15, 1005, true);
             }
 
         }

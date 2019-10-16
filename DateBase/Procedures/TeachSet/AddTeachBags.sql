@@ -4,12 +4,12 @@
 AS 
 BEGIN
 
-INSERT INTO [TeachBags]([IdTeachSet],[LimitTimeSek],[PeriodTime],[TypeAnswear],[Number]) 
+INSERT INTO [TeachBags]([IdTeachSet],[LimitTimeSek],[PeriodTime],[TypeAnswer],[Number]) 
 SELECT 
 @IdTeachFiche,
 [tb].[LimitTimeSek],
 [tb].[PeriodTime],
-[tb].[TypeAnswear],
+[tb].[TypeAnswer],
 [tb].[Number]
 FROM @TeachBags [tb]
 END

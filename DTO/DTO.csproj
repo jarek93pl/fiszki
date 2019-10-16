@@ -52,7 +52,7 @@
     <Compile Include="Models\HangmanGameState.cs" />
     <Compile Include="Models\IdPost.cs" />
     <Compile Include="Models\SaveFileResponse.cs" />
-    <Compile Include="Models\SendAnswearRequest.cs" />
+    <Compile Include="Models\SendAnswerRequest.cs" />
     <Compile Include="Models\SetFicheDetails.cs" />
     <Compile Include="Models\UserDetails.cs" />
     <Compile Include="Models\NextFiche.cs" />

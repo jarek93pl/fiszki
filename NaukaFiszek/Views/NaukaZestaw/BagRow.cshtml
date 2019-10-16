@@ -7,15 +7,15 @@
     <td id="PeriodTime">
         @Html.DisplayFor(modelItem => modelItem.PeriodTime)
     </td>
-    <td id="TypeAnswearText">
-        @Html.DisplayFor(modelItem => modelItem.TypeAnswearText)
+    <td id="TypeAnswerText">
+        @Html.DisplayFor(modelItem => modelItem.TypeAnswerText)
     </td>
     <td id="IsLimitTime">
     </td>
     <td id="LimitTimeInSek">
         @Html.DisplayFor(modelItem => modelItem.LimitTimeInSek)
     </td>
-    @Html.HiddenFor(modelItem => modelItem.TypeAnswear);
+    @Html.HiddenFor(modelItem => modelItem.TypeAnswer);
     <td>
         @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }, new { id = "EditBag" }) |
         @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ }, new { id = "RemoveBag" })

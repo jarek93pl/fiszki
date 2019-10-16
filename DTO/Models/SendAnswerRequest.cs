@@ -5,7 +5,7 @@ using System.Web;
 
 namespace DTO.Models
 {
-    public class SendAnswearRequest
+    public class SendAnswerRequest
     {
         public int idTeachSet { get; set; }
         public int IdFiche { get; set; }

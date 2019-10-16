@@ -15,7 +15,7 @@ namespace DTO.Models
         {
             Fiche = game.Fiche;
             IdTeachSet = game.IdTeachSet;
-            TypeAnswear = game.TypeAnswear;
+            TypeAnswer = game.TypeAnswer;
             LimitTimeSek = game.LimitTimeSek;
         }
 
@@ -28,17 +28,17 @@ namespace DTO.Models
         }
         public int IdTeachSet { get; set; }
         public Fiche Fiche { get; set; }
-        public TypeAnswear TypeAnswear { get; set; }
+        public TypeAnswer TypeAnswer { get; set; }
         public int LimitTimeSek { get; set; }
-        public int IntTypeAnswear
+        public int IntTypeAnswer
         {
             get
             {
-                return (int)TypeAnswear;
+                return (int)TypeAnswer;
             }
             set
             {
-                TypeAnswear = (TypeAnswear)value;
+                TypeAnswer = (TypeAnswer)value;
             }
         }
 

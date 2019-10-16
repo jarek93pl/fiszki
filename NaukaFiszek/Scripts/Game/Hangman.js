@@ -1,4 +1,4 @@
-﻿$('#AdmitAnswear').hide();
+﻿$('#AdmitAnswer').hide();
 var CountTry = 0;
 
 function DontShowChar() {
@@ -7,7 +7,7 @@ function DontShowChar() {
     });
 }
 
-function ShowAnswearHangman() {
+function ShowAnswerHangman() {
     $('.CharResponse').each(function () {
         ShowChar(this);
     });
@@ -18,9 +18,9 @@ function ShowChar(showingChar) {
 function Missed() {
     CountTry++;
     $("#hangMan").css("background-position", (-75 * CountTry) + "px 0");
-    CommonAdmitAnswear();
+    CommonAdmitAnswer();
 }
-CheckAnswear = function () {
+CheckAnswer = function () {
     if (DontShowChar().length === 0)
         return true;
     if (CountTry >= 6) {
@@ -29,14 +29,14 @@ CheckAnswear = function () {
     return null;
 };
 
-ShowAnswear = function (IsCorrect) {
-    ShowAnswearHangman(IsCorrect);
+ShowAnswer = function (IsCorrect) {
+    ShowAnswerHangman(IsCorrect);
     $('#UserTryText').prop('disabled', true);
     $('#CheckUserTryText').prop('disabled', true);
     $('.buttonChar').prop('disabled', true);
 };
 
-AdmitedAnswear = function () {
+AdmitedAnswer = function () {
 
 };
 
@@ -54,16 +54,16 @@ $('.buttonChar').click(function () {
         Missed();
     }
     else {
-        CommonAdmitAnswear();
+        CommonAdmitAnswer();
     }
 
 });
 $('#CheckUserTryText').click(function () {
     var userResponse = $('#UserTryText').val();
-    if (userResponse === $('#CorrectAnswearText').text()) {
+    if (userResponse === $('#CorrectAnswerText').text()) {
 
-        ShowAnswearHangman();
-        CommonAdmitAnswear();
+        ShowAnswerHangman();
+        CommonAdmitAnswer();
     }
     else {
         $('#UserTryText').val('');

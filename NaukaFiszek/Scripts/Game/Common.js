@@ -1,6 +1,6 @@
-﻿var AdmitedAnswear = null;//na potrzeby gry wielosobowej 
-var CheckAnswear = null;
-var ShowAnswear = null;
+﻿var AdmitedAnswer = null;//na potrzeby gry wielosobowej 
+var CheckAnswer = null;
+var ShowAnswer = null;
 var TimeEnded = false;
 var TimeToEnd=0;
 if ($('#LimitTimeSek').val() !== '0') {
@@ -12,39 +12,39 @@ if ($('#LimitTimeSek').val() !== '0') {
             TimeEnded = true;
             $('#TimeText').text("Czas się skończył");
             clearInterval(TimerToEnd);
-            CommonAdmitAnswear();
+            CommonAdmitAnswer();
         }
     }, 1000);
 }
-function CommonShowAnswear(result) {
-    if (ShowAnswear !== null) {
-        ShowAnswear(result);
+function CommonShowAnswer(result) {
+    if (ShowAnswer !== null) {
+        ShowAnswer(result);
     }
     $('#NextFiche').show();
 }
-function CommonAdmitAnswear() {
-    if (AdmitedAnswear !== null) {
-        AdmitedAnswear();
+function CommonAdmitAnswer() {
+    if (AdmitedAnswer !== null) {
+        AdmitedAnswer();
     }
-    if (CheckAnswear !== null || TimeEnded) {
-        var IsCorrectAnswear = CheckAnswear();
+    if (CheckAnswer !== null || TimeEnded) {
+        var IsCorrectAnswer = CheckAnswer();
 
         if (TimeEnded) {
-            IsCorrectAnswear = false;
+            IsCorrectAnswer = false;
         }
-        if (IsCorrectAnswear === null) {
+        if (IsCorrectAnswer === null) {
             return;
         }
        
-        CommonShowAnswear(IsCorrectAnswear);
-        SendAnswear(IsCorrectAnswear);
+        CommonShowAnswer(IsCorrectAnswer);
+        SendAnswer(IsCorrectAnswer);
     }
     else {
-        CommonShowAnswear(null);
+        CommonShowAnswer(null);
         $('#UserChoseDiv').show();
     }
 }
-function ShowAnswearText(IsCorrect) {
+function ShowAnswerText(IsCorrect) {
     var className;
     if (IsCorrect !== null) {
 
@@ -55,26 +55,26 @@ function ShowAnswearText(IsCorrect) {
             className = 'WrongResponse';
         }
     } 
-    $('#CorrectAnswearLabel').show();
-    $('#CorrectAnswearText').show();
-    $('#CorrectAnswearText').addClass(className);
+    $('#CorrectAnswerLabel').show();
+    $('#CorrectAnswerText').show();
+    $('#CorrectAnswerText').addClass(className);
 }
-function SendAnswear(IsCorrect) {
+function SendAnswer(IsCorrect) {
 
-    PostAction('SendAnswear', { idTeachSet: $('#IdTeachSet').val(), IdFiche: $('#Fiche_Id').val(), IsCorrect: IsCorrect }, function () {
+    PostAction('SendAnswer', { idTeachSet: $('#IdTeachSet').val(), IdFiche: $('#Fiche_Id').val(), IsCorrect: IsCorrect }, function () {
 
     });
 }
-$('#AdmitAnswear').click(function () {
+$('#AdmitAnswer').click(function () {
     $(this).hide();
-    CommonAdmitAnswear();
+    CommonAdmitAnswer();
 });
 
 $('#Know').click(function () {
-    SendAnswear(true);
+    SendAnswer(true);
 });
 $('#NotKnow').click(function () {
-    SendAnswear(false);
+    SendAnswer(false);
 
 });
 $('#NextFiche').click(loadPage);

@@ -9,7 +9,7 @@ function LoadDataFromBagEditor() {
         $('#BagEditor #IsLimitTime').is(":checked"),
         $('#BagEditor #LimitTimeInSek').val(),
         $('#BagEditor #Id').val(),
-        $('#BagEditor #TypeAnswear').val()
+        $('#BagEditor #TypeAnswer').val()
     );
 }
 function SetBagEditor(data) {
@@ -17,7 +17,7 @@ function SetBagEditor(data) {
     $('#BagEditor #IsLimitTime').prop('checked', data.IsLimitTime === 'true');
     $('#BagEditor #LimitTimeInSek').val(data.LimitTimeInSek);
     $('#BagEditor #Id').val(data.Id);
-    $('#BagEditor #TypeAnswear').val(data.TypeAnswear);
+    $('#BagEditor #TypeAnswer').val(data.TypeAnswer);
 }
 
 function CreateNew(e) {

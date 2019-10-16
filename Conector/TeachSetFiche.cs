@@ -15,7 +15,7 @@ namespace Conector
             {
                 {"Name",teachSetFiche.Name},
                 {"IdSetFiche", teachSetFiche.IdSetFiche },
-                {"FirstTypeAnswear", teachSetFiche.FirstTypeAnswear },
+                {"FirstTypeAnswer", teachSetFiche.FirstTypeAnswer },
                 {"LimitTimeSek", teachSetFiche.LimitTimeInSekSet }
             });
             using (DataTable data = LoadTeachBag(teachSetFiche.teachBags))
@@ -47,14 +47,14 @@ namespace Conector
         private DataTable LoadTeachBag(IEnumerable<DTO.Models.TeachBag> teachBags)
         {
             DataTable data = new DataTable();
-            data.Columns.Add("TypeAnswear", typeof(int));
+            data.Columns.Add("TypeAnswer", typeof(int));
             data.Columns.Add("PeriodTime", typeof(TimeSpan));
             data.Columns.Add("LimitTimeSek", typeof(int));
             data.Columns.Add("Number", typeof(int));
             int CurrentNumber = 0;
             foreach (var item in teachBags)
             {
-                data.Rows.Add(item.TypeAnswear, item.PeriodTime, item.LimitTimeInSek, CurrentNumber++);
+                data.Rows.Add(item.TypeAnswer, item.PeriodTime, item.LimitTimeInSek, CurrentNumber++);
             }
             return data;
         }

@@ -12,7 +12,7 @@ $('#SendTeachSet').click(function (e) {
     }
     PostAction(TeachBagAdress('Add'),
         {
-            FirstTypeAnswearInt: $('#FirstTypeAnswear').val(),
+            FirstTypeAnswerInt: $('#FirstTypeAnswer').val(),
             IdSetFiche: iddSetFiche,
             Name: $('#Name').val(),
             LimitTimeInSekSet: $('#LimitTimeInSekSet').val(),

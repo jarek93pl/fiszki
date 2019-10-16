@@ -32,16 +32,16 @@ namespace NaukaFiszek.Controllers
                 {
                     game.Fiche = ficheConector.LoadFiche(randFiche.IdFiche);
                     game.IdTeachSet = id;
-                    game.TypeAnswear = randFiche.TypeAnswear;
+                    game.TypeAnswer = randFiche.TypeAnswer;
                     game.LimitTimeSek = randFiche.LimitTimeSek;
-                    return (game.TypeAnswear) switch
+                    return (game.TypeAnswer) switch
                     {
 
-                        DTO.Enums.TypeAnswear.WriteTextUserChose => WriteText(game),
-                        DTO.Enums.TypeAnswear.WriteText => WriteText(game),
-                        DTO.Enums.TypeAnswear.UserChose => UserChose(game),
-                        DTO.Enums.TypeAnswear.ChoseOption => UserChose(game),
-                        DTO.Enums.TypeAnswear.Hangman => Hangman(game),
+                        DTO.Enums.TypeAnswer.WriteTextUserChose => WriteText(game),
+                        DTO.Enums.TypeAnswer.WriteText => WriteText(game),
+                        DTO.Enums.TypeAnswer.UserChose => UserChose(game),
+                        DTO.Enums.TypeAnswer.ChoseOption => UserChose(game),
+                        DTO.Enums.TypeAnswer.Hangman => Hangman(game),
                         _ => null
                     };
                 }
@@ -80,11 +80,11 @@ namespace NaukaFiszek.Controllers
         }
         [FiszkiAutorize(IsAjaxRequest = true)]
         [HttpPost]
-        public void SendAnswear(SendAnswearRequest request)
+        public void SendAnswer(SendAnswerRequest request)
         {
             using (Conector.Game conector = new Conector.Game())
             {
-                 conector.SendAnswear(request.idTeachSet, request.IdFiche, request.IsCorrect);
+                 conector.SendAnswer(request.idTeachSet, request.IdFiche, request.IsCorrect);
             }
         }
         public ActionResult Common()

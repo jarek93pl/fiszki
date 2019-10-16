@@ -1,4 +1,4 @@
-﻿function LoadTextTypeAnswear(data) {
+﻿function LoadTextTypeAnswer(data) {
     return data;
 }
 function SetRow(control, data) {
@@ -6,8 +6,8 @@ function SetRow(control, data) {
     control.children('#IsLimitTime').text(data.IsLimitTime);
     control.children('#LimitTimeInSek').text(data.LimitTimeInSek);
     control.children('#Id').text(data.Id);
-    control.children('#TypeAnswear').val(data.TypeAnswear);
-    control.children('#TypeAnswearText').text(LoadTextTypeAnswear(data.TypeAnswear));
+    control.children('#TypeAnswer').val(data.TypeAnswer);
+    control.children('#TypeAnswerText').text(LoadTextTypeAnswer(data.TypeAnswer));
     control.attr('id', data.Id);
 }
 function GetRow(control) {
@@ -16,7 +16,7 @@ function GetRow(control) {
         control.children('#IsLimitTime').text(),
         control.children('#LimitTimeInSek').text(),
         control.children('#Id').text(),
-        control.children('#TypeAnswear').val());
+        control.children('#TypeAnswer').val());
 }
 
 function SetLastRow(data) {
@@ -43,7 +43,7 @@ function LoadTeachBag() {
         returnedArrer.push(
             {
                 PeriodTime: CurrentRow.PeriodTime,
-                TypeAnswearInt: CurrentRow.TypeAnswearInt,
+                TypeAnswerInt: CurrentRow.TypeAnswerInt,
                 IsLimitTime: CurrentRow.IsLimitTime,
                 LimitTimeInSek: CurrentRow.LimitTimeInSek
             }

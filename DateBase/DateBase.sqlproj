@@ -100,9 +100,9 @@
     <Build Include="Procedures\TeachSet\SearchSetsFiche.sql" />
     <Build Include="Procedures\TeachSet\DeleteTeachSet.sql" />
     <Build Include="Tables\FicheTeachState.sql" />
-    <Build Include="Tables\FicheAnswear.sql" />
+    <Build Include="Tables\FicheAnswer.sql" />
     <Build Include="Procedures\Game\NextFicheToTeach.sql" />
-    <Build Include="Procedures\Game\SendAnswear.sql" />
+    <Build Include="Procedures\Game\SendAnswer.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="StartScripts\Script.TypeContent.sql" />

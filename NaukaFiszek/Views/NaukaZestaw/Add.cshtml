@@ -25,10 +25,10 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.FirstTypeAnswear, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.FirstTypeAnswer, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EnumDropDownListFor(model => model.FirstTypeAnswear)
+                    @Html.EnumDropDownListFor(model => model.FirstTypeAnswer)
                 </div>
             </div>
         </div>
@@ -65,7 +65,7 @@
                     @Html.DisplayNameFor(model => model.teachBags[0].PeriodTime)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.teachBags[0].TypeAnswearText)
+                    @Html.DisplayNameFor(model => model.teachBags[0].TypeAnswerText)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.teachBags[0].IsLimitTime)

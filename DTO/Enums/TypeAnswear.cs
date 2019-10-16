@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DTO.Enums
 {
-    public enum TypeAnswear
+    public enum TypeAnswer
     {
         UserChose = 0,
         WriteText = 1,

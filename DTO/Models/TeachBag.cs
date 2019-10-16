@@ -9,35 +9,35 @@ namespace DTO.Models
 {
     public class TeachBag
     {
-        public TypeAnswear TypeAnswear { get; set; }
+        public TypeAnswer TypeAnswer { get; set; }
 
-        public int TypeAnswearInt
+        public int TypeAnswerInt
         {
             get
             {
-                return (int)TypeAnswear;
+                return (int)TypeAnswer;
             }
             set
             {
-                TypeAnswear = (TypeAnswear)value;
+                TypeAnswer = (TypeAnswer)value;
             }
         }
         public TimeSpan PeriodTime { get; set; }
-        public string TypeAnswearText
+        public string TypeAnswerText
         {
             get
             {
-                switch (TypeAnswear)
+                switch (TypeAnswer)
                 {
-                    case TypeAnswear.UserChose:
+                    case TypeAnswer.UserChose:
                         return "urzytkownik decyduje";
-                    case TypeAnswear.WriteText:
+                    case TypeAnswer.WriteText:
                         return "sprawdzanie poprawności tekstu";
-                    case TypeAnswear.ChoseOption:
+                    case TypeAnswer.ChoseOption:
                         return "Wybieranie z odpowiedzi";
-                    case TypeAnswear.WriteTextUserChose:
+                    case TypeAnswer.WriteTextUserChose:
                         return "urzytkownik decyduje ale może pisać text";
-                    case TypeAnswear.Hangman:
+                    case TypeAnswer.Hangman:
                         return "wisielec";
                     default: return "";
                 }

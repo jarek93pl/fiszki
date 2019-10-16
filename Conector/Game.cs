@@ -19,13 +19,13 @@ namespace Conector
         {
             IdFiche = arg.GetInt("IdFiche"),
             IdTeachSet = arg.GetInt("IdTeachSet"),
-            TypeAnswear = (TypeAnswear)arg.GetInt("TypeAnswear"),
+            TypeAnswer = (TypeAnswer)arg.GetInt("TypeAnswer"),
             LimitTimeSek = arg.GetInt("LimitTimeSek")
         };
 
-        public int SendAnswear(int idTeachSet, int IdFiche, bool IsCorrect)
+        public int SendAnswer(int idTeachSet, int IdFiche, bool IsCorrect)
         {
-            return LoadInt("SendAnswear", new Dictionary<string, object>() {
+            return LoadInt("SendAnswer", new Dictionary<string, object>() {
                 { "IdTeachSet", idTeachSet },
                 { "IdFiche", IdFiche },
                 { "IsCorrect", IsCorrect }

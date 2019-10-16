@@ -9,16 +9,16 @@ function AnswerDisabled() {
     $('.AnswerCheckbox').prop('disabled', true);
    
 }
-CheckAnswear = function () {
+CheckAnswer = function () {
     return ResponseFilter(false).length == 0;
 };
 
-ShowAnswear = function (IsCorrect) {
+ShowAnswer = function (IsCorrect) {
     ResponseFilter(false).addClass('WrongResponse');
     ResponseFilter(true).addClass('CorrectResponse');
     AnswerDisabled();
 };
 
-AdmitedAnswear = function () {
+AdmitedAnswer = function () {
     AnswerDisabled();
 };

@@ -9,17 +9,17 @@ namespace DTO.Models
 {
     public class TeachSetFiche
     {
-        public TypeAnswear FirstTypeAnswear { get; set; }
+        public TypeAnswer FirstTypeAnswer { get; set; }
 
-        public int FirstTypeAnswearInt
+        public int FirstTypeAnswerInt
         {
             get
             {
-                return (int)FirstTypeAnswear;
+                return (int)FirstTypeAnswer;
             }
             set
             {
-                FirstTypeAnswear = (TypeAnswear)value;
+                FirstTypeAnswer = (TypeAnswer)value;
             }
         }
         public int Id { get; set; }

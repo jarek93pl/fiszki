@@ -8,12 +8,12 @@ function ShowBagEditor() {
 }
 class Bag {
 
-    constructor(periodTime, isLimitTime, limitTimeInSek, id, typeAnswear) {
+    constructor(periodTime, isLimitTime, limitTimeInSek, id, typeAnswer) {
 
         this.PeriodTime = periodTime;
         this.IsLimitTime = isLimitTime;
         this.LimitTimeInSek = limitTimeInSek;
         this.Id = id;
-        this.TypeAnswear = typeAnswear;
+        this.TypeAnswer = typeAnswer;
     }
 }

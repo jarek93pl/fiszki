@@ -1,10 +1,10 @@
-﻿CREATE PROCEDURE [dbo].[SendAnswear]
+﻿CREATE PROCEDURE [dbo].[SendAnswer]
 	@IdTeachSet INT,
 	@IdFiche INT,
 	@IsCorrect BIT
 AS
 BEGIN
-INSERT INTO [FicheAnswear]([IdTeachSet] ,[IdFiche] ,[IsCorrect],[DateAnswearing]) VALUES (@IdTeachSet,@IdFiche,@IsCorrect,GETDATE())
+INSERT INTO [FicheAnswer]([IdTeachSet] ,[IdFiche] ,[IsCorrect],[DateAnswering]) VALUES (@IdTeachSet,@IdFiche,@IsCorrect,GETDATE())
 IF @IsCorrect=1
 BEGIN
 

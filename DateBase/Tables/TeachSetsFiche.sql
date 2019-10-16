@@ -4,10 +4,10 @@
 	[IdSetFiche] INT,
 	[Name] VARCHAR(50),
 	[DateCreated] DATETIME,
-	[FirstTypeAnswear] INT,
+	[FirstTypeAnswer] INT,
 	[LimitTimeSek] INT
 	CONSTRAINT FK_TeachSetFiche FOREIGN KEY ([IdSetFiche]) REFERENCES [SetsFiche] ([Id]),
-	FOREIGN KEY ([FirstTypeAnswear]) REFERENCES [DictionaryTypeContent]([Id])
+	FOREIGN KEY ([FirstTypeAnswer]) REFERENCES [DictionaryTypeContent]([Id])
 
 
 )

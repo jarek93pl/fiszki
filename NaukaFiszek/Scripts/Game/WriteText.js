@@ -1,24 +1,24 @@
-﻿function AdmitedAnswearWrite() {
-    $('#AnswearText').prop('disabled', true);
+﻿function AdmitedAnswerWrite() {
+    $('#AnswerText').prop('disabled', true);
 }
 
-if ($('#TypeAnswear').val() == 1) {
+if ($('#TypeAnswer').val() == 1) {
 
-    CheckAnswear = function () {
-        return $('#CorrectAnswearText').text() === $('#AnswearText').val();
+    CheckAnswer = function () {
+        return $('#CorrectAnswerText').text() === $('#AnswerText').val();
     };
 
-    ShowAnswear = function (IsCorrect) {
-        ShowAnswearText(IsCorrect);
+    ShowAnswer = function (IsCorrect) {
+        ShowAnswerText(IsCorrect);
     };
 
-    AdmitedAnswear = AdmitedAnswearWrite;
+    AdmitedAnswer = AdmitedAnswerWrite;
 }
-if ($('#TypeAnswear').val() == 3) {
+if ($('#TypeAnswer').val() == 3) {
 
-    ShowAnswear = function (IsCorrect) {
-        ShowAnswearText(IsCorrect);
+    ShowAnswer = function (IsCorrect) {
+        ShowAnswerText(IsCorrect);
     };
 
-    AdmitedAnswear = AdmitedAnswearWrite;
+    AdmitedAnswer = AdmitedAnswerWrite;
 }

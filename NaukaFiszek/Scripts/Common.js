@@ -104,15 +104,15 @@ function ValidatingControl(selector, functionToValidating, ErrorMessage) {
 }
 function RemoveErrorElementBySelector(selector) {
 
-    $('[value="' + selector + '"]').parent('.ErrorRowCommon').remove();
+     $('[value="' + selector + '"]').parent('.ErrorRowCommon').remove();
 }
 function ValidatingControlMinLenght2(selector, ErrorMessage) {
     return ValidatingControl(selector, function () {
-        return $(selector).val().length > 2;
+        return $(selector).val().length >= 2;
     }, ErrorMessage);
 }
 function ValidatingControlMinLenght2ById(id) {
-    ValidatingControlMinLenght2('#' + id, "Pole " + $('[for=' + id + ']').text() + " musi mieć przynajmniej 2 znaki");
+    return ValidatingControlMinLenght2('#' + id, "Pole " + $('[for=' + id + ']').text() + " musi mieć przynajmniej 2 znaki");
 }
 function CheckVisibilityErrorAlert() {
     var $listErrorDiv = $('#ErrorAlert');

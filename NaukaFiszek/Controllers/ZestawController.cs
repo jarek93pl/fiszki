@@ -18,11 +18,11 @@ namespace NaukaFiszek.Controllers
         }
         [FiszkiAutorize(IsAjaxRequest = true)]
         [HttpPost]
-        public string DodajZestaw(string nameSet)
+        public ActionResult DodajZestaw(string nameSet)
         {
             using (SetFiche setFiche = new SetFiche())
             {
-                return setFiche.AddSetFiche(nameSet, UserFiche.CurentUser.Id).ToString();
+                return Json(new DTO.Models.IdPost(setFiche.AddSetFiche(nameSet, UserFiche.CurentUser.Id)));
             }
         }
         [FiszkiAutorize(IsAjaxRequest = true)]
@@ -43,6 +43,7 @@ namespace NaukaFiszek.Controllers
             }
         }
 
+        [HttpGet]
         [FiszkiAutorize(IsAjaxRequest = true)]
         public ActionResult Edytuj(int id)
         {

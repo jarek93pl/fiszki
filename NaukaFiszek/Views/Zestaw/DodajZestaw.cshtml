@@ -7,14 +7,14 @@
 <input type="text" id="NameSet" />
 <button id="AddNewSet">Dodaj zestaw</button>
 <script type="text/javascript">
-    $('#AddNewSet').click(function () {
+    $('#AddNewSet').click(function (e) {
         var data = {
             nameSet: $('#NameSet').val()
         };
         if (ValidatingControlMinLenght2ById('NameSet')) {
 
-        PostAction('@Url.Action("DodajZestaw","Zestaw")', data, function (data) {
-
+            PostAction('@Url.Action("DodajZestaw","Zestaw")', data, function (dataResponse) {
+                loadPageUsingUrl(e, 'Zestaw/Edytuj/' + dataResponse.id);
         });
         }
     });

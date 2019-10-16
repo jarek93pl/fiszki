@@ -3,7 +3,8 @@
 }
 @using  DTO.Enums
 @model IEnumerable<DTO.Models.SetFiche>
-
+<h4>Przeglądanie zestawów</h4>
+<br />
 <p>
     <a href=@Url.Action("DodajZestaw","Zestaw") id="addSet">Dodaj zestaw</a>
 </p>
@@ -13,7 +14,7 @@
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UserId)
+            @Html.DisplayNameFor(model => model.UserName)
         </th>
         <th></th>
     </tr>

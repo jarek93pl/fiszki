@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,8 +9,13 @@ namespace DTO.Models
 {
     public class Fiche
     {
+        [DisplayName("Podpowiedź")]
         public string Prompt { get; set; }
+
+        [DisplayName("Odpowiedź")]
         public string Response { get; set; }
+
+        [DisplayName("Rodzaj podpowiedzi")]
         public ContentType TypePrompt { get; set; }
         public int IntTypePrompt {
             get

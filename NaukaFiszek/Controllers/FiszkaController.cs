@@ -53,6 +53,15 @@ namespace NaukaFiszek.Controllers
                 ficheConector.DeleteResponse(fiche.id);
             }
         }
+
+        [HttpPost]
+        public void Delete(IdPost fiche)
+        {
+            using (Conector.Fiche ficheConector = new Conector.Fiche())
+            {
+                ficheConector.DeleteFiche(fiche.id);
+            }
+        }
         [HttpPost]
         public void Dodaj(Fiche fiche)
         {

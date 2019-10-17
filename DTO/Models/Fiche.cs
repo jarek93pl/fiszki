@@ -37,8 +37,11 @@ namespace DTO.Models
             { 
             }
         }
+        [DisplayName("Rodzaj podpowiedzi")]
         public string NameTypePrompt { get; set; }
         public int Id { get; set; }
+
+        [DisplayName("Wgrywany plik")]
         public int? IdPromptFile { get; set; }
         public int IdFicheSet { get; set; }
         public FicheResponse[] FicheResponses { get; set; }

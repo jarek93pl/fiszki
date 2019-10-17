@@ -29,7 +29,7 @@
             </td>
             <td>
                 @Html.ActionLink("Edytuj", "Edit", "Fiszka", new { id = item.Id }, null)
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                @Html.ActionLink("Usuń", "Delete", null, new { @class = "RemoveFiche", id = item.Id })
             </td>
         </tr>
     }

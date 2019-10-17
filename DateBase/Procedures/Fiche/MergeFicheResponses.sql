@@ -8,8 +8,8 @@ MERGE [FicheResponses] [fr]
  USING @TableFicheResponse [tf] ON [fr].id= [tf].id
  WHEN MATCHED  THEN UPDATE SET
 	[fr].[IdFile] =[tf].[IdFile],
-	[fr].[TypePrompt] = [tf].[IdFile],
-	[fr].[Name] = [tf].[IdFile],
+	[fr].[TypePrompt] = [tf].[TypePrompt],
+	[fr].[Name] = [tf].[Name],
 	[fr].[IsCorect] = [tf].[IsCorect],
 	@CountChange+=1
   WHEN NOT MATCHED THEN 

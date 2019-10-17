@@ -11,6 +11,10 @@ namespace Conector
 {
     public class Fiche : BaseConector
     {
+        public void DeleteFiche(int id)
+        {
+            NonReturned("DeleteFiche", new Dictionary<string, object>() { { "Id", id } });
+        }
         public List<DTO.Models.Fiche> SearchFiches(int SetFicheId)
         {
             return LoadList<DTO.Models.Fiche>("SearchFiches", new Dictionary<string, object>() { { "@SetFicheId", SetFicheId.ToString() } }, Reader);
@@ -66,11 +70,11 @@ namespace Conector
             dataTable.Columns.Add("TypePrompt", typeof(int));
             dataTable.Columns.Add("Name", typeof(string));
             dataTable.Columns.Add("IsCorect", typeof(string));
-            if (fiches!=null)
+            if (fiches != null)
             {
                 foreach (var item in fiches)
                 {
-                    dataTable.Rows.Add(item.Id, item.IdFile == 0 ? null : item.IdFile, item.TypePrompt, item.Name,item.IsCorect);
+                    dataTable.Rows.Add(item.Id, item.IdFile == 0 ? null : item.IdFile, item.TypePrompt, item.Name, item.IsCorect);
                 }
             }
             return dataTable;

@@ -1,4 +1,4 @@
-﻿//#define ToTest
+﻿#define ToTest
 using DTO;
 using DTO.Enums;
 using NaukaFiszek.Filter;

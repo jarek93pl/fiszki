@@ -1,4 +1,5 @@
 ﻿var prefixadress = '/Fiszka/';
+CheckVisibilityUsingTypePrompt();
 function FicheResponse(name, ContentType, IdFile, IsCorect, id) {
     this.Name = name;
     this.ContentType = ContentType;
@@ -28,13 +29,13 @@ function LoadFromIdResponse(idRow) {
 }
 function ContentTypeFromId(data){
     switch (data) {
-        case 0:
+        case "0":
             return "Tekst";
-        case 1:
+        case "1":
             return "Obraz";
-        case 2:
+        case "2":
             return "Muzyka";
-        case 3:
+        case "3":
             return "Movie";
 
         default:
@@ -78,6 +79,8 @@ function SetEditor(data) {
     $('#IdFileResponseEditor').val(data.IdFile);
     $('#IsCorect').prop('checked', data.IsCorect);
     $('.ClassFicheEditor').val(data.id);
+    $('#PromptFileResponse').val('');
+    CheckVisibilityUsingTypePromptEditor();
 }
 
 function LoadResponses() {
@@ -107,25 +110,26 @@ function ChangeZero(data) {
         return data;
     }
 }
-$('#TypePrompt').change(function () {
+$('#TypePrompt').change(CheckVisibilityUsingTypePrompt);
+function CheckVisibilityUsingTypePrompt() {
 
-    if ($(this).val() === '0') {
+    if ($('#TypePrompt').val() === '0') {
         $('#AddFileDiv').hide();
     }
     else {
         $('#AddFileDiv').show();
     }
-});
+}
+function CheckVisibilityUsingTypePromptEditor() {
 
-$('#ContainerficheResponsesEdit').on('change', '#TypePromptResponseEditor', function () {//4 to tekst
-
-    if ($(this).val() === '0') {
+    if ($('#TypePromptResponseEditor').val() === '0') {
         $('#PrompContainerResponse').hide();
     }
     else {
         $('#PrompContainerResponse').show();
     }
-});
+}
+    $('#ContainerficheResponsesEdit').on('change', '#TypePromptResponseEditor', CheckVisibilityUsingTypePromptEditor);
 
 $('#AddFileDiv').on('change', '#PromptFile', function () {
 

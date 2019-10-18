@@ -41,5 +41,15 @@ ON [ts].[IdTeachSet] = [tb].[IdTeachSet] AND
 	
 
 END
+ELSE
+BEGIN
+UPDATE [FicheTeachState]
+SET [NumberCorect] =CASE [NumberCorect] WHEN 0 THEN 0 ELSE [NumberCorect] -1 END
+ WHERE
+  [IdTeachSet] = @IdTeachSet AND
+  [IdFiche] = @IdFiche
+
+
+END
 
 END

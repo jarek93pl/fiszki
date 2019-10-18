@@ -17,8 +17,8 @@
     </td>
     @Html.HiddenFor(modelItem => modelItem.TypeAnswer);
     <td>
-        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }, new { id = "EditBag" }) |
-        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ }, new { id = "RemoveBag" })
+        @Html.ActionLink("Edytuj", "Edit", "Edit", new { /* id=item.PrimaryKey */ }, new { id = "EditBag" }) |
+        @Html.ActionLink("Usuń", "Delete", "Delete", new { /* id=item.PrimaryKey */ }, new { id = "RemoveBag" })
     </td>
     @Html.HiddenFor(X => X.Id)
 </tr>

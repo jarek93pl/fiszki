@@ -104,6 +104,7 @@
     <Build Include="Procedures\Game\NextFicheToTeach.sql" />
     <Build Include="Procedures\Game\SendAnswer.sql" />
     <Build Include="Procedures\Fiche\DeleteFiche.sql" />
+    <Build Include="Procedures\SetFiche\AnySetsFicheExist.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="StartScripts\Script.TypeContent.sql" />

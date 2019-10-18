@@ -1,4 +1,4 @@
-﻿#define ToTest
+﻿//#define ToTest
 using DTO;
 using NaukaFiszek.Filter;
 using NaukaFiszek.Logic;
@@ -47,7 +47,7 @@ namespace NaukaFiszek.Controllers
         }
 
 #if !ToTest
-        [FiszkiAutorize(IsAjaxRequest = true)]     
+        [FiszkiAutorize(IsAjaxRequest = true)]
 #endif
         [HttpPost]
         public ActionResult Add(TeachSetFiche fiche)
@@ -69,6 +69,14 @@ namespace NaukaFiszek.Controllers
         [FiszkiAutorize(IsAjaxRequest = true)]
         public ActionResult List()
         {
+
+            using (Conector.SetFiche conector = new Conector.SetFiche())
+            {
+                if (!conector.AnySetsFicheExist(UserFiche.CurentUser.Id))
+                {
+                    return RedirectToAction(nameof(DontFindSet));
+                }
+            }
             using (Conector.TeachSetFiche conector = new Conector.TeachSetFiche())
             {
                 return View(conector.SearchTeachSetsByUser(UserFiche.CurentUser.Id));
@@ -79,6 +87,10 @@ namespace NaukaFiszek.Controllers
             return View();
         }
         public ActionResult BagEditor()
+        {
+            return View();
+        }
+        public ActionResult DontFindSet()
         {
             return View();
         }

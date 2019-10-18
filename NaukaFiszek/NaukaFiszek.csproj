@@ -208,11 +208,11 @@
     <Content Include="Views\Gra\ChoseOption.cshtml" />
     <Content Include="Views\Gra\Hangman.cshtml" />
     <Content Include="Views\Home\ErrorAlert.cshtml" />
+    <Content Include="Views\NaukaZestaw\DontFindSet.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Default\" />
-    <Folder Include="Views\UserDetails\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

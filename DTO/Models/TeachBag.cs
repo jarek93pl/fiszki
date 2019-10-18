@@ -1,6 +1,7 @@
 ﻿using DTO.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,7 +23,11 @@ namespace DTO.Models
                 TypeAnswer = (TypeAnswer)value;
             }
         }
+
+        [DisplayName("Czas do następnego powtórzenia (hh:mm:ss)")]
         public TimeSpan PeriodTime { get; set; }
+
+        [DisplayName("Rodzaj gry")]
         public string TypeAnswerText
         {
             get
@@ -47,7 +52,11 @@ namespace DTO.Models
 
             }
         }
+
+        [DisplayName("Limit czasu")]
         public bool IsLimitTime { get; set; }
+
+        [DisplayName("Limit czasu s")]
         public int LimitTimeInSek { get; set; }
         public int Id { get; set; }
     }

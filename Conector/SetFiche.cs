@@ -10,6 +10,10 @@ namespace Conector
 {
     public class SetFiche : BaseConector
     {
+        public bool AnySetsFicheExist(int UserId)
+        {
+            return LoadInt("AnySetsFicheExist", new Dictionary<string, object>() { { "UserId", UserId } }) == 1;
+        }
         public int AddSetFiche(string name, int userId)
         {
             Dictionary<string, object> keyValuePairs = new Dictionary<string, object>();

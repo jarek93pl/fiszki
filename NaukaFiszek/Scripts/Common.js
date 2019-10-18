@@ -123,3 +123,4 @@ function CheckVisibilityErrorAlert() {
         $listErrorDiv.show();
     }
 }
+$('body').on('click', '.AutoMoveLink', loadPage);

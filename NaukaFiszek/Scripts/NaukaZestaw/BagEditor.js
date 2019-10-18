@@ -18,6 +18,7 @@ function SetBagEditor(data) {
     $('#BagEditor #LimitTimeInSek').val(data.LimitTimeInSek);
     $('#BagEditor #Id').val(data.Id);
     $('#BagEditor #TypeAnswer').val(data.TypeAnswer);
+    SetVisiblityLimitTimeInSekContainer();
 }
 
 function CreateNew(e) {
@@ -29,14 +30,16 @@ function CreateNew(e) {
     });
 }
 $('#BagApprover').click(function (e) {
-    var load = LoadDataFromBagEditor();
-    e.preventDefault();
-    HideEditor();
-    if (load.Id === '') {
-        CreateNew();
-    }
-    else {
-        SetRowById(load);
+    if (ValidatingBagApprover()) {
+        var load = LoadDataFromBagEditor();
+        e.preventDefault();
+        HideEditor();
+        if (load.Id === '') {
+            CreateNew();
+        }
+        else {
+            SetRowById(load);
+        }
     }
 });
 
@@ -44,7 +47,9 @@ $('#BagEditorHider').click(function (e) {
     e.preventDefault();
     HideEditor();
 });
-$('#BagEditor #IsLimitTime').change(function () {
+$('#BagEditor #IsLimitTime').change(SetVisiblityLimitTimeInSekContainer);
+
+function SetVisiblityLimitTimeInSekContainer() {
     var editorData = LoadDataFromBagEditor();
     if (editorData.IsLimitTime) {
         $('#BagEditor #LimitTimeInSekContainer').show();
@@ -52,4 +57,21 @@ $('#BagEditor #IsLimitTime').change(function () {
     else {
         $('#BagEditor #LimitTimeInSekContainer').hide();
     }
-});
+}
+function ValidatingBagApprover() {
+    return ValidatingControl("#LimitTimeInSek", ValidatingLimitTimeInSek, "Wartość limitu czsu musi być dodatnią liczbą") &
+        ValidatingControl("#BagEditor #PeriodTime", ValidatingPeriodTime, "Wartość okresu czasu nie odopowiada formatowi hh;mm;ss");
+
+}
+function ValidatingLimitTimeInSek() {
+    if ($('#BagEditor #IsLimitTime').is(":checked")) {
+        var intValue = parseInt($('#BagEditor  #LimitTimeInSek').val());
+        return !isNaN(intValue) && intValue > 0;
+    }
+    else {
+        return true;
+    }
+}
+function ValidatingPeriodTime() {
+    return /^\d{1,2}:\d{1,2}:\d{1,2}$/.test($('#BagEditor #PeriodTime').val());
+}

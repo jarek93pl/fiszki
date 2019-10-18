@@ -4,9 +4,9 @@
     Layout = null;
 }
 <div style="position: absolute; left: 50%;">
-    <div style="position: relative; left: -50%; border:  10px; border-color:blue;">
-        <div class="form-horizontal" id="BagEditor" hidden="hidden">
-            <h4>Edytuj koszyk</h4>
+    <div style="position: relative; left: -50%; border:  10px;">
+        <div class="form-horizontal WindowAllert" id="BagEditor" hidden="hidden">
+            <h4>Edytowanie koszyka</h4>
             <hr />
 
             <div class="form-group">
@@ -40,9 +40,9 @@
                     </div>
                 </div>
             </div>
-            @Html.HiddenFor(model => model.Id);
+            @Html.HiddenFor(model => model.Id)
             <div>
-                <input type="submit" value="Save" class="btn btn-default" id="BagApprover" />
+                <input type="submit" value="Zatwierdź" class="btn btn-default" id="BagApprover" />
                 <input type="submit" value="Ukryj" class="btn btn-default" id="BagEditorHider" />
             </div>
         </div>

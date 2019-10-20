@@ -14,7 +14,7 @@ namespace DTO.Models
         }
         public HangmanGameState(GameState game) : base(game)
         {
-            base.Fiche.Response = base.Fiche.Response.ToLower();
+            base.Fiche.Response = base.Fiche.Response.ToLower().Replace(' ', '_');
         }
         public bool IsHangman
         {
@@ -23,7 +23,7 @@ namespace DTO.Models
                 return Fiche.Response.All(X => Alphabet.Any(Y => X == Y));
             }
         }
-        public static readonly IReadOnlyCollection<char> Alphabet = new List<char>() { 'a', 'ą', 'b', 'c', 'ć', 'd', 'e', 'ę', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'ł', 'm', 'n', 'ń', 'o', 'ó', 'p', 'r', 's', 'ś', 't', 'u', 'w', 'y', 'z', 'ź', 'ż', ' ' }.AsReadOnly();
+        public static readonly IReadOnlyCollection<char> Alphabet = new List<char>() { 'a', 'ą', 'b', 'c', 'ć', 'd', 'e', 'ę', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'ł', 'm', 'n', 'ń', 'o', 'ó', 'p', 'r', 's', 'ś', 't', 'u', 'w', 'y', 'z', 'ź', 'ż', '_' }.AsReadOnly();
 
     }
 }

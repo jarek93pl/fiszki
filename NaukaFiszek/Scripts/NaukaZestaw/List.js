@@ -6,3 +6,4 @@
     });
 });
 $('.AddNewButton').click(loadPage);
+$('.LearnButton').click(loadPage);

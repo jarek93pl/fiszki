@@ -36,7 +36,7 @@ function ContentTypeFromId(data){
         case "2":
             return "Muzyka";
         case "3":
-            return "Movie";
+            return "Film";
 
         default:
     }
@@ -49,7 +49,7 @@ function ContentTypeToId(data) {
             return "1";
         case 'Muzyka':
             return "2";
-        case 'Movie':
+        case 'Film':
             return "3";
 
         default:

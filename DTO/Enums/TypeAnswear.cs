@@ -14,7 +14,7 @@ namespace DTO.Enums
         UserChose = 0,
         [Display(Name = "Napisz odpowiedź")]
         WriteText = 1,
-        [Display(Name = "wybierz odpowiedź")]
+        [Display(Name = "Wybierz odpowiedź")]
         ChoseOption = 2,
         [Display(Name = "Napisz odpowiedź,i określ")]
         WriteTextUserChose = 3,

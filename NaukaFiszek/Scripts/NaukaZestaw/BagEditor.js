@@ -59,7 +59,7 @@ function SetVisiblityLimitTimeInSekContainer() {
     }
 }
 function ValidatingBagApprover() {
-    return ValidatingControl("#LimitTimeInSek", ValidatingLimitTimeInSek, "Wartość limitu czsu musi być dodatnią liczbą") &
+    return ValidatingControl("#BagEditor #LimitTimeInSek", ValidatingLimitTimeInSek, "Wartość limitu czsu musi być dodatnią liczbą") &
         ValidatingControl("#BagEditor #PeriodTime", ValidatingPeriodTime, "Wartość okresu czasu nie odopowiada formatowi hh;mm;ss");
 
 }

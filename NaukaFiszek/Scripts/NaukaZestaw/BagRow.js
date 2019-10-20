@@ -1,5 +1,17 @@
 ﻿function LoadTextTypeAnswer(data) {
-    return data;
+    switch (data) {
+        case "0":
+            return "Urzytkownik określa";
+        case "1":
+            return "Napisz odpowiedź";
+        case "2":
+            return "wybierz odpowiedź";
+        case "3":
+            return "Napisz odpowiedź,i określ";
+        case "4":
+            return "Wisielec";
+        default:
+    }
 }
 function SetRow(control, data) {
     control.children('#PeriodTime').text(data.PeriodTime);
@@ -43,7 +55,7 @@ function LoadTeachBag() {
         returnedArrer.push(
             {
                 PeriodTime: CurrentRow.PeriodTime,
-                TypeAnswerInt: CurrentRow.TypeAnswerInt,
+                TypeAnswerInt: CurrentRow.TypeAnswer,
                 IsLimitTime: CurrentRow.IsLimitTime,
                 LimitTimeInSek: CurrentRow.LimitTimeInSek
             }

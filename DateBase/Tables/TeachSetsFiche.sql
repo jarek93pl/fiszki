@@ -7,7 +7,7 @@
 	[FirstTypeAnswer] INT,
 	[LimitTimeSek] INT
 	CONSTRAINT FK_TeachSetFiche FOREIGN KEY ([IdSetFiche]) REFERENCES [SetsFiche] ([Id]),
-	FOREIGN KEY ([FirstTypeAnswer]) REFERENCES [DictionaryTypeContent]([Id])
+	FOREIGN KEY ([FirstTypeAnswer]) REFERENCES [DictionaryTypeAnswer]([Id])
 
 
 )

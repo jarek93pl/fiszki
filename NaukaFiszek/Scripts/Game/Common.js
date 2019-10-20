@@ -13,6 +13,8 @@ if ($('#LimitTimeSek').val() !== '0') {
             $('#TimeText').text("Czas się skończył");
             clearInterval(TimerToEnd);
             CommonAdmitAnswer();
+            CommonShowAnswer(false);
+            $('#AdmitAnswer').hide();
         }
     }, 1000);
 }
@@ -21,16 +23,26 @@ function CommonShowAnswer(result) {
         ShowAnswer(result);
     }
     $('#NextFiche').show();
+    $('#UserChoseDiv').hide();
+    if (result === true) {
+        $('#PromptGameDiv').css('background-color', 'green');
+    }
+    if (result === false) {
+        $('#PromptGameDiv').css('background-color', 'red');
+    }
 }
 function CommonAdmitAnswer() {
     if (AdmitedAnswer !== null) {
         AdmitedAnswer();
     }
     if (CheckAnswer !== null || TimeEnded) {
-        var IsCorrectAnswer = CheckAnswer();
+        var IsCorrectAnswer;
 
         if (TimeEnded) {
             IsCorrectAnswer = false;
+        }
+        else {
+            IsCorrectAnswer = CheckAnswer();
         }
         if (IsCorrectAnswer === null) {
             return;
@@ -55,13 +67,15 @@ function ShowAnswerText(IsCorrect) {
             className = 'WrongResponse';
         }
     } 
-    $('#CorrectAnswerLabel').show();
-    $('#CorrectAnswerText').show();
+    $('#CorrectAnswerDiv').show();
     $('#CorrectAnswerText').addClass(className);
 }
 function SendAnswer(IsCorrect) {
-
-    PostAction('SendAnswer', { idTeachSet: $('#IdTeachSet').val(), IdFiche: $('#Fiche_Id').val(), IsCorrect: IsCorrect }, function () {
+    if (TimeToEnd>0) {
+        clearInterval(TimerToEnd);
+        $('#TimeText').hide();
+    }
+    PostAction('Gra/SendAnswer', { idTeachSet: $('#IdTeachSet').val(), IdFiche: $('#Fiche_Id').val(), IsCorrect: IsCorrect }, function () {
 
     });
 }
@@ -72,9 +86,11 @@ $('#AdmitAnswer').click(function () {
 
 $('#Know').click(function () {
     SendAnswer(true);
+    $('#UserChoseDiv').hide();
 });
 $('#NotKnow').click(function () {
     SendAnswer(false);
+    $('#UserChoseDiv').hide();
 
 });
 $('#NextFiche').click(loadPage);

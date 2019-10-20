@@ -22,28 +22,35 @@ namespace NaukaFiszek.Controllers
         /// <returns></returns>
         [FiszkiAutorize(IsAjaxRequest = true)]
         [HttpGet]
-        public ActionResult NextFicheTeach(int id = 15)
+        public ActionResult NextFicheTeach(int id)
         {
             using (Conector.Game conector = new Conector.Game())
             {
                 var randFiche = conector.NextFiche(id);
-                GameState game = new GameState();
-                using (Conector.Fiche ficheConector = new Conector.Fiche())
+                if (randFiche.IdFiche != -1)
                 {
-                    game.Fiche = ficheConector.LoadFiche(randFiche.IdFiche);
-                    game.IdTeachSet = id;
-                    game.TypeAnswer = randFiche.TypeAnswer;
-                    game.LimitTimeSek = randFiche.LimitTimeSek;
-                    return (game.TypeAnswer) switch
+                    GameState game = new GameState();
+                    using (Conector.Fiche ficheConector = new Conector.Fiche())
                     {
+                        game.Fiche = ficheConector.LoadFiche(randFiche.IdFiche);
+                        game.IdTeachSet = id;
+                        game.TypeAnswer = randFiche.TypeAnswer;
+                        game.LimitTimeSek = randFiche.LimitTimeSek;
+                        return (game.TypeAnswer) switch
+                        {
 
-                        DTO.Enums.TypeAnswer.WriteTextUserChose => WriteText(game),
-                        DTO.Enums.TypeAnswer.WriteText => WriteText(game),
-                        DTO.Enums.TypeAnswer.UserChose => UserChose(game),
-                        DTO.Enums.TypeAnswer.ChoseOption => UserChose(game),
-                        DTO.Enums.TypeAnswer.Hangman => Hangman(game),
-                        _ => null
-                    };
+                            DTO.Enums.TypeAnswer.WriteTextUserChose => WriteText(game),
+                            DTO.Enums.TypeAnswer.WriteText => WriteText(game),
+                            DTO.Enums.TypeAnswer.UserChose => UserChose(game),
+                            DTO.Enums.TypeAnswer.ChoseOption => ChoseOption(game),
+                            DTO.Enums.TypeAnswer.Hangman => Hangman(game),
+                            _ => null
+                        };
+                    }
+                }
+                else
+                {
+                    return GameEnd();
                 }
 
             }
@@ -52,31 +59,37 @@ namespace NaukaFiszek.Controllers
         public ActionResult Hangman(GameState game)
         {
             HangmanGameState hangmanGame = new HangmanGameState(game);
-            if (hangmanGame.IsHangman)
+            if (!hangmanGame.IsHangman)
             {
                 return UserChose(game);
             }
-            return View(new HangmanGameState(hangmanGame));
+            return View(nameof(Hangman), new HangmanGameState(hangmanGame));
         }
 
         [HttpGet]
         public ActionResult UserChose(GameState game)
         {
-            return View(game);
+            return View(nameof(UserChose), game);
         }
         [HttpGet]
         public ActionResult WriteText(GameState game)
         {
-            return View(game);
+            return View(nameof(WriteText), game);
         }
         [HttpGet]
         public ActionResult ChoseOption(GameState game)
         {
             if (game.Fiche.Response.Length == 0)
             {
-                return UserChose(game);
+                UserChose(game);
             }
-            return View(game);
+            return View(nameof(ChoseOption), game);
+        }
+
+        [HttpGet]
+        public ActionResult GameEnd(bool isMulti = false)
+        {
+            return View(nameof(GameEnd), isMulti);
         }
         [FiszkiAutorize(IsAjaxRequest = true)]
         [HttpPost]
@@ -84,7 +97,7 @@ namespace NaukaFiszek.Controllers
         {
             using (Conector.Game conector = new Conector.Game())
             {
-                 conector.SendAnswer(request.idTeachSet, request.IdFiche, request.IsCorrect);
+                conector.SendAnswer(request.idTeachSet, request.IdFiche, request.IsCorrect);
             }
         }
         public ActionResult Common()

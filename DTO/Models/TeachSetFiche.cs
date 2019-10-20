@@ -45,6 +45,8 @@ namespace DTO.Models
         [DisplayName("Data stworzenia")]
         public DateTime DataCreated { get; set; }
         public List<TeachBag> teachBags { get; set; } = new List<TeachBag>();
+
+        [DisplayName("Zestaw fiszek")]
         public List<SetFiche> AvailableSetFiches { get; set; } = new List<SetFiche>();
     }
 }

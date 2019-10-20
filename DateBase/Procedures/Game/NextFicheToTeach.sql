@@ -32,7 +32,7 @@ DECLARE @Size INT = (SELECT COUNT (1) FROM @Fiches);
 
 IF @Size =0
 BEGIN
-SELECT -1
+SELECT -1[IdFiche],0[IdTeachSet],0[TypeAnswer],0[LimitTimeSek]
 END
 ELSE
 BEGIN

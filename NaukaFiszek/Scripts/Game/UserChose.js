@@ -2,4 +2,3 @@
     ShowAnswerText(IsCorrect);
 };
 
-AdmitedAnswer = AdmitedAnswerWrite;

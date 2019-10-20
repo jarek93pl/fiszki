@@ -52,6 +52,17 @@ namespace Conector
                 throw new Exception(name, ex);
             }
         }
+        public bool GetBoolen(string name)
+        {
+            try
+            {
+                return reader.GetBoolean(GetId(name));
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(name, ex);
+            }
+        }
         public DateTime GetDate(string name)
         {
             try

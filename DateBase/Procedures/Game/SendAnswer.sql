@@ -14,6 +14,7 @@ DECLARE @NumberCorrect INT=0;
 
 SELECT @NumberCorrect = [ts].[NumberCorect]
 FROM [FicheTeachState] [ts]
+WHERE [ts].[IdFiche] = @IdFiche AND [ts].[IdTeachSet]=@IdTeachSet
 
 SELECT @DeltaTime= [tb].[PeriodTime],
 		@IsDone=0
@@ -37,7 +38,7 @@ ON [ts].[IdTeachSet] = [tb].[IdTeachSet] AND
  [ts].[NextTry]=DATEADD(minute,datediff(minute, '00:00:00', @DeltaTime),GETDATE())
  WHEN NOT MATCHED THEN
  INSERT ([IdFiche],[IdTeachSet],[NumberCorect],[NextTry],[IsDone]) VALUES
- (@IdFiche,@IdTeachSet,1,DATEADD(minute,datediff(minute, '00:00:00', @DeltaTime),GETDATE()),@IsDone);
+ (@IdFiche,@IdTeachSet,0,DATEADD(minute,datediff(minute, '00:00:00', @DeltaTime),GETDATE()),@IsDone);
 	
 
 END

@@ -26,7 +26,7 @@ $('#SendTeachSet').click(function (e) {
                 teachBags: LoadTeachBag()
             },
             function () {
-
+                loadPageUsingUrl(e, "NaukaZestaw/List");
             }
         );
         e.preventDefault();

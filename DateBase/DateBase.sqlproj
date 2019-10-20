@@ -105,6 +105,7 @@
     <Build Include="Procedures\Game\SendAnswer.sql" />
     <Build Include="Procedures\Fiche\DeleteFiche.sql" />
     <Build Include="Procedures\SetFiche\AnySetsFicheExist.sql" />
+    <Build Include="Tables\DictionaryTypeAnswer.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="StartScripts\Script.TypeContent.sql" />

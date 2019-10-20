@@ -14,8 +14,10 @@ CheckAnswer = function () {
 };
 
 ShowAnswer = function (IsCorrect) {
-    ResponseFilter(false).addClass('WrongResponse');
-    ResponseFilter(true).addClass('CorrectResponse');
+
+    $('.ResponseDiv').filter(function (index) { return $(this).children('.CorrectMark').val() === '1'; }).addClass('CorrectResponse');
+    $('.ResponseDiv').filter(function (index) { return $(this).children('.CorrectMark').val() === '0' && $(this).children('.AnswerCheckbox').is(":checked") === true; }).addClass('WrongResponse');
+
     AnswerDisabled();
 };
 

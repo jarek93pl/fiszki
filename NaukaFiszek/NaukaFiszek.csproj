@@ -209,6 +209,7 @@
     <Content Include="Views\Gra\Hangman.cshtml" />
     <Content Include="Views\Home\ErrorAlert.cshtml" />
     <Content Include="Views\NaukaZestaw\DontFindSet.cshtml" />
+    <Content Include="Views\Gra\GameEnd.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

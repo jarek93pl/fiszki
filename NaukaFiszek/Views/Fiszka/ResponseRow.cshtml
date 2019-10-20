@@ -3,9 +3,7 @@
 }
 @model DTO.Models.FicheResponse
 <tr id=@(Model.Id == 0 ? "IsNewFicheResponseRow":Model.Id.ToString()) class="responseTableRow">
-    <td class="NameFicheResponseRow" id="xlis">
-        @Model.Name
-    </td>
+    <td class="NameFicheResponseRow" id="xlis">@Model.Name</td>
     <td class="TypeFichRow">@Model.ContentTypeToDispley</td>
     <td class="IsCorectFichRow">@(Model.IsCorect ? "Tak" : "Nie")</td>
     <td>

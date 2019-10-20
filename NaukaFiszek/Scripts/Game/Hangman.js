@@ -7,10 +7,12 @@ function DontShowChar() {
     });
 }
 
-function ShowAnswerHangman() {
+function ShowAnswerHangman(IsCorrect) {
     $('.CharResponse').each(function () {
         ShowChar(this);
     });
+
+    $('.CharResponse').css('border-color', IsCorrect ? 'green' : 'red');
 }
 function ShowChar(showingChar) {
     $(showingChar).text(showingChar.dataset['hidechar']);
@@ -59,7 +61,7 @@ $('.buttonChar').click(function () {
 
 });
 $('#CheckUserTryText').click(function () {
-    var userResponse = $('#UserTryText').val();
+    var userResponse = $('#UserTryText').val().replace(' ', '_');
     if (userResponse === $('#CorrectAnswerText').text()) {
 
         ShowAnswerHangman();
@@ -67,7 +69,7 @@ $('#CheckUserTryText').click(function () {
     }
     else {
         $('#UserTryText').val('');
-        $('#MissedList').append('<li>' + userResponse+'</li>');
+        $('#MissedList').append('<li>' + userResponse + '</li>');
         Missed();
     }
 });

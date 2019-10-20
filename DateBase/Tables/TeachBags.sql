@@ -8,6 +8,6 @@
 	[LimitTimeSek] INT NULL,
 	[Number] INT
 	CONSTRAINT FK_IdTeachFiche FOREIGN KEY ([IdTeachSet]) REFERENCES [TeachSetsFiche]([Id]),
-	CONSTRAINT FK_TeachBag FOREIGN KEY ([TypeAnswer]) REFERENCES [DictionaryTypeContent]([Id])
+	CONSTRAINT FK_TeachBag FOREIGN KEY ([TypeAnswer]) REFERENCES [DictionaryTypeAnswer]([Id])
 
 )

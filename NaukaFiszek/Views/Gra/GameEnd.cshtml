@@ -1,0 +1,14 @@
+﻿@model bool
+@{
+    Layout = null;
+}
+<h4>Super, już umiesz</h4>
+<br />
+@if(Model)
+{
+
+}
+else
+{
+<span>Na ten moment nie ma więcej fiszek do nauki, jeżeli chcesz uczyć się innego zestawu kliknij   @Html.ActionLink("tutaj.", "List", "NaukaZestaw", null, new { @class = "AutoMoveLink" })</span>
+}

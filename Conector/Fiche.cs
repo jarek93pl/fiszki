@@ -37,7 +37,8 @@ namespace Conector
                 Id = arg.GetInt("Id"),
                 IdFile = arg.GetIntNullable("IdFile"),
                 Name = arg.GetString("Name"),
-                TypePrompt = (ContentType)arg.GetInt("TypePrompt")
+                TypePrompt = (ContentType)arg.GetInt("TypePrompt"),
+                IsCorect = arg.GetBoolen("IsCorect")
 
             };
         }

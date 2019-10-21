@@ -3,7 +3,6 @@ using System.IO;
 using Conector;
 using DTO.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NaukaFiszek.Controllers;
 
 namespace Tests
 {
@@ -22,14 +21,14 @@ namespace Tests
         [TestMethod]
         public void SaveFileTest()
         {
-            ComonController con = new ComonController();
+            NaukaFiszek.Controllers.ComonController con = new NaukaFiszek.Controllers.ComonController();
             //con.SaveFile(new NaukaFiszek.Models.FileData() { Type = FileType.PromptContent, DataFile = File.ReadAllBytes("tx.txt"), Extension = "txt" });
 
         }
         [TestMethod]
         public void LoadExtenison()
         {
-            ComonController con = new ComonController();
+            NaukaFiszek.Controllers.ComonController con = new NaukaFiszek.Controllers.ComonController();
             var file = con.LoadFile(3);
 
         }
@@ -52,6 +51,7 @@ namespace Tests
             }
 
         }
+
     }
 }
 

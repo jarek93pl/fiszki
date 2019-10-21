@@ -44,9 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\CommandMultiGame.cs" />
     <Compile Include="Enums\ContentType.cs" />
     <Compile Include="Enums\FileType.cs" />
+    <Compile Include="Enums\StatusChangedPlayerList.cs" />
     <Compile Include="Enums\TypeAnswear.cs" />
+    <Compile Include="Models\ChangeLog.cs" />
     <Compile Include="Models\Fiche.cs" />
     <Compile Include="Models\FicheResponse.cs" />
     <Compile Include="Models\AuthorizationDetails.cs" />
@@ -54,6 +57,7 @@
     <Compile Include="Models\GameState.cs" />
     <Compile Include="Models\HangmanGameState.cs" />
     <Compile Include="Models\IdPost.cs" />
+    <Compile Include="Models\MultiPlayerGameData.cs" />
     <Compile Include="Models\SaveFileResponse.cs" />
     <Compile Include="Models\SendAnswerRequest.cs" />
     <Compile Include="Models\SetFicheDetails.cs" />

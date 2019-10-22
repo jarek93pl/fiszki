@@ -15,10 +15,10 @@ namespace Tests
         public void ListPlayer()
         {
             global::NaukaFiszek.Logic.MultiPlayer.ListPlayer<string> listplayer = new NaukaFiszek.Logic.MultiPlayer.ListPlayer<string>();
-            listplayer.RegisterByString("st1");
-            listplayer.RegisterByString("st2");
-            listplayer.UnRegisterByString("st2");
-            listplayer.RegisterByString("st3");
+            listplayer.Register("st1");
+            listplayer.Register("st2");
+            listplayer.Unregister("st2");
+            listplayer.Register("st3");
             var arrey = listplayer.ToArray();
             Assert.IsTrue(arrey[0] == "st1");
             Assert.IsTrue(arrey[1] == "st3");
@@ -28,10 +28,10 @@ namespace Tests
         public void ListPlayerChangeStart0()
         {
             global::NaukaFiszek.Logic.MultiPlayer.ListPlayer<string> listplayer = new NaukaFiszek.Logic.MultiPlayer.ListPlayer<string>();
-            listplayer.RegisterByString("st1");
-            listplayer.RegisterByString("st2");
-            listplayer.UnRegisterByString("st2");
-            listplayer.RegisterByString("st3");
+            listplayer.Register("st1");
+            listplayer.Register("st2");
+            listplayer.Unregister("st2");
+            listplayer.Register("st3");
             var change = listplayer.ChangeLogs();
             Assert.IsTrue(change.ChangeLogs[0].Login == "st1" && change.ChangeLogs[0].Status == DTO.Enums.StatusChangedPlayerList.Register);
             Assert.IsTrue(change.ChangeLogs[1].Login == "st2" && change.ChangeLogs[1].Status == DTO.Enums.StatusChangedPlayerList.Register);
@@ -43,9 +43,9 @@ namespace Tests
         public void ListPlayerChangeStart1()
         {
             global::NaukaFiszek.Logic.MultiPlayer.ListPlayer<string> listplayer = new NaukaFiszek.Logic.MultiPlayer.ListPlayer<string>();
-            listplayer.RegisterByString("st2");
-            listplayer.UnRegisterByString("st2");
-            listplayer.RegisterByString("st3");
+            listplayer.Register("st2");
+            listplayer.Unregister("st2");
+            listplayer.Register("st3");
             var change = listplayer.ChangeLogs();
             Assert.IsTrue(change.ChangeLogs[0].Login == "st2" && change.ChangeLogs[0].Status == DTO.Enums.StatusChangedPlayerList.Register);
             Assert.IsTrue(change.ChangeLogs[1].Login == "st2" && change.ChangeLogs[1].Status == DTO.Enums.StatusChangedPlayerList.Leave);

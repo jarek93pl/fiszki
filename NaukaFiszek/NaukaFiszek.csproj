@@ -135,6 +135,7 @@
     </Compile>
     <Compile Include="Helper\ComonFunctionalities.cs" />
     <Compile Include="Helper\Hash.cs" />
+    <Compile Include="Logic\Extension.cs" />
     <Compile Include="Logic\MultiPlayer\Game.cs" />
     <Compile Include="Logic\MultiPlayer\ListPlayer.cs" />
     <Compile Include="Logic\MultiPlayer\User.cs" />
@@ -163,6 +164,7 @@
     <Content Include="Scripts\Game\Hangman.js" />
     <Content Include="Scripts\Game\WriteText.js" />
     <Content Include="Scripts\MultiPlayer\CreateGame.js" />
+    <Content Include="Scripts\MultiPlayer\ListPlayer.js" />
     <Content Include="Scripts\NaukaZestaw\BagEditor.js" />
     <Content Include="Scripts\NaukaZestaw\BagRow.js" />
     <Content Include="Scripts\Fiszka\Dodaj.js" />
@@ -216,6 +218,7 @@
     <Content Include="Views\Gra\GameEnd.cshtml" />
     <Content Include="Views\MultiPlayer\CreateGame.cshtml" />
     <Content Include="Views\Comon\DontFindSet.cshtml" />
+    <Content Include="Views\MultiPlayer\ListPlayer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 namespace NaukaFiszek.Controllers
 {
@@ -40,7 +41,9 @@ namespace NaukaFiszek.Controllers
             {
                 LockListGameDoesntStart.AcquireWriterLock(timeOut);
                 Guid guid = Guid.NewGuid();
-                ListGameDoesntStart.Add(guid, new Game(multiPlayerGame));
+                Game CurrentGame;
+                ListGameDoesntStart.Add(guid, CurrentGame = new Game(multiPlayerGame) { IdentifyGuid = guid });
+                CurrentGame.Register(UserFiche.CurentUser);
                 return Json(new { GUID = guid.ToString() });
             }
             catch (Exception ex)
@@ -53,18 +56,55 @@ namespace NaukaFiszek.Controllers
             throw new NotSupportedException("Nie udało się stworzyć nowej gry");
         }
 
-        [NaukaFiszek.Filter.FiszkiAutorize(IsAjaxRequest = true)]
+        [FiszkiAutorize(IsAjaxRequest = true)]
         [HttpGet]
+        public ActionResult WaitingForPlayer()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult ListPlayer()
+        {
+            UserFiche.CurentUser = new UserFiche() { Name = "xr" };
+            CreateGame(new MultiPlayerGameData() { });
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult RefreshListPlayer()
+        {
+            var currentGameUser = Game.GetUserBySesionFicheUser();
+            var logBackend = Game.CurentMultiPlayerGame.ListPlayer.ChangeLogs(currentGameUser.playerEndIndex);
+            currentGameUser.playerEndIndex = logBackend.EndIndex;
+            string returned = string.Empty;
+            if (logBackend.ChangeLogs.Any())
+            {
+                ChangeLog<PlayerDetails> returnedObject = new ChangeLog<PlayerDetails>()
+                {
+                    EndIndex = logBackend.EndIndex,
+                    ChangeLogs = logBackend.ChangeLogs.Select(
+                        X => new PlayerDetails() { Login = X.Login.LoginToProcess, ActionName = X.Status.ToString(), Point = X.Login.Point }).ToList()
+                };
+                returned = Extension.EventContentText(returnedObject);
+            }
+
+            return Content(returned, "text/event-stream");
+        }
+
+
+        [NaukaFiszek.Filter.FiszkiAutorize(IsAjaxRequest = true)]
+        [HttpPost]
         public ActionResult Register(string guidString)
         {
             Guid guid = Guid.Parse(guidString);
             try
             {
                 LockListGameDoesntStart.AcquireReaderLock(timeOut);
+                var game = ListGameDoesntStart[guid];
             }
             catch (Exception ex)
             {
-                var game = ListGameDoesntStart[guid];
             }
             finally
             {

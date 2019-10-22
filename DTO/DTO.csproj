@@ -59,6 +59,7 @@
     <Compile Include="Models\HangmanGameState.cs" />
     <Compile Include="Models\IdPost.cs" />
     <Compile Include="Models\MultiPlayerGameData.cs" />
+    <Compile Include="Models\PlayerDetails.cs" />
     <Compile Include="Models\SaveFileResponse.cs" />
     <Compile Include="Models\SendAnswerRequest.cs" />
     <Compile Include="Models\SetFicheDetails.cs" />

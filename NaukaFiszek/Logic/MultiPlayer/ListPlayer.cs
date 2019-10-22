@@ -21,12 +21,12 @@ namespace NaukaFiszek.Logic.MultiPlayer
         {
             return users.GetEnumerator();
         }
-        public void RegisterByString(T user)
+        public void Register(T user)
         {
             users.Add(user);
             changes.Add((StatusChangedPlayerList.Register, user));
         }
-        public void UnRegisterByString(T login)
+        public void Unregister(T login)
         {
             users.Remove(login);
             changes.Add((StatusChangedPlayerList.Leave, login));

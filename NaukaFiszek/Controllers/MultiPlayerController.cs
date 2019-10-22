@@ -1,4 +1,5 @@
 ﻿using DTO.Models;
+using NaukaFiszek.Filter;
 using NaukaFiszek.Logic;
 using NaukaFiszek.Logic.MultiPlayer;
 using System;
@@ -16,6 +17,20 @@ namespace NaukaFiszek.Controllers
         static ReaderWriterLock LockListGameDoesntStart = new ReaderWriterLock();
         public readonly static Dictionary<Guid, Game> ListGameDoesntStart = new Dictionary<Guid, Game>();
 
+        [FiszkiAutorize(IsAjaxRequest = true)]
+        [HttpGet]
+        public ActionResult CreateGame()
+        {
+            UserFiche.AutorizeUser(new AuthorizationDetails() { Login = "jarektest", Password = "haslohaslo" });
+            MultiPlayerGameData multiPlayerGame = new MultiPlayerGameData();
+            using Conector.SetFiche setFicheConector = new Conector.SetFiche();
+            if (!setFicheConector.AnySetsFicheExist(UserFiche.CurentUser.Id))
+            {
+                return RedirectToAction(nameof(ComonController.DontFindSet), "Comon");
+            }
+            multiPlayerGame.AvailableSetFiches = setFicheConector.SearchSetsFiche(UserFiche.CurentUser.Id, null);
+            return View(multiPlayerGame);
+        }
 
         [NaukaFiszek.Filter.FiszkiAutorize(IsAjaxRequest = true)]
         [HttpPost]
@@ -24,12 +39,12 @@ namespace NaukaFiszek.Controllers
             try
             {
                 LockListGameDoesntStart.AcquireWriterLock(timeOut);
-            }
-            catch (Exception ex)
-            {
                 Guid guid = Guid.NewGuid();
                 ListGameDoesntStart.Add(guid, new Game(multiPlayerGame));
                 return Json(new { GUID = guid.ToString() });
+            }
+            catch (Exception ex)
+            {
             }
             finally
             {

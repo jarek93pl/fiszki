@@ -49,6 +49,7 @@
     <Compile Include="Enums\FileType.cs" />
     <Compile Include="Enums\StatusChangedPlayerList.cs" />
     <Compile Include="Enums\TypeAnswear.cs" />
+    <Compile Include="Enums\TypeAnswerMultiGame.cs" />
     <Compile Include="Models\ChangeLog.cs" />
     <Compile Include="Models\Fiche.cs" />
     <Compile Include="Models\FicheResponse.cs" />

@@ -74,7 +74,7 @@ namespace NaukaFiszek.Controllers
             {
                 if (!conector.AnySetsFicheExist(UserFiche.CurentUser.Id))
                 {
-                    return RedirectToAction(nameof(DontFindSet));
+                    return RedirectToAction(nameof(ComonController.DontFindSet), "Comon");
                 }
             }
             using (Conector.TeachSetFiche conector = new Conector.TeachSetFiche())
@@ -87,10 +87,6 @@ namespace NaukaFiszek.Controllers
             return View();
         }
         public ActionResult BagEditor()
-        {
-            return View();
-        }
-        public ActionResult DontFindSet()
         {
             return View();
         }

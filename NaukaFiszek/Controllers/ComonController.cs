@@ -52,5 +52,10 @@ namespace NaukaFiszek.Controllers
             }
             return File(global::System.IO.File.ReadAllBytes(Path.Combine(PathContent, id.ToString())), extension);
         }
+        public ActionResult DontFindSet()
+        {
+            return View(nameof(DontFindSet));
+        }
+
     }
 }

@@ -1,0 +1,54 @@
+﻿@model DTO.Models.MultiPlayerGameData
+@{
+    Layout = null;
+}
+<div class="form-horizontal">
+    <h4>Tworzenie gry wielosobowej</h4>
+    <hr />
+    @if (Model.AvailableSetFiches != null)
+    {
+        <div class="form-group">
+            @Html.LabelFor(model => model.AvailableSetFiches, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select id="FicheSetList">
+                    @foreach (var item in Model.AvailableSetFiches)
+                    {
+                        <option id=@item.Id>@item.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+    }
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.TypeAnswer, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EnumDropDownListFor(model => model.TypeAnswer)
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.IsLimitTime, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.IsLimitTime)
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group" id="LimitTimeInSekContainer" hidden="hidden">
+        @Html.LabelFor(model => model.LimitTimeInSek, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.LimitTimeInSek)
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Zatwierdź" class="btn btn-default" id="CreateGame" />
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/MultiPlayer/CreateGame.js"></script>

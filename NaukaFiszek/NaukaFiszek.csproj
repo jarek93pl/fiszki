@@ -162,6 +162,7 @@
     <Content Include="Scripts\Game\Common.js" />
     <Content Include="Scripts\Game\Hangman.js" />
     <Content Include="Scripts\Game\WriteText.js" />
+    <Content Include="Scripts\MultiPlayer\CreateGame.js" />
     <Content Include="Scripts\NaukaZestaw\BagEditor.js" />
     <Content Include="Scripts\NaukaZestaw\BagRow.js" />
     <Content Include="Scripts\Fiszka\Dodaj.js" />
@@ -212,13 +213,13 @@
     <Content Include="Views\Gra\ChoseOption.cshtml" />
     <Content Include="Views\Gra\Hangman.cshtml" />
     <Content Include="Views\Home\ErrorAlert.cshtml" />
-    <Content Include="Views\NaukaZestaw\DontFindSet.cshtml" />
     <Content Include="Views\Gra\GameEnd.cshtml" />
+    <Content Include="Views\MultiPlayer\CreateGame.cshtml" />
+    <Content Include="Views\Comon\DontFindSet.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Default\" />
-    <Folder Include="Views\MultiPlayer\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

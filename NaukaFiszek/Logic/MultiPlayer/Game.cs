@@ -1,5 +1,6 @@
 ﻿using DTO.Enums;
 using DTO.Models;
+using NaukaFiszek.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,8 @@ namespace NaukaFiszek.Logic.MultiPlayer
 {
     public class Game
     {
+        public bool IsGameDeactivate { get; internal set; }
+        public bool IsStarted { get; set; }
         public ListPlayer<User> ListPlayer { get; set; } = new ListPlayer<User>();
         public MultiPlayerGameData MultiPlayerGameData { get; set; }
         public Guid IdentifyGuid { get; set; }
@@ -30,7 +33,7 @@ namespace NaukaFiszek.Logic.MultiPlayer
         }
         public static User GetUserBySesionFicheUser()
         {
-            return CurentMultiPlayerGame.ListPlayer.Single(X => X.LoginToProcess== UserFiche.CurentUser.Name);
+            return CurentMultiPlayerGame.ListPlayer.SingleOrDefault(X => X.LoginToProcess == UserFiche.CurentUser.Name);
         }
         public void Register(UserFiche user)
         {
@@ -53,7 +56,22 @@ namespace NaukaFiszek.Logic.MultiPlayer
 
         internal void Start()
         {
-            throw new NotImplementedException();
+            IsStarted = true;
+        }
+        ~Game()
+        {
+            try
+            {
+                MultiPlayerController.LockListGameDoesntStart.AcquireWriterLock(5000);
+            }
+            catch (Exception ex)
+            {
+                MultiPlayerController.ListGameDoesntStart.Remove(IdentifyGuid);
+            }
+            finally
+            {
+                MultiPlayerController.LockListGameDoesntStart.ReleaseWriterLock();
+            }
         }
     }
 }

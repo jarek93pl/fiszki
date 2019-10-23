@@ -15,8 +15,8 @@ namespace NaukaFiszek.Controllers
     public class MultiPlayerController : Controller
     {
         const int timeOut = 2000;
-        static ReaderWriterLock LockListGameDoesntStart = new ReaderWriterLock();
-        public readonly static Dictionary<Guid, Game> ListGameDoesntStart = new Dictionary<Guid, Game>();
+        public static ReaderWriterLock LockListGameDoesntStart = new ReaderWriterLock();
+        public readonly static Dictionary<Guid, WeakReference<Game>> ListGameDoesntStart = new Dictionary<Guid, WeakReference<Game>>();
 
         [FiszkiAutorize(IsAjaxRequest = true)]
         [HttpGet]
@@ -42,13 +42,14 @@ namespace NaukaFiszek.Controllers
                 LockListGameDoesntStart.AcquireWriterLock(timeOut);
                 Guid guid = Guid.NewGuid();
                 Game CurrentGame;
-                ListGameDoesntStart.Add(guid, CurrentGame = new Game(multiPlayerGame) { IdentifyGuid = guid });
+                ListGameDoesntStart.Add(guid, new WeakReference<Game>(CurrentGame = new Game(multiPlayerGame) { IdentifyGuid = guid }));
                 CurrentGame.Register(UserFiche.CurentUser);
                 Game.GetUserBySesionFicheUser().UserCanStart = true;
                 return Json(new { GUID = guid.ToString() });
             }
-            catch (Exception ex)
+            catch
             {
+
             }
             finally
             {
@@ -77,8 +78,9 @@ namespace NaukaFiszek.Controllers
                 Game.CurentMultiPlayerGame.Start();
                 ListGameDoesntStart.Remove(new Guid(data.GuidGame));
             }
-            catch (Exception ex)
+            catch
             {
+
             }
             finally
             {
@@ -98,7 +100,8 @@ namespace NaukaFiszek.Controllers
             try
             {
                 LockListGameDoesntStart.AcquireReaderLock(timeOut);
-                if (Guid.TryParse(waitingForPlayerData.GuidGame.Trim(), out Guid guid) && ListGameDoesntStart.TryGetValue(guid, out Game game))
+                Game game;
+                if (TryGetGameByGuid(waitingForPlayerData, out game))
                 {
                     if (game != null)
                     {
@@ -110,8 +113,9 @@ namespace NaukaFiszek.Controllers
                     }
                 }
             }
-            catch (Exception ex)
+            catch
             {
+
             }
             finally
             {
@@ -119,17 +123,32 @@ namespace NaukaFiszek.Controllers
             }
             return Json(returned);
         }
+
+        private static bool TryGetGameByGuid(WaitingForPlayerData waitingForPlayerData, out Game game)
+        {
+            game = null;
+            return Guid.TryParse(waitingForPlayerData.GuidGame.Trim(), out Guid guid) &&
+                 ListGameDoesntStart.TryGetValue(guid, out WeakReference<Game> gameWeak) &&
+                 gameWeak.TryGetTarget(out game);
+        }
+
         [HttpGet]
         public ActionResult ListPlayer()
         {
             return View();
         }
 
+        const string GameEndComand = "data:break\n\n";
         [HttpGet]
         public ActionResult RefreshListPlayer()
         {
             string returned = string.Empty;
-            if (Game.GetUserBySesionFicheUser() != null && Game.CurentMultiPlayerGame != null)
+            if (Game.CurentMultiPlayerGame != null && Game.CurentMultiPlayerGame.IsGameDeactivate)
+            {
+                Game.CurentMultiPlayerGame = null;
+                returned = GameEndComand;
+            }
+            else if (Game.CurentMultiPlayerGame != null && Game.GetUserBySesionFicheUser() != null)
             {
                 lock (Game.CurentMultiPlayerGame)
                 {
@@ -150,7 +169,7 @@ namespace NaukaFiszek.Controllers
             }
             else
             {
-                returned = "data:break\n\n";
+                returned = GameEndComand;
             }
             return Content(returned, "text/event-stream");
         }
@@ -166,8 +185,9 @@ namespace NaukaFiszek.Controllers
                 LockListGameDoesntStart.AcquireReaderLock(timeOut);
                 var game = ListGameDoesntStart[guid];
             }
-            catch (Exception ex)
+            catch
             {
+
             }
             finally
             {
@@ -177,5 +197,33 @@ namespace NaukaFiszek.Controllers
             throw new NotSupportedException("Nie udało się zarejestrować do gry");
         }
 
+        [NaukaFiszek.Filter.FiszkiAutorize(IsAjaxRequest = true)]
+        [HttpPost]
+        public void Unregister()
+        {
+            if (Game.CurentMultiPlayerGame != null)
+            {
+                if (Game.GetUserBySesionFicheUser().UserCanStart && !Game.CurentMultiPlayerGame.IsStarted)
+                {
+                    Game.CurentMultiPlayerGame.IsGameDeactivate = true;
+                    try
+                    {
+                        MultiPlayerController.LockListGameDoesntStart.AcquireWriterLock(5000);
+                    }
+                    catch (Exception ex)
+                    {
+                        MultiPlayerController.ListGameDoesntStart.Remove(Game.CurentMultiPlayerGame.IdentifyGuid);
+                    }
+                    finally
+                    {
+                        MultiPlayerController.LockListGameDoesntStart.ReleaseWriterLock();
+                    }
+                }
+                lock (Game.CurentMultiPlayerGame)
+                {
+                    Game.CurentMultiPlayerGame.Unregister(UserFiche.CurentUser);
+                }
+            }
+        }
     }
 }

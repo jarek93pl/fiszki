@@ -35,6 +35,7 @@ namespace NaukaFiszek.Logic.MultiPlayer
         public int playerEndIndex { get; set; }
         public bool UserCanStart { get; internal set; }
 
+
         public override string ToString()
         {
             return LoginToProcess;

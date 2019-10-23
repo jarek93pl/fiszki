@@ -12,4 +12,7 @@ function MutiPlayerAvtivate() {
 }
 function MutiPlayerDeavtivate() {
 
+    PostAction('MultiPlayer/Unregister', {}, function () {
+
+    });
 }

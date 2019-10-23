@@ -23,15 +23,7 @@ namespace NaukaFiszek.Controllers
         {
             try
             {
-                if (userDetails.Authorization.Login.Length < 3)
-                {
-                    ModelState.AddModelError($"{nameof(userDetails.Authorization)}.{nameof(userDetails.Authorization.Login)}", "Login jest zbyt krótki");
-                }
-                if (userDetails.Authorization.Password.Length < 8)
-                {
-                    ModelState.AddModelError($"{nameof(userDetails.Authorization)}.{nameof(userDetails.Authorization.Password)}", "Hasło jest zbyt krótkie");
-                }
-                else
+                if (!ValidateAuthorization($"{nameof(userDetails.Authorization)}.", userDetails.Authorization))
                 {
                     UserFiche user = UserFiche.Register(userDetails);
                     return RedirectToAction("Index", "Home");
@@ -44,7 +36,21 @@ namespace NaukaFiszek.Controllers
             }
             return View();
         }
-
+        public bool ValidateAuthorization(string prefix, AuthorizationDetails authorizationDetails)
+        {
+            bool IsNotValid = false;
+            if (authorizationDetails.Login == null || authorizationDetails.Login.Length < 3)
+            {
+                IsNotValid |= true;
+                ModelState.AddModelError($"{prefix}{nameof(AuthorizationDetails.Login)}", "Login jest zbyt krótki");
+            }
+            if (authorizationDetails.Password == null || authorizationDetails.Password.Length < 8)
+            {
+                IsNotValid |= true;
+                ModelState.AddModelError($"{prefix}{nameof(AuthorizationDetails.Password)}", "Hasło jest zbyt krótkie");
+            }
+            return IsNotValid;
+        }
         public ActionResult Wyloguj()
         {
             UserFiche.LogOut(Session);
@@ -53,6 +59,10 @@ namespace NaukaFiszek.Controllers
         [HttpPost]
         public ActionResult Logowanie(AuthorizationDetails authorizationDetails)
         {
+            if (ValidateAuthorization("",authorizationDetails))
+            {
+                return View();
+            }
             UserFiche user = UserFiche.AutorizeUser(authorizationDetails);
             if (user == null)
             {

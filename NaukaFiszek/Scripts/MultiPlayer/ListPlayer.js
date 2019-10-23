@@ -1,7 +1,10 @@
 ﻿
 var source = new EventSource('MultiPlayer/RefreshListPlayer');
 source.onmessage = function (e) {
-
+    if (e.data === "break") {
+        source.close();
+        return;
+    }
     var returnedData = JSON.parse(e.data);
     returnedData.ChangeLogs.forEach(function (row) {
         if (row.ActionName === "Register") {

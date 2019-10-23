@@ -94,7 +94,30 @@ namespace NaukaFiszek.Controllers
         [HttpPost]
         public ActionResult JoinToGame(WaitingForPlayerData waitingForPlayerData)
         {
-            return View();
+            WaitingForPlayerData returned = new WaitingForPlayerData();
+            try
+            {
+                LockListGameDoesntStart.AcquireReaderLock(timeOut);
+                if (Guid.TryParse(waitingForPlayerData.GuidGame.Trim(), out Guid guid) && ListGameDoesntStart.TryGetValue(guid, out Game game))
+                {
+                    if (game != null)
+                    {
+                        lock (game)
+                        {
+                            game.Register(UserFiche.CurentUser);
+                            returned.GuidGame = game.IdentifyGuid.ToString();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            finally
+            {
+                LockListGameDoesntStart.ReleaseReaderLock();
+            }
+            return Json(returned);
         }
         [HttpGet]
         public ActionResult ListPlayer()
@@ -105,21 +128,30 @@ namespace NaukaFiszek.Controllers
         [HttpGet]
         public ActionResult RefreshListPlayer()
         {
-            var currentGameUser = Game.GetUserBySesionFicheUser();
-            var logBackend = Game.CurentMultiPlayerGame.ListPlayer.ChangeLogs(currentGameUser.playerEndIndex);
-            currentGameUser.playerEndIndex = logBackend.EndIndex;
             string returned = string.Empty;
-            if (logBackend.ChangeLogs.Any())
+            if (Game.GetUserBySesionFicheUser() != null && Game.CurentMultiPlayerGame != null)
             {
-                ChangeLog<PlayerDetails> returnedObject = new ChangeLog<PlayerDetails>()
+                lock (Game.CurentMultiPlayerGame)
                 {
-                    EndIndex = logBackend.EndIndex,
-                    ChangeLogs = logBackend.ChangeLogs.Select(
-                        X => new PlayerDetails() { Login = X.Login.LoginToProcess, ActionName = X.Status.ToString(), Point = X.Login.Point }).ToList()
-                };
-                returned = Extension.EventContentText(returnedObject);
+                    var currentGameUser = Game.GetUserBySesionFicheUser();
+                    var logBackend = Game.CurentMultiPlayerGame.ListPlayer.ChangeLogs(currentGameUser.playerEndIndex);
+                    currentGameUser.playerEndIndex = logBackend.EndIndex;
+                    if (logBackend.ChangeLogs.Any())
+                    {
+                        ChangeLog<PlayerDetails> returnedObject = new ChangeLog<PlayerDetails>()
+                        {
+                            EndIndex = logBackend.EndIndex,
+                            ChangeLogs = logBackend.ChangeLogs.Select(
+                                X => new PlayerDetails() { Login = X.Login.LoginToProcess, ActionName = X.Status.ToString(), Point = X.Login.Point }).ToList()
+                        };
+                        returned = Extension.EventContentText(returnedObject);
+                    }
+                }
             }
-
+            else
+            {
+                returned = "data:break\n\n";
+            }
             return Content(returned, "text/event-stream");
         }
 

@@ -2,12 +2,12 @@
 @{
     Layout = null;
 }
-<h4>Czekaj na graczy</h4>
+<h4>Czekaj na graczy do gry : @Model.GuidGame</h4>
 <br />
 @Html.Partial("ListPlayer")
 @Html.HiddenFor(model => model.GuidGame)
 @if (Model.UserCanStart)
 {
-    <button id="StartGame">Zacznij gre</button>
+    <button id="StartGame" class="form-control">Zacznij gre</button>
 }
 <script src="~/Scripts/MultiPlayer/WaitingForPlayer.js"></script>

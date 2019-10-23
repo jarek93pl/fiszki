@@ -34,11 +34,11 @@ namespace NaukaFiszek.Logic.MultiPlayer
         }
         public void Register(UserFiche user)
         {
-            ListPlayer.Register(new User(user));
             if (CurentMultiPlayerGame != null)
             {
                 CurentMultiPlayerGame.Unregister(user);
             }
+            ListPlayer.Register(new User(user));
             CurentMultiPlayerGame = this;
         }
         public void Unregister(UserFiche user)

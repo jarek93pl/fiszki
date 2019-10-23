@@ -1,0 +1,26 @@
+﻿@{ 
+    Layout = null;
+}
+@model DTO.Models.WaitingForPlayerData
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Dołączanie do gry</h4>
+        <hr />
+        <div class="form-group">
+            @Html.LabelFor(model => model.GuidGame, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.GuidGame, new { htmlAttributes = new { @class = "form-control" } })
+             </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Graj" class="btn btn-default" id="LogiInToGame" />
+            </div>
+        </div>
+    </div>
+}
+<script src="~/Scripts/MultiPlayer/JoinToGame.js"></script>

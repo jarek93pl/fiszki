@@ -1,4 +1,4 @@
-﻿var prefixadressMulti = '';// '/MultiPlayer/';
+﻿var prefixadressMulti = '/MultiPlayer/';
 $('#TypeAnswer').val(0);
 $('#CreateGame').click(function (e) {
 
@@ -10,16 +10,16 @@ $('#CreateGame').click(function (e) {
             limitTime = parseInt($('#LimitTimeInSek').val());
 
         }
-            PostAction(AdressMultiPlayer('CreateGame'),
-                {
-                    TypeAnswerInt: $('#TypeAnswer').val(),
-                    IdSetFiche: $('#FicheSetList option:selected').attr('id'),
-                    LimitTimeInSek: limitTime
-                },
-                function () {
-                    AdressMultiPlayer('WaitingForPlayer');
-                }
-            );
+        PostAction(AdressMultiPlayer('CreateGame'),
+            {
+                TypeAnswerInt: $('#TypeAnswer').val(),
+                IdSetFiche: $('#FicheSetList option:selected').attr('id'),
+                LimitTimeInSek: limitTime
+            },
+            function () {
+                loadPageUsingUrl(e, AdressMultiPlayer('WaitingForPlayer'));
+            }
+        );
     }
 });
 $('#IsLimitTime').change(function () {
@@ -33,7 +33,7 @@ $('#IsLimitTime').change(function () {
 });
 function ValidatingCreateGame() {
     return ValidatingControl('#LimitTimeInSek', ValidatingLimitTimeInSek, "Wartość limitu czsu musi być dodatnią liczbą") &
-        ValidatingControl('#TypeAnswer', ValidatingTypeAnswer,"Musisz wybrać typ odpowiedzi");
+        ValidatingControl('#TypeAnswer', ValidatingTypeAnswer, "Musisz wybrać typ odpowiedzi");
 }
 function AdressMultiPlayer(data) {
     return prefixadressMulti + data;

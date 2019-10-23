@@ -66,6 +66,7 @@
     <Compile Include="Models\UserDetails.cs" />
     <Compile Include="Models\NextFiche.cs" />
     <Compile Include="Models\SetFiche.cs" />
+    <Compile Include="Models\WaitingForPlayerData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\TeachBag.cs" />
     <Compile Include="Models\TeachSetFiche.cs" />

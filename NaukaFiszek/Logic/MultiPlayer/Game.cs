@@ -50,5 +50,10 @@ namespace NaukaFiszek.Logic.MultiPlayer
                 CurentMultiPlayerGame = null;
             }
         }
+
+        internal void Start()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

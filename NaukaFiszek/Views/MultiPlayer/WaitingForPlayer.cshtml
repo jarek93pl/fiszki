@@ -1,0 +1,13 @@
+﻿@model DTO.Models.WaitingForPlayerData
+@{
+    Layout = null;
+}
+<h4>Czekaj na graczy</h4>
+<br />
+@Html.Partial("ListPlayer")
+@Html.HiddenFor(model => model.GuidGame)
+@if (Model.UserCanStart)
+{
+    <button id="StartGame">Zacznij gre</button>
+}
+<script src="~/Scripts/MultiPlayer/WaitingForPlayer.js"></script>

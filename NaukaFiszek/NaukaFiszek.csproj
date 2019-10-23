@@ -163,8 +163,10 @@
     <Content Include="Scripts\Game\Common.js" />
     <Content Include="Scripts\Game\Hangman.js" />
     <Content Include="Scripts\Game\WriteText.js" />
+    <Content Include="Scripts\MultiPlayer\Control.js" />
     <Content Include="Scripts\MultiPlayer\CreateGame.js" />
     <Content Include="Scripts\MultiPlayer\ListPlayer.js" />
+    <Content Include="Scripts\MultiPlayer\WaitingForPlayer.js" />
     <Content Include="Scripts\NaukaZestaw\BagEditor.js" />
     <Content Include="Scripts\NaukaZestaw\BagRow.js" />
     <Content Include="Scripts\Fiszka\Dodaj.js" />
@@ -219,6 +221,7 @@
     <Content Include="Views\MultiPlayer\CreateGame.cshtml" />
     <Content Include="Views\Comon\DontFindSet.cshtml" />
     <Content Include="Views\MultiPlayer\ListPlayer.cshtml" />
+    <Content Include="Views\MultiPlayer\WaitingForPlayer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -47,6 +47,7 @@ namespace NaukaFiszek.Logic
                     UserFiche userReturned = new UserFiche();
                     CurentUser = userReturned;
                     userReturned.Id = id;
+                    userReturned.Name = authorizationDetails.Login;
                     return userReturned;
                 }
                 else

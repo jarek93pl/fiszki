@@ -22,7 +22,7 @@ namespace NaukaFiszek.Controllers
         [HttpGet]
         public ActionResult CreateGame()
         {
-            UserFiche.AutorizeUser(new AuthorizationDetails() { Login = "jarektest", Password = "haslohaslo" });
+            //UserFiche.AutorizeUser(new AuthorizationDetails() { Login = "jarektest", Password = "haslohaslo" });
             MultiPlayerGameData multiPlayerGame = new MultiPlayerGameData();
             using Conector.SetFiche setFicheConector = new Conector.SetFiche();
             if (!setFicheConector.AnySetsFicheExist(UserFiche.CurentUser.Id))
@@ -44,6 +44,7 @@ namespace NaukaFiszek.Controllers
                 Game CurrentGame;
                 ListGameDoesntStart.Add(guid, CurrentGame = new Game(multiPlayerGame) { IdentifyGuid = guid });
                 CurrentGame.Register(UserFiche.CurentUser);
+                Game.GetUserBySesionFicheUser().UserCanStart = true;
                 return Json(new { GUID = guid.ToString() });
             }
             catch (Exception ex)
@@ -60,14 +61,44 @@ namespace NaukaFiszek.Controllers
         [HttpGet]
         public ActionResult WaitingForPlayer()
         {
+            WaitingForPlayerData waitingForPlayerData = new WaitingForPlayerData()
+            {
+                GuidGame = Game.CurentMultiPlayerGame.IdentifyGuid.ToString(),
+                UserCanStart = Game.GetUserBySesionFicheUser().UserCanStart
+            };
+            return View(waitingForPlayerData);
+        }
+        [HttpPost]
+        public void WaitingForPlayer(WaitingForPlayerData data)
+        {
+            try
+            {
+                LockListGameDoesntStart.AcquireWriterLock(timeOut);
+                Game.CurentMultiPlayerGame.Start();
+                ListGameDoesntStart.Remove(new Guid(data.GuidGame));
+            }
+            catch (Exception ex)
+            {
+            }
+            finally
+            {
+                LockListGameDoesntStart.ReleaseWriterLock();
+            }
+        }
+        [FiszkiAutorize(IsAjaxRequest = true)]
+        [HttpGet]
+        public ActionResult JoinToGame()
+        {
             return View();
         }
-
+        [HttpPost]
+        public ActionResult JoinToGame(WaitingForPlayerData waitingForPlayerData)
+        {
+            return View();
+        }
         [HttpGet]
         public ActionResult ListPlayer()
         {
-            UserFiche.CurentUser = new UserFiche() { Name = "xr" };
-            CreateGame(new MultiPlayerGameData() { });
             return View();
         }
 

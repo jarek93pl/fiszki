@@ -1,5 +1,5 @@
 ﻿
-var source = new EventSource('RefreshListPlayer');
+var source = new EventSource('MultiPlayer/RefreshListPlayer');
 source.onmessage = function (e) {
 
     var returnedData = JSON.parse(e.data);

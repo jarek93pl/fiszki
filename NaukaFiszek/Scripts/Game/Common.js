@@ -2,13 +2,13 @@
 var CheckAnswer = null;
 var ShowAnswer = null;
 var TimeEnded = false;
-var TimeToEnd=0;
+var TimeToEnd = 0;
 if ($('#LimitTimeSek').val() !== '0') {
     TimeToEnd = parseInt($('#LimitTimeSek').val());
-  var TimerToEnd=  setInterval(function () {
+    var TimerToEnd = setInterval(function () {
         TimeToEnd--;
         $('#TimeText').text("pozostało " + TimeToEnd + " sek");
-        if (TimeToEnd<0) {
+        if (TimeToEnd < 0) {
             TimeEnded = true;
             $('#TimeText').text("Czas się skończył");
             clearInterval(TimerToEnd);
@@ -35,6 +35,7 @@ function CommonAdmitAnswer() {
     if (AdmitedAnswer !== null) {
         AdmitedAnswer();
     }
+
     if (CheckAnswer !== null || TimeEnded) {
         var IsCorrectAnswer;
 
@@ -47,8 +48,9 @@ function CommonAdmitAnswer() {
         if (IsCorrectAnswer === null) {
             return;
         }
-       
-        CommonShowAnswer(IsCorrectAnswer);
+        if (!IsMulti()) {
+            CommonShowAnswer(IsCorrectAnswer);
+        }
         SendAnswer(IsCorrectAnswer);
     }
     else {
@@ -66,18 +68,21 @@ function ShowAnswerText(IsCorrect) {
         else {
             className = 'WrongResponse';
         }
-    } 
+    }
     $('#CorrectAnswerDiv').show();
     $('#CorrectAnswerText').addClass(className);
 }
 function SendAnswer(IsCorrect) {
-    if (TimeToEnd>0) {
+    if (TimeToEnd > 0) {
         clearInterval(TimerToEnd);
         $('#TimeText').hide();
     }
-    PostAction('Gra/SendAnswer', { idTeachSet: $('#IdTeachSet').val(), IdFiche: $('#Fiche_Id').val(), IsCorrect: IsCorrect }, function () {
-
-    });
+    if (IsMulti()) {
+        PostAction('MultiPlayer/SendAnswer', { idTeachSet: '-1', IdFiche: $('#Fiche_Id').val(), IsCorrect: IsCorrect }, function () { });
+    }
+    else {
+        PostAction('Gra/SendAnswer', { idTeachSet: $('#IdTeachSet').val(), IdFiche: $('#Fiche_Id').val(), IsCorrect: IsCorrect }, function () { });
+    }
 }
 $('#AdmitAnswer').click(function () {
     $(this).hide();
@@ -94,3 +99,7 @@ $('#NotKnow').click(function () {
 
 });
 $('#NextFiche').click(loadPage);
+
+function IsMulti() {
+    return $('#IsMultiPlayer').val() === 'True';
+}

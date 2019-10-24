@@ -1,7 +1,7 @@
 ﻿var sourceComannd = null;
 function LoadControler() {
     sourceComannd = new EventSource('MultiPlayer/GetCommand');
-    sourceComannd.onmessage=function (e) {
+    sourceComannd.onmessage = function (e) {
         if (e.data === "break") {
             SourceUnload();
             return;
@@ -10,7 +10,7 @@ function LoadControler() {
         switch (table[0]) {
             case "ShowResponse":
                 if (table[1] === $('#Fiche_Id').val()) {
-                    //CommonShowAnswer(null);
+                    CommonShowAnswer(table[2] === '1');
                 }
                 break;
             case "LoadNextFiche":
@@ -30,9 +30,10 @@ function MutiPlayerAvtivate() {
     }
 }
 function MutiPlayerDeavtivate() {
-
-    PostAction('MultiPlayer/Unregister', {}, function () {
-    });
+    if (sourceComannd !== null) {
+        PostAction('MultiPlayer/Unregister', {}, function () {
+        });
+    }
     SourceUnload();
 }
 function SourceUnload() {

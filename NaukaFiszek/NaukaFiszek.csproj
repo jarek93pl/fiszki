@@ -138,6 +138,7 @@
     <Compile Include="Logic\Extension.cs" />
     <Compile Include="Logic\MultiPlayer\Game.cs" />
     <Compile Include="Logic\MultiPlayer\ListPlayer.cs" />
+    <Compile Include="Logic\MultiPlayer\ResponseDetails.cs" />
     <Compile Include="Logic\MultiPlayer\User.cs" />
     <Compile Include="Logic\UserFiche.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

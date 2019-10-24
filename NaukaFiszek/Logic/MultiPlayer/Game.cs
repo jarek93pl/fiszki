@@ -4,6 +4,7 @@ using NaukaFiszek.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace NaukaFiszek.Logic.MultiPlayer
@@ -12,7 +13,9 @@ namespace NaukaFiszek.Logic.MultiPlayer
     {
         public List<CommandMultiGame> CommandsMultiGame { get; set; } = new List<CommandMultiGame>();
         public Fiche CurrentFiche { get; set; }
+
         DateTime CurrentFicheStartShow;
+
         Random random = new Random();
         List<Fiche> fichesInSet { get; set; } = new List<Fiche>();
         public bool IsGameDeactivate { get; internal set; }
@@ -42,12 +45,15 @@ namespace NaukaFiszek.Logic.MultiPlayer
         }
         public void Register(UserFiche user)
         {
-            if (CurentMultiPlayerGame != null)
+            if (!ListPlayer.Any(X => X.LoginToProcess == user.Name))
             {
-                CurentMultiPlayerGame.Unregister(user);
+                if (CurentMultiPlayerGame != null)
+                {
+                    CurentMultiPlayerGame.Unregister(user);
+                }
+                ListPlayer.Register(new User(user));
+                CurentMultiPlayerGame = this;
             }
-            ListPlayer.Register(new User(user));
-            CurentMultiPlayerGame = this;
         }
         public void Unregister(UserFiche user)
         {
@@ -79,8 +85,7 @@ namespace NaukaFiszek.Logic.MultiPlayer
             {
                 if (fichesInSet.Count == 0)
                 {
-                    IsGameDeactivate = true;
-                    CommandAdd(CommandMultiGame.ShowList);
+                    MoveAfrerEndFiche(true);
                     break;
                 }
                 using (Conector.Fiche conector = new Conector.Fiche())
@@ -90,14 +95,47 @@ namespace NaukaFiszek.Logic.MultiPlayer
                     DontFind = !((TypeAnswer)MultiPlayerGameData.TypeAnswer).Can(TmpCurrentFiche);
                     if (!DontFind)
                     {
-                        CurrentFiche = TmpCurrentFiche;
-                        CurrentFicheStartShow = DateTime.Now;
-                        CommandAdd(CommandMultiGame.LoadNextFiche);
-
+                        ShowFiche(TmpCurrentFiche);
                     }
                 }
             }
         }
+        private void MoveAfrerEndFiche(bool IsGameDeactivate)
+        {
+            const int TimeShowingPlayerListMs = 5000;
+            const int TimeShowingResponse = 5000;
+            if (IsGameDeactivate)
+            {
+                this.IsGameDeactivate = IsGameDeactivate;
+                CommandAdd(CommandMultiGame.ShowList);
+            }
+            else
+            {
+                Task.Run(async () =>
+                {
+                    await Task.Delay(TimeShowingResponse);
+                    lock (this)
+                    {
+                        CommandAdd(CommandMultiGame.ShowList);
+                    }
+                    await Task.Delay(TimeShowingPlayerListMs);
+                    lock (this)
+                    {
+                        LoadFiche();
+                    }
+                }
+                );
+                CommandAdd(CommandMultiGame.ShowResponse);
+            }
+        }
+
+        private void ShowFiche(Fiche TmpCurrentFiche)
+        {
+            CurrentFiche = TmpCurrentFiche;
+            CurrentFicheStartShow = DateTime.Now;
+            CommandAdd(CommandMultiGame.LoadNextFiche);
+        }
+
         void CommandAdd(CommandMultiGame commandMultiGame)
         {
             CommandsMultiGame.Add(commandMultiGame);
@@ -115,6 +153,39 @@ namespace NaukaFiszek.Logic.MultiPlayer
             finally
             {
                 MultiPlayerController.LockListGameDoesntStart.ReleaseWriterLock();
+            }
+        }
+
+        internal void SendAnswer(int idFiche, bool isCorrect)
+        {
+            var userGame = GetUserBySesionFicheUser();
+            if (CurrentFiche.Id == idFiche && !userGame.AnswersByFicheId.ContainsKey(idFiche))
+            {
+                ResponseDetails response = new ResponseDetails()
+                {
+                    IdFiche = idFiche,
+                    IsCorrect = isCorrect,
+                    TimeAnsweringMilisecond = (int)(DateTime.Now - CurrentFicheStartShow).TotalMilliseconds
+                };
+                userGame.AnswersByFicheId.Add(idFiche, response);
+
+                if (ListPlayer.All(X => X.AnswersByFicheId.ContainsKey(idFiche)))
+                {
+                    CountPointPlayer();
+                    MoveAfrerEndFiche(false);
+                }
+            };
+        }
+        private void CountPointPlayer()
+        {
+            const float PointInMove = 1000f;
+            var UserAndLastResponseIfCorrect = ListPlayer
+                .Select(X => (User: X, LastResponse: X.AnswersByFicheId[CurrentFiche.Id]))
+                .Where(X => X.LastResponse.IsCorrect).ToList();
+            float InverseSum = UserAndLastResponseIfCorrect.Sum(X => 1f / X.LastResponse.TimeAnsweringMilisecond);
+            foreach (var item in UserAndLastResponseIfCorrect)
+            {
+                item.User.Point += (int)(((1f / item.LastResponse.TimeAnsweringMilisecond)) * PointInMove / InverseSum);
             }
         }
     }

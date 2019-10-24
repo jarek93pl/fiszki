@@ -11,5 +11,6 @@ namespace DTO.Models
         public int Point { get; set; }
         public string Login { get; set; }
         public string ActionName { get; set; }
+        public int EndIndex { get; set; }
     }
 }

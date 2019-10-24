@@ -7,6 +7,8 @@ namespace NaukaFiszek.Logic.MultiPlayer
 {
     public class User
     {
+
+        public Dictionary<int, ResponseDetails> AnswersByFicheId { get; set; } = new Dictionary<int, ResponseDetails>();
         public int LastIndexComand { get; set; }
         private string SetedLogin { get; set; }
         public User()

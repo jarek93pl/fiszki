@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
@@ -66,10 +67,14 @@ namespace NaukaFiszek.Controllers
         [HttpGet]
         public ActionResult WaitingForPlayer()
         {
+            Game.GetUserBySesionFicheUser().playerEndIndex = 0;
             WaitingForPlayerData waitingForPlayerData = new WaitingForPlayerData()
             {
                 GuidGame = Game.CurentMultiPlayerGame.IdentifyGuid.ToString(),
-                UserCanStart = Game.GetUserBySesionFicheUser().UserCanStart && !Game.CurentMultiPlayerGame.IsStarted
+                UserCanStart = Game.GetUserBySesionFicheUser().UserCanStart && !Game.CurentMultiPlayerGame.IsStarted,
+                GameIsStated = Game.CurentMultiPlayerGame.IsStarted,
+
+
             };
             return View(waitingForPlayerData);
         }
@@ -146,6 +151,7 @@ namespace NaukaFiszek.Controllers
         [HttpGet]
         public ActionResult RefreshListPlayer()
         {
+            int beforeChangeEndIndex;
             string returned = string.Empty;
             if (Game.CurentMultiPlayerGame != null && Game.CurentMultiPlayerGame.IsGameDeactivate)
             {
@@ -158,7 +164,8 @@ namespace NaukaFiszek.Controllers
                 lock (Game.CurentMultiPlayerGame)
                 {
                     var currentGameUser = Game.GetUserBySesionFicheUser();
-                    logBackend = Game.CurentMultiPlayerGame.ListPlayer.ChangeLogs(currentGameUser.playerEndIndex);
+                    beforeChangeEndIndex = currentGameUser.playerEndIndex;
+                    logBackend = Game.CurentMultiPlayerGame.ListPlayer.ChangeLogs(beforeChangeEndIndex);
                     currentGameUser.playerEndIndex = logBackend.EndIndex;
 
                 }
@@ -168,7 +175,7 @@ namespace NaukaFiszek.Controllers
                     {
                         EndIndex = logBackend.EndIndex,
                         ChangeLogs = logBackend.ChangeLogs.Select(
-                            X => new PlayerDetails() { Login = X.Login.LoginToProcess, ActionName = X.Status.ToString(), Point = X.Login.Point }).ToList()
+                           (X, Y) => new PlayerDetails() { Login = X.Login.LoginToProcess, ActionName = X.Status.ToString(), Point = X.Login.Point, EndIndex = beforeChangeEndIndex + Y }).ToList()
                     };
                     returned = Extension.EventContentText(returnedObject);
                 }
@@ -200,7 +207,8 @@ namespace NaukaFiszek.Controllers
                         string idFiche = ":0";
                         if (Game.CurentMultiPlayerGame.CommandsMultiGame.Last() == DTO.Enums.CommandMultiGame.ShowResponse)
                         {
-                            idFiche = $":{Game.CurentMultiPlayerGame.CurrentFiche.Id}";
+                            var CurrentFiche = Game.CurentMultiPlayerGame.CurrentFiche;
+                            idFiche = $":{CurrentFiche.Id}:{(currentGameUser.AnswersByFicheId[CurrentFiche.Id].IsCorrect ? "1" : "0")}";
                         }
                         returned = $"data:{LastComand.ToString()}{idFiche}\n\n";
                         currentGameUser.LastIndexComand = LastIndex;
@@ -238,27 +246,6 @@ namespace NaukaFiszek.Controllers
             }
             throw new NotImplementedException("ta ścieżka w GetFiche jest nie opsugiwana");
         }
-        [NaukaFiszek.Filter.FiszkiAutorize(IsAjaxRequest = true)]
-        [HttpPost]
-        public ActionResult Register(string guidString)
-        {
-            Guid guid = Guid.Parse(guidString);
-            try
-            {
-                LockListGameDoesntStart.AcquireReaderLock(timeOut);
-                var game = ListGameDoesntStart[guid];
-            }
-            catch
-            {
-
-            }
-            finally
-            {
-                LockListGameDoesntStart.ReleaseReaderLock();
-            }
-
-            throw new NotSupportedException("Nie udało się zarejestrować do gry");
-        }
 
         [NaukaFiszek.Filter.FiszkiAutorize(IsAjaxRequest = true)]
         [HttpPost]
@@ -285,6 +272,19 @@ namespace NaukaFiszek.Controllers
                 lock (Game.CurentMultiPlayerGame)
                 {
                     Game.CurentMultiPlayerGame.Unregister(UserFiche.CurentUser);
+                }
+            }
+        }
+
+        [FiszkiAutorize(IsAjaxRequest = true)]
+        [HttpPost]
+        public void SendAnswer(SendAnswerRequest request)
+        {
+            if (Game.CurentMultiPlayerGame != null)
+            {
+                lock (Game.CurentMultiPlayerGame)
+                {
+                    Game.CurentMultiPlayerGame.SendAnswer(request.IdFiche, request.IsCorrect);
                 }
             }
         }

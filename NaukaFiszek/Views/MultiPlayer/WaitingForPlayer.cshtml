@@ -2,7 +2,14 @@
 @{
     Layout = null;
 }
-<h4>Czekaj na graczy do gry : @Model.GuidGame</h4>
+@if (Model.GameIsStated)
+{
+    <h4>Lista graczy, gry : @Model.GuidGame</h4>
+}
+else
+{
+    <h4>Czekaj na graczy do gry : @Model.GuidGame</h4>
+}
 <br />
 @Html.Partial("ListPlayer")
 @Html.HiddenFor(model => model.GuidGame)

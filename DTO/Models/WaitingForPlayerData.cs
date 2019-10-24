@@ -12,5 +12,6 @@ namespace DTO.Models
         [DisplayName("Guid gry :")]
         public string GuidGame { get; set; }
         public bool UserCanStart { get; set; }
+        public bool GameIsStated { get; set; }
     }
 }

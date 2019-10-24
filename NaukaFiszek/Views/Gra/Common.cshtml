@@ -14,7 +14,6 @@
     #TimeText {
         color: red;
     }
-
 </style>
 <div class="form-group">
 
@@ -34,11 +33,13 @@
         <button id="NotKnow" class="form-control">Nie wiem</button>
     </div>
 </div>
-<div class="form-group">
-    <a href=@Url.Action("NextFicheTeach","Gra",new { id=Model.IdTeachSet}) id="NextFiche" hidden="hidden">Następna fiszka</a>
+@if (!Model.IsMultiPlayer)
+{
+    <div class="form-group">
+        <a href=@Url.Action("NextFicheTeach", "Gra", new { id = Model.IdTeachSet }) id="NextFiche" hidden="hidden">Następna fiszka</a>
 
-</div>
-
+    </div>
+}
 <span id="TimeText"></span>
 @Html.HiddenFor(model => model.LimitTimeSek)
 @Html.HiddenFor(model => model.IdTeachSet)

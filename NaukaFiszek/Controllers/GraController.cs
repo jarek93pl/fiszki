@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using NaukaFiszek.Logic;
+using DTO.Enums;
 
 namespace NaukaFiszek.Controllers
 {
@@ -36,6 +38,10 @@ namespace NaukaFiszek.Controllers
                         game.IdTeachSet = id;
                         game.TypeAnswer = randFiche.TypeAnswer;
                         game.LimitTimeSek = randFiche.LimitTimeSek;
+                        if (!game.TypeAnswer.Can(game.Fiche))
+                        {
+                            return UserChose(game);
+                        }
                         return (game.TypeAnswer) switch
                         {
 
@@ -59,10 +65,6 @@ namespace NaukaFiszek.Controllers
         public ActionResult Hangman(GameState game)
         {
             HangmanGameState hangmanGame = new HangmanGameState(game);
-            if (!hangmanGame.IsHangman)
-            {
-                return UserChose(game);
-            }
             return View(nameof(Hangman), new HangmanGameState(hangmanGame));
         }
 
@@ -79,10 +81,6 @@ namespace NaukaFiszek.Controllers
         [HttpGet]
         public ActionResult ChoseOption(GameState game)
         {
-            if (game.Fiche.Response.Length == 0)
-            {
-                UserChose(game);
-            }
             return View(nameof(ChoseOption), game);
         }
 

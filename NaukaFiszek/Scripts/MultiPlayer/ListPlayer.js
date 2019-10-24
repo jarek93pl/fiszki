@@ -1,8 +1,8 @@
 ﻿
-var source = new EventSource('MultiPlayer/RefreshListPlayer');
-source.onmessage = function (e) {
+var sourcePlayer = new EventSource('MultiPlayer/RefreshListPlayer');
+sourcePlayer.onmessage = function (e) {
     if (e.data === "break") {
-        source.close();
+        sourcePlayer.close();
         $('#IsDisactive').show();
         return;
     }

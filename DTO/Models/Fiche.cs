@@ -17,7 +17,8 @@ namespace DTO.Models
 
         [DisplayName("Rodzaj podpowiedzi")]
         public ContentType TypePrompt { get; set; }
-        public int IntTypePrompt {
+        public int IntTypePrompt
+        {
             get
             {
                 return (int)TypePrompt;
@@ -34,7 +35,7 @@ namespace DTO.Models
                 return TypePrompt.ToString();
             }
             set
-            { 
+            {
             }
         }
         [DisplayName("Rodzaj podpowiedzi")]
@@ -45,5 +46,17 @@ namespace DTO.Models
         public int? IdPromptFile { get; set; }
         public int IdFicheSet { get; set; }
         public FicheResponse[] FicheResponses { get; set; }
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
+        public override bool Equals(object obj)
+        {
+            if (obj is Fiche fiche)
+            {
+                return Id == fiche.Id;
+            }
+            return false;
+        }
     }
 }

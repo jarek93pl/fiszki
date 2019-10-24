@@ -7,6 +7,7 @@ namespace NaukaFiszek.Logic.MultiPlayer
 {
     public class User
     {
+        public int LastIndexComand { get; set; }
         private string SetedLogin { get; set; }
         public User()
         {

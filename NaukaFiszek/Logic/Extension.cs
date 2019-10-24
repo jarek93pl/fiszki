@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DTO.Enums;
+using DTO.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +10,7 @@ using System.Web.Script.Serialization;
 
 namespace NaukaFiszek.Logic
 {
-    public class Extension
+    public static class Extension
     {
         public static string EventContentText(object obj)
         {
@@ -19,5 +21,21 @@ namespace NaukaFiszek.Logic
             return sb.ToString();
 
         }
+        public static bool Can(this TypeAnswer typeAnswer, Fiche fiche)
+        {
+            switch (typeAnswer)
+            {
+                case TypeAnswer.WriteTextUserChose:
+                case TypeAnswer.UserChose:
+                case TypeAnswer.WriteText:
+                    return true;
+                case TypeAnswer.ChoseOption:
+                    return fiche.Response.Length > 0;
+                case TypeAnswer.Hangman:
+                    return fiche.Response.All(X => HangmanGameState.Alphabet.Any(Y => X == Y));
+                default: return true;
+            }
+        }
+
     }
 }

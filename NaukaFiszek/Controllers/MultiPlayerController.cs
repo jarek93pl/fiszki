@@ -37,23 +37,27 @@ namespace NaukaFiszek.Controllers
         [HttpPost]
         public ActionResult CreateGame(MultiPlayerGameData multiPlayerGame)
         {
+            bool gotLock = false;
+            Guid guid = Guid.NewGuid();
+            Game CurrentGame = null;
             try
             {
                 LockListGameDoesntStart.AcquireWriterLock(timeOut);
-                Guid guid = Guid.NewGuid();
-                Game CurrentGame;
                 ListGameDoesntStart.Add(guid, new WeakReference<Game>(CurrentGame = new Game(multiPlayerGame) { IdentifyGuid = guid }));
-                CurrentGame.Register(UserFiche.CurentUser);
-                Game.GetUserBySesionFicheUser().UserCanStart = true;
-                return Json(new { GUID = guid.ToString() });
             }
             catch
             {
-
             }
             finally
             {
+                gotLock = LockListGameDoesntStart.IsWriterLockHeld;
                 LockListGameDoesntStart.ReleaseWriterLock();
+            }
+            if (gotLock)
+            {
+                CurrentGame.Register(UserFiche.CurentUser);
+                Game.GetUserBySesionFicheUser().UserCanStart = true;
+                return Json(new { GUID = guid.ToString() });
             }
             throw new NotSupportedException("Nie udało się stworzyć nowej gry");
         }
@@ -65,7 +69,7 @@ namespace NaukaFiszek.Controllers
             WaitingForPlayerData waitingForPlayerData = new WaitingForPlayerData()
             {
                 GuidGame = Game.CurentMultiPlayerGame.IdentifyGuid.ToString(),
-                UserCanStart = Game.GetUserBySesionFicheUser().UserCanStart
+                UserCanStart = Game.GetUserBySesionFicheUser().UserCanStart && !Game.CurentMultiPlayerGame.IsStarted
             };
             return View(waitingForPlayerData);
         }
@@ -150,20 +154,56 @@ namespace NaukaFiszek.Controllers
             }
             else if (Game.CurentMultiPlayerGame != null && Game.GetUserBySesionFicheUser() != null)
             {
+                ChangeLog<(DTO.Enums.StatusChangedPlayerList Status, User Login)> logBackend = null;
                 lock (Game.CurentMultiPlayerGame)
                 {
                     var currentGameUser = Game.GetUserBySesionFicheUser();
-                    var logBackend = Game.CurentMultiPlayerGame.ListPlayer.ChangeLogs(currentGameUser.playerEndIndex);
+                    logBackend = Game.CurentMultiPlayerGame.ListPlayer.ChangeLogs(currentGameUser.playerEndIndex);
                     currentGameUser.playerEndIndex = logBackend.EndIndex;
-                    if (logBackend.ChangeLogs.Any())
+
+                }
+                if (logBackend.ChangeLogs.Any())
+                {
+                    ChangeLog<PlayerDetails> returnedObject = new ChangeLog<PlayerDetails>()
                     {
-                        ChangeLog<PlayerDetails> returnedObject = new ChangeLog<PlayerDetails>()
+                        EndIndex = logBackend.EndIndex,
+                        ChangeLogs = logBackend.ChangeLogs.Select(
+                            X => new PlayerDetails() { Login = X.Login.LoginToProcess, ActionName = X.Status.ToString(), Point = X.Login.Point }).ToList()
+                    };
+                    returned = Extension.EventContentText(returnedObject);
+                }
+            }
+            else
+            {
+                returned = GameEndComand;
+            }
+            return Content(returned, "text/event-stream");
+        }
+        [HttpGet]
+        public ActionResult GetCommand()
+        {
+            string returned = string.Empty;
+            if (Game.CurentMultiPlayerGame != null && Game.CurentMultiPlayerGame.IsGameDeactivate)
+            {
+                Game.CurentMultiPlayerGame = null;
+                returned = GameEndComand;
+            }
+            else if (Game.CurentMultiPlayerGame != null && Game.GetUserBySesionFicheUser() != null)
+            {
+                lock (Game.CurentMultiPlayerGame)
+                {
+                    int LastIndex;
+                    var currentGameUser = Game.GetUserBySesionFicheUser();
+                    if (currentGameUser.LastIndexComand != (LastIndex = Game.CurentMultiPlayerGame.CommandsMultiGame.Count))
+                    {
+                        var LastComand = Game.CurentMultiPlayerGame.CommandsMultiGame.Last();
+                        string idFiche = ":0";
+                        if (Game.CurentMultiPlayerGame.CommandsMultiGame.Last() == DTO.Enums.CommandMultiGame.ShowResponse)
                         {
-                            EndIndex = logBackend.EndIndex,
-                            ChangeLogs = logBackend.ChangeLogs.Select(
-                                X => new PlayerDetails() { Login = X.Login.LoginToProcess, ActionName = X.Status.ToString(), Point = X.Login.Point }).ToList()
-                        };
-                        returned = Extension.EventContentText(returnedObject);
+                            idFiche = $":{Game.CurentMultiPlayerGame.CurrentFiche.Id}";
+                        }
+                        returned = $"data:{LastComand.ToString()}{idFiche}\n\n";
+                        currentGameUser.LastIndexComand = LastIndex;
                     }
                 }
             }
@@ -173,8 +213,31 @@ namespace NaukaFiszek.Controllers
             }
             return Content(returned, "text/event-stream");
         }
-
-
+        [HttpGet]
+        public ActionResult GetFiche()
+        {
+            if (Game.CurentMultiPlayerGame != null)
+            {
+                Fiche fiche = null;
+                MultiPlayerGameData multiPlayerGameData = null;
+                GameState gameState = new GameState();
+                gameState.IsMultiPlayer = true;
+                lock (Game.CurentMultiPlayerGame)
+                {
+                    fiche = Game.CurentMultiPlayerGame.CurrentFiche;
+                    multiPlayerGameData = Game.CurentMultiPlayerGame.MultiPlayerGameData;
+                }
+                gameState.Fiche = fiche;
+                gameState.IntTypeAnswer = (int)multiPlayerGameData.TypeAnswer;
+                gameState.LimitTimeSek = multiPlayerGameData.LimitTimeInSek;
+                return multiPlayerGameData.TypeAnswer switch
+                {
+                    DTO.Enums.TypeAnswerMultiGame.WriteText => View($"../Gra/{nameof(GraController.WriteText)}", gameState),
+                    DTO.Enums.TypeAnswerMultiGame.ChoseOption => View($"../Gra/{nameof(GraController.ChoseOption)}", gameState)
+                };
+            }
+            throw new NotImplementedException("ta ścieżka w GetFiche jest nie opsugiwana");
+        }
         [NaukaFiszek.Filter.FiszkiAutorize(IsAjaxRequest = true)]
         [HttpPost]
         public ActionResult Register(string guidString)

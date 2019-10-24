@@ -5,7 +5,7 @@
 <div class="form-horizontal">
     <h4>Napisz odpowiedź</h4>
     <hr />
-    @Html.Partial("Prompt", Model.Fiche)
+    @Html.Partial("~/Views/Gra/Prompt.cshtml", Model.Fiche)
     <div class="form-group">
         <div>
 
@@ -15,6 +15,5 @@
         </div>
     </div>
 </div>
-@Html.Partial("Common")
+@Html.Partial("~/Views/Gra/Common.cshtml")
 <script src="~/Scripts/Game/WriteText.js"></script>
-

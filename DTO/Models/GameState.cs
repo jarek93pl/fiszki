@@ -19,13 +19,7 @@ namespace DTO.Models
             LimitTimeSek = game.LimitTimeSek;
         }
 
-        public bool IsMultiPlayer
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public bool IsMultiPlayer { get; set; }
         public int IdTeachSet { get; set; }
         public Fiche Fiche { get; set; }
         public TypeAnswer TypeAnswer { get; set; }

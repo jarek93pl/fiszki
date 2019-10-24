@@ -8,6 +8,8 @@ namespace DTO.Enums
 {
     public enum CommandMultiGame
     {
-
+        ShowResponse,
+        LoadNextFiche,
+        ShowList
     }
 }

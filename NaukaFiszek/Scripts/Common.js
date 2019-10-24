@@ -8,7 +8,9 @@ function loadPageUsingUrl(e, adres) {
 
 function loadPageUsingBase(e, adres, nameHtml) {
 
-    e.preventDefault();
+    if (e !== null) {
+        e.preventDefault();
+    }
     $('#' + nameHtml).remove();
     $('#container').html("<div id='content'></div>");
     $('#' + nameHtml).load(adres, function () {

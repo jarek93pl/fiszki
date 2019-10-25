@@ -41,18 +41,25 @@ namespace NaukaFiszek.Controllers
             bool gotLock = false;
             Guid guid = Guid.NewGuid();
             Game CurrentGame = null;
-            try
+            if (ValidatingNewGameForPlayer(null))
             {
-                LockListGameDoesntStart.AcquireWriterLock(timeOut);
-                ListGameDoesntStart.Add(guid, new WeakReference<Game>(CurrentGame = new Game(multiPlayerGame) { IdentifyGuid = guid }));
+                try
+                {
+                    LockListGameDoesntStart.AcquireWriterLock(timeOut);
+                    ListGameDoesntStart.Add(guid, new WeakReference<Game>(CurrentGame = new Game(multiPlayerGame) { IdentifyGuid = guid }));
+                }
+                catch
+                {
+                }
+                finally
+                {
+                    gotLock = LockListGameDoesntStart.IsWriterLockHeld;
+                    LockListGameDoesntStart.ReleaseWriterLock();
+                }
             }
-            catch
+            else
             {
-            }
-            finally
-            {
-                gotLock = LockListGameDoesntStart.IsWriterLockHeld;
-                LockListGameDoesntStart.ReleaseWriterLock();
+                return Json(new { GUID = (string)null });
             }
             if (gotLock)
             {
@@ -110,7 +117,7 @@ namespace NaukaFiszek.Controllers
             {
                 LockListGameDoesntStart.AcquireReaderLock(timeOut);
                 Game game;
-                if (TryGetGameByGuid(waitingForPlayerData, out game))
+                if (TryGetGameByGuid(waitingForPlayerData, out game) && ValidatingNewGameForPlayer(game))
                 {
                     if (game != null)
                     {
@@ -132,13 +139,17 @@ namespace NaukaFiszek.Controllers
             }
             return Json(returned);
         }
-
-        private static bool TryGetGameByGuid(WaitingForPlayerData waitingForPlayerData, out Game game)
+        public bool ValidatingNewGameForPlayer(Game gameToJoined)
         {
-            game = null;
-            return Guid.TryParse(waitingForPlayerData.GuidGame.Trim(), out Guid guid) &&
-                 ListGameDoesntStart.TryGetValue(guid, out WeakReference<Game> gameWeak) &&
-                 gameWeak.TryGetTarget(out game);
+            if (gameToJoined?.ListPlayer.Any(X => X.LoginToProcess == UserFiche.CurentUser.Name) == true)
+            {
+                return false;
+            }
+            if (Game.CurentMultiPlayerGame != null)
+            {
+                return false;
+            }
+            return true;
         }
 
         [HttpGet]
@@ -271,7 +282,7 @@ namespace NaukaFiszek.Controllers
                 }
                 lock (Game.CurentMultiPlayerGame)
                 {
-                    Game.CurentMultiPlayerGame.Unregister(UserFiche.CurentUser);
+                    Game.CurentMultiPlayerGame.Unregister();
                 }
             }
         }
@@ -287,6 +298,14 @@ namespace NaukaFiszek.Controllers
                     Game.CurentMultiPlayerGame.SendAnswer(request.IdFiche, request.IsCorrect);
                 }
             }
+        }
+
+        private static bool TryGetGameByGuid(WaitingForPlayerData waitingForPlayerData, out Game game)
+        {
+            game = null;
+            return Guid.TryParse(waitingForPlayerData.GuidGame.Trim(), out Guid guid) &&
+                 ListGameDoesntStart.TryGetValue(guid, out WeakReference<Game> gameWeak) &&
+                 gameWeak.TryGetTarget(out game);
         }
     }
 }

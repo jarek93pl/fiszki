@@ -54,12 +54,13 @@ namespace NaukaFiszek.Controllers
         public ActionResult Wyloguj()
         {
             UserFiche.LogOut(Session);
+            Session.Clear();
             return RedirectToAction("Logowanie");
         }
         [HttpPost]
         public ActionResult Logowanie(AuthorizationDetails authorizationDetails)
         {
-            if (ValidateAuthorization("",authorizationDetails))
+            if (ValidateAuthorization("", authorizationDetails))
             {
                 return View();
             }

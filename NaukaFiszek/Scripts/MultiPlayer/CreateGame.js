@@ -16,7 +16,11 @@ $('#CreateGame').click(function (e) {
                 IdSetFiche: $('#FicheSetList option:selected').attr('id'),
                 LimitTimeInSek: limitTime
             },
-            function () {
+            function (data) {
+                if (data.GUID === null) {
+                    ValidatingControl('#CreateGame', function () { return false; }, "Jesteś już zalagowany,spróbuj się wylogować i spróbować jeszcze raz");
+                    return;
+                }
                 loadPageUsingUrl(e, AdressMultiPlayer('WaitingForPlayer'));
             }
         );

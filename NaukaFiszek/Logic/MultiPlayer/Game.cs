@@ -55,9 +55,17 @@ namespace NaukaFiszek.Logic.MultiPlayer
                 CurentMultiPlayerGame = this;
             }
         }
-        public void Unregister(UserFiche user)
+        public void Unregister(UserFiche user = null)
         {
-            User gameUser = new User(user);
+            User gameUser;
+            if (user == null)
+            {
+                gameUser = GetUserBySesionFicheUser();
+            }
+            else
+            {
+                gameUser = new User(user);
+            }
             if (CurentMultiPlayerGame != null)
             {
                 CurentMultiPlayerGame.ListPlayer.Unregister(gameUser);

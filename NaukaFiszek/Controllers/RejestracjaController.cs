@@ -54,7 +54,7 @@ namespace NaukaFiszek.Controllers
         public ActionResult Wyloguj()
         {
             UserFiche.LogOut(Session);
-            Session.Clear();
+            Session.Abandon();
             return RedirectToAction("Logowanie");
         }
         [HttpPost]

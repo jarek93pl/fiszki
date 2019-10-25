@@ -111,7 +111,7 @@ namespace NaukaFiszek.Logic.MultiPlayer
         private void MoveAfrerEndFiche(bool IsGameDeactivate)
         {
             const int TimeShowingPlayerListMs = 5000;
-            const int TimeShowingResponse = 5000;
+            const int TimeShowingResponse = 9000;
             if (IsGameDeactivate)
             {
                 this.IsGameDeactivate = IsGameDeactivate;

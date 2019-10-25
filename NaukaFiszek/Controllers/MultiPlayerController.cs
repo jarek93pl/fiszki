@@ -74,7 +74,6 @@ namespace NaukaFiszek.Controllers
         [HttpGet]
         public ActionResult WaitingForPlayer()
         {
-            Game.GetUserBySesionFicheUser().playerEndIndex = 0;
             WaitingForPlayerData waitingForPlayerData = new WaitingForPlayerData()
             {
                 GuidGame = Game.CurentMultiPlayerGame.IdentifyGuid.ToString(),
@@ -162,7 +161,6 @@ namespace NaukaFiszek.Controllers
         [HttpGet]
         public ActionResult RefreshListPlayer()
         {
-            int beforeChangeEndIndex;
             string returned = string.Empty;
             if (Game.CurentMultiPlayerGame != null && Game.CurentMultiPlayerGame.IsGameDeactivate)
             {
@@ -175,9 +173,7 @@ namespace NaukaFiszek.Controllers
                 lock (Game.CurentMultiPlayerGame)
                 {
                     var currentGameUser = Game.GetUserBySesionFicheUser();
-                    beforeChangeEndIndex = currentGameUser.playerEndIndex;
-                    logBackend = Game.CurentMultiPlayerGame.ListPlayer.ChangeLogs(beforeChangeEndIndex);
-                    currentGameUser.playerEndIndex = logBackend.EndIndex;
+                    logBackend = Game.CurentMultiPlayerGame.ListPlayer.ChangeLogs(0);
 
                 }
                 if (logBackend.ChangeLogs.Any())
@@ -186,7 +182,7 @@ namespace NaukaFiszek.Controllers
                     {
                         EndIndex = logBackend.EndIndex,
                         ChangeLogs = logBackend.ChangeLogs.Select(
-                           (X, Y) => new PlayerDetails() { Login = X.Login.LoginToProcess, ActionName = X.Status.ToString(), Point = X.Login.Point, EndIndex = beforeChangeEndIndex + Y }).ToList()
+                           (X, Y) => new PlayerDetails() { Login = X.Login.LoginToProcess, ActionName = X.Status.ToString(), Point = X.Login.Point, EndIndex =  Y }).ToList()
                     };
                     returned = Extension.EventContentText(returnedObject);
                 }

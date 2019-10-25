@@ -35,7 +35,6 @@ namespace NaukaFiszek.Logic.MultiPlayer
             return false;
         }
         public override int GetHashCode() => LoginToProcess.GetHashCode();
-        public int playerEndIndex { get; set; }
         public bool UserCanStart { get; internal set; }
 
 

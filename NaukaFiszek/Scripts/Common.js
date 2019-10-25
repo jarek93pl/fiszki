@@ -38,6 +38,27 @@ function PostAction(url, data, completed) {
     });
 
 }
+function GetAction(url, data, completed) {
+    $.ajax({
+        url: url,
+        type: "GET",
+        cache: false,
+        data: JSON.stringify(data),
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            if (data === "") {
+                completed(undefined);
+            }
+            else {
+                completed(JSON.parse(data));
+            }
+        },
+        error: function (jqXhr, textStatus, errorThrown) {
+            alert(errorThrown);
+        }
+    });
+
+}
 function SendFileAction(control, type, responseFunc) {
 
     var formData = new FormData();
@@ -106,7 +127,7 @@ function ValidatingControl(selector, functionToValidating, ErrorMessage) {
 }
 function RemoveErrorElementBySelector(selector) {
 
-     $('[value="' + selector + '"]').parent('.ErrorRowCommon').remove();
+    $('[value="' + selector + '"]').parent('.ErrorRowCommon').remove();
 }
 function ValidatingControlMinLenght2(selector, ErrorMessage) {
     return ValidatingControl(selector, function () {

@@ -14,7 +14,7 @@
 <div class="form-horizontal">
     <h4>Wybierz poprawne odpowiedzi</h4>
     <hr />
-    @Html.Partial("Prompt", Model.Fiche)
+    @Html.Partial("~/Views/Gra/Prompt.cshtml", Model.Fiche)
     @foreach (var item in Model.Fiche.FicheResponses)
     {
         string urlFile = Url.Action("LoadFile", "Comon", new { id = item.IdFile });
@@ -46,5 +46,5 @@
         <br />
     }
 </div>
-@Html.Partial("Common")
+@Html.Partial("~/Views/Gra/Common.cshtml")
 <script src="~/Scripts/Game/ChoseOption.js"></script>

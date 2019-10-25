@@ -30,7 +30,7 @@ namespace NaukaFiszek.Logic
                 case TypeAnswer.WriteText:
                     return true;
                 case TypeAnswer.ChoseOption:
-                    return fiche.Response.Length > 0;
+                    return fiche.FicheResponses.Length > 0;
                 case TypeAnswer.Hangman:
                     return fiche.Response.All(X => HangmanGameState.Alphabet.Any(Y => X == Y));
                 default: return true;

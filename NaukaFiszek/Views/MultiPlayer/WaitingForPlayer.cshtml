@@ -6,15 +6,20 @@
 {
     <h4> Lista graczy, gry : @Model.GuidGame</h4>
     <br />
-    <p>Jeżeli gra jest aktywna za chwile pojawi się nowe pytanie </p>
+    if (!Model.GameIsEnd)
+    {
+        <p>Za chwilę pojawi się następne pytanie </p>
+    }
 }
 else
 {
-    <h4>Czekaj na graczy do gry : @Model.GuidGame</h4>
+    <h4 id="HederStart">Czekaj na graczy do gry : @Model.GuidGame</h4>
 }
+<h4 style="color:gray" id="IsDisactive" @Html.Raw(!Model.GameIsEnd ? " hidden=\"hidden\"" : "")>Gra jest już nie aktywna</h4>
 <br />
-@Html.Partial("ListPlayer")
+@Html.Partial("ListPlayer", Model.PlayerResults)
 @Html.HiddenFor(model => model.GuidGame)
+@Html.HiddenFor(model => model.GameIsStated)
 @if (Model.UserCanStart)
 {
     <button id="StartGame" class="form-control">Zacznij gre</button>

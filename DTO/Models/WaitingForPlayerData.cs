@@ -13,5 +13,7 @@ namespace DTO.Models
         public string GuidGame { get; set; }
         public bool UserCanStart { get; set; }
         public bool GameIsStated { get; set; }
+        public bool GameIsEnd { get; set; }
+        public List<PlayerResult> PlayerResults { get; set; } = new List<PlayerResult>();
     }
 }

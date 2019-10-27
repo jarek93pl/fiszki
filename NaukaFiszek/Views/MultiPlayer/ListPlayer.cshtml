@@ -1,11 +1,15 @@
-﻿@{
+﻿@model List<DTO.Models.PlayerResult>
+@{
     Layout = null;
 }
-<h4 style="color:whitesmoke" hidden="hidden" id="IsDisactive">Gra jest już nie aktywna</h4>
 <table id="PlayerResult">
     <tr>
-        <th>Nazwa gracza</th>
+        <th>Nazwa gracza </th>
         <th>Ilość punktów</th>
     </tr>
+    @foreach (var item in Model)
+    {
+        <tr class="RowPlayerDetails"><td class="Name">@item.Name</td><td class="Point">@item.Point</td></tr>
+    }
 </table>
 <script src="~/Scripts/MultiPlayer/ListPlayer.js"></script>

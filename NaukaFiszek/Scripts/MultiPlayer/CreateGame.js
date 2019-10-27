@@ -14,7 +14,8 @@ $('#CreateGame').click(function (e) {
             {
                 TypeAnswerInt: $('#TypeAnswer').val(),
                 IdSetFiche: $('#FicheSetList option:selected').attr('id'),
-                LimitTimeInSek: limitTime
+                LimitTimeInSek: limitTime,
+                IsLimitTime: $('#IsLimitTime').is(":checked")
             },
             function (data) {
                 if (data.GUID === null) {

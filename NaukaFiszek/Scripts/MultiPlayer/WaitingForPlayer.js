@@ -4,7 +4,12 @@ $('#StartGame').click(function () {
         {
             GuidGame: $('#GuidGame').val()
         }
-        , function () {
+        , function (data) {
+            if (!data.IsSuccess) {
+                ValidatingControl("#StartGame", function () { return false; }, "gry nie udało się stworzyć najprawdopodobniej w tym zestawie nie ma odpowiedniej fiszki");
+                $('#StartGame').hide();
+                $('#HederStart').text("Ten zestaw nie ma fiszek do tej gry wielosobowej");
+            }
 
     });
 });

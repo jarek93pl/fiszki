@@ -38,19 +38,19 @@ function PostAction(url, data, completed) {
     });
 
 }
-function GetAction(url, data, completed) {
+function GetActionEvent(url, data, completed) {
     $.ajax({
         url: url,
         type: "GET",
         cache: false,
         data: JSON.stringify(data),
-        contentType: "application/json; charset=utf-8",
+        contentType: "text/event-stream",
         success: function (data) {
             if (data === "") {
                 completed(undefined);
             }
             else {
-                completed(JSON.parse(data));
+                completed(data);
             }
         },
         error: function (jqXhr, textStatus, errorThrown) {

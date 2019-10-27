@@ -74,23 +74,39 @@ namespace NaukaFiszek.Controllers
         [HttpGet]
         public ActionResult WaitingForPlayer()
         {
-            WaitingForPlayerData waitingForPlayerData = new WaitingForPlayerData()
+            WaitingForPlayerData waitingForPlayerData = new WaitingForPlayerData();
+            Logic.MultiPlayer.User userPlayer;
+            Game currentGame;
+            if (Game.CurentMultiPlayerGame != null)
             {
-                GuidGame = Game.CurentMultiPlayerGame.IdentifyGuid.ToString(),
-                UserCanStart = Game.GetUserBySesionFicheUser().UserCanStart && !Game.CurentMultiPlayerGame.IsStarted,
-                GameIsStated = Game.CurentMultiPlayerGame.IsStarted,
+                lock (this)
+                {
+                    userPlayer = Game.GetUserBySesionFicheUser();
+                    currentGame = Game.CurentMultiPlayerGame;
+                }
 
-
-            };
+                if (currentGame != null)
+                {
+                    waitingForPlayerData = new WaitingForPlayerData()
+                    {
+                        GuidGame = currentGame.IdentifyGuid.ToString(),
+                        UserCanStart = userPlayer.UserCanStart && !currentGame.IsStarted,
+                        GameIsStated = currentGame.IsStarted,
+                        GameIsEnd = currentGame.IsGameDeactivate,
+                        PlayerResults = currentGame.ListPlayer.Select(X => new PlayerResult() { Name = X.LoginToProcess, Point = X.Point }).ToList()
+                    };
+                }
+            }
             return View(waitingForPlayerData);
         }
         [HttpPost]
-        public void WaitingForPlayer(WaitingForPlayerData data)
+        public ActionResult WaitingForPlayer(WaitingForPlayerData data)
         {
+            DTO.Models.ActionResultData result = null;
             try
             {
                 LockListGameDoesntStart.AcquireWriterLock(timeOut);
-                Game.CurentMultiPlayerGame.Start();
+                result = (DTO.Models.ActionResultData)Game.CurentMultiPlayerGame.Start();
                 ListGameDoesntStart.Remove(new Guid(data.GuidGame));
             }
             catch
@@ -101,6 +117,7 @@ namespace NaukaFiszek.Controllers
             {
                 LockListGameDoesntStart.ReleaseWriterLock();
             }
+            return Json(result);
         }
         [FiszkiAutorize(IsAjaxRequest = true)]
         [HttpGet]
@@ -169,23 +186,13 @@ namespace NaukaFiszek.Controllers
             }
             else if (Game.CurentMultiPlayerGame != null && Game.GetUserBySesionFicheUser() != null)
             {
-                ChangeLog<(DTO.Enums.StatusChangedPlayerList Status, User Login)> logBackend = null;
+                List<PlayerResult> playerResults = new List<PlayerResult>();
                 lock (Game.CurentMultiPlayerGame)
                 {
-                    var currentGameUser = Game.GetUserBySesionFicheUser();
-                    logBackend = Game.CurentMultiPlayerGame.ListPlayer.ChangeLogs(0);
-
+                    playerResults.AddRange(Game.CurentMultiPlayerGame.ListPlayer.Select(X => new PlayerResult() { Name = X.LoginToProcess, Point = X.Point }));
                 }
-                if (logBackend.ChangeLogs.Any())
-                {
-                    ChangeLog<PlayerDetails> returnedObject = new ChangeLog<PlayerDetails>()
-                    {
-                        EndIndex = logBackend.EndIndex,
-                        ChangeLogs = logBackend.ChangeLogs.Select(
-                           (X, Y) => new PlayerDetails() { Login = X.Login.LoginToProcess, ActionName = X.Status.ToString(), Point = X.Login.Point, EndIndex =  Y }).ToList()
-                    };
-                    returned = Extension.EventContentText(returnedObject);
-                }
+                playerResults.OrderByDescending(X => X.Point);
+                returned = Extension.EventContentText(playerResults);
             }
             else
             {
@@ -197,25 +204,27 @@ namespace NaukaFiszek.Controllers
         public ActionResult GetCommand()
         {
             string returned = string.Empty;
-            if (Game.CurentMultiPlayerGame != null && Game.CurentMultiPlayerGame.IsGameDeactivate)
+            Game game = Game.CurentMultiPlayerGame;
+            if (game != null && game.IsGameDeactivate)
             {
                 Game.CurentMultiPlayerGame = null;
                 returned = GameEndComand;
             }
-            else if (Game.CurentMultiPlayerGame != null && Game.GetUserBySesionFicheUser() != null)
+            else if (game != null && Game.GetUserBySesionFicheUser() != null)
             {
-                lock (Game.CurentMultiPlayerGame)
+                lock (game)
                 {
                     int LastIndex;
+                    game.IsGameDeactivate |= game.LastCommandInGame;
                     var currentGameUser = Game.GetUserBySesionFicheUser();
-                    if (currentGameUser.LastIndexComand != (LastIndex = Game.CurentMultiPlayerGame.CommandsMultiGame.Count))
+                    if (currentGameUser.LastIndexComand != (LastIndex = game.CommandsMultiGame.Count))
                     {
-                        var LastComand = Game.CurentMultiPlayerGame.CommandsMultiGame.Last();
+                        var LastComand = game.CommandsMultiGame.Last();
                         string idFiche = ":0";
-                        if (Game.CurentMultiPlayerGame.CommandsMultiGame.Last() == DTO.Enums.CommandMultiGame.ShowResponse)
+                        if (game.CommandsMultiGame.Last() == DTO.Enums.CommandMultiGame.ShowResponse)
                         {
-                            var CurrentFiche = Game.CurentMultiPlayerGame.CurrentFiche;
-                            idFiche = $":{CurrentFiche.Id}:{(currentGameUser.AnswersByFicheId[CurrentFiche.Id].IsCorrect ? "1" : "0")}";
+                            var CurrentFiche = game.CurrentFiche;
+                            idFiche = $":{currentGameUser.LastResponseDetails.IdFiche}:{(currentGameUser.LastResponseDetails.IsCorrect ? "1" : "0")}";
                         }
                         returned = $"data:{LastComand.ToString()}{idFiche}\n\n";
                         currentGameUser.LastIndexComand = LastIndex;

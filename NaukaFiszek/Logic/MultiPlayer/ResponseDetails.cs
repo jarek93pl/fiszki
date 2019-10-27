@@ -7,6 +7,7 @@ namespace NaukaFiszek.Logic.MultiPlayer
 {
     public class ResponseDetails
     {
+        public DateTime DateCreated = DateTime.Now;
         public int TimeAnsweringMilisecond { get; set; }
         public bool IsCorrect { get; set; }
         public int IdFiche { get; set; }

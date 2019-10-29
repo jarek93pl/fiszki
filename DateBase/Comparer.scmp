@@ -7,11 +7,6 @@
       <Name>DateBase</Name>
     </ProjectBasedModelProvider>
   </SourceModelProvider>
-  <TargetModelProvider>
-    <ConnectionBasedModelProvider>
-      <ConnectionString>Data Source=serverfiszek.database.windows.net;Initial Catalog=fiszkidatabase;Persist Security Info=True;User ID=jarek93pl;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=True;TrustServerCertificate=False</ConnectionString>
-    </ConnectionBasedModelProvider>
-  </TargetModelProvider>
   <SchemaCompareSettingsService>
     <SchemaCompareSettingsService>
       <PropertyElementName>

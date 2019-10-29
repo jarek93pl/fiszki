@@ -10,16 +10,31 @@ namespace NaukaFiszek.Controllers
 {
     public class ComonController : Controller
     {
+        static bool IsLoaded = false;
+
+        void LoadFolder()
+        {
+            if (!IsLoaded)
+            {
+                DirectoryInfo directoryInfo = new DirectoryInfo(Server.MapPath(ConfigurationManager.AppSettings["pathfile"]));
+                if (!directoryInfo.Exists)
+                {
+                    directoryInfo.Create();
+                }
+                IsLoaded = true;
+            }
+        }
         // GET: Comon
         public ActionResult Index()
         {
             return View();
         }
-        public static string PathContent
+        public string PathContent
         {
             get
             {
-                return ConfigurationManager.AppSettings["pathfile"];
+                LoadFolder();
+                return Server.MapPath(ConfigurationManager.AppSettings["pathfile"]);
             }
         }
         [HttpPost]

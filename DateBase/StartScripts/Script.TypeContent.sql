@@ -9,10 +9,10 @@ Post-Deployment Script Template
                SELECT * FROM [$(TableName)]					
 --------------------------------------------------------------------------------------
 */
-INSERT INTO [DictionaryTypeContent]([Id],[Name])VALUES(1,'Text');
-INSERT INTO [DictionaryTypeContent]([Id],[Name])VALUES(2,'Film');
-INSERT INTO [DictionaryTypeContent]([Id],[Name])VALUES(3,'Muzyka');
-INSERT INTO [DictionaryTypeContent]([Id],[Name])VALUES(4,'Obrazek');
+INSERT INTO [DictionaryTypeContent]([Id],[Name])VALUES(0,'Text');
+INSERT INTO [DictionaryTypeContent]([Id],[Name])VALUES(1,'Film');
+INSERT INTO [DictionaryTypeContent]([Id],[Name])VALUES(2,'Muzyka');
+INSERT INTO [DictionaryTypeContent]([Id],[Name])VALUES(3,'Obrazek');
 
 
 INSERT INTO [DictionaryTypeAnswer]([Id],[Name])VALUES(0,'Urzytkownik określa');

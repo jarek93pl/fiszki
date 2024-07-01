@@ -2,11 +2,16 @@
 <SchemaComparison>
   <Version>10</Version>
   <SourceModelProvider>
+    <ConnectionBasedModelProvider>
+      <ConnectionString>Data Source=UBERCIRCLEAMD;Initial Catalog=foryoutube2;Integrated Security=True;Persist Security Info=False;Pooling=False;Multiple Active Result Sets=False;Connect Timeout=60;Encrypt=False;Trust Server Certificate=False;Command Timeout=0</ConnectionString>
+    </ConnectionBasedModelProvider>
+  </SourceModelProvider>
+  <TargetModelProvider>
     <ProjectBasedModelProvider>
       <ProjectGuid>{6d9d7073-4116-42bd-ace1-a6f5328ba7ac}</ProjectGuid>
       <Name>DateBase</Name>
     </ProjectBasedModelProvider>
-  </SourceModelProvider>
+  </TargetModelProvider>
   <SchemaCompareSettingsService>
     <SchemaCompareSettingsService>
       <PropertyElementName>
@@ -29,6 +34,10 @@
       </PropertyElementName>
       <PropertyElementName>
         <Name>BackupDatabaseBeforeChanges</Name>
+        <Value>False</Value>
+      </PropertyElementName>
+      <PropertyElementName>
+        <Name>IgnoreIndexesStatisticsOnEnclaveEnabledColumns</Name>
         <Value>False</Value>
       </PropertyElementName>
       <PropertyElementName>
@@ -58,6 +67,14 @@
       <PropertyElementName>
         <Name>DisableAndReenableDdlTriggers</Name>
         <Value>True</Value>
+      </PropertyElementName>
+      <PropertyElementName>
+        <Name>DisableIndexesForDataPhase</Name>
+        <Value>True</Value>
+      </PropertyElementName>
+      <PropertyElementName>
+        <Name>DisableParallelismForEnablingIndexes</Name>
+        <Value>False</Value>
       </PropertyElementName>
       <PropertyElementName>
         <Name>DoNotAlterChangeDataCaptureObjects</Name>
@@ -101,6 +118,10 @@
       </PropertyElementName>
       <PropertyElementName>
         <Name>GenerateSmartDefaults</Name>
+        <Value>False</Value>
+      </PropertyElementName>
+      <PropertyElementName>
+        <Name>HashObjectNamesInLogs</Name>
         <Value>False</Value>
       </PropertyElementName>
       <PropertyElementName>
@@ -149,6 +170,10 @@
       </PropertyElementName>
       <PropertyElementName>
         <Name>IgnorePartitionSchemes</Name>
+        <Value>False</Value>
+      </PropertyElementName>
+      <PropertyElementName>
+        <Name>IgnoreTablePartitionOptions</Name>
         <Value>False</Value>
       </PropertyElementName>
       <PropertyElementName>
@@ -240,6 +265,10 @@
         <Value>True</Value>
       </PropertyElementName>
       <PropertyElementName>
+        <Name>IgnoreSensitivityClassifications</Name>
+        <Value>False</Value>
+      </PropertyElementName>
+      <PropertyElementName>
         <Name>AllowUnsafeRowLevelSecurityDataMovement</Name>
         <Value>False</Value>
       </PropertyElementName>
@@ -252,6 +281,10 @@
         <Value>False</Value>
       </PropertyElementName>
       <PropertyElementName>
+        <Name>IsAlwaysEncryptedParameterizationEnabled</Name>
+        <Value>False</Value>
+      </PropertyElementName>
+      <PropertyElementName>
         <Name>NoAlterStatementsToChangeCLRTypes</Name>
         <Value>False</Value>
       </PropertyElementName>
@@ -260,8 +293,20 @@
         <Value>True</Value>
       </PropertyElementName>
       <PropertyElementName>
+        <Name>PreserveIdentityLastValues</Name>
+        <Value>False</Value>
+      </PropertyElementName>
+      <PropertyElementName>
         <Name>RegisterDataTierApplication</Name>
         <Value>False</Value>
+      </PropertyElementName>
+      <PropertyElementName>
+        <Name>RebuildIndexesOfflineForDataPhase</Name>
+        <Value>False</Value>
+      </PropertyElementName>
+      <PropertyElementName>
+        <Name>RestoreSequenceCurrentValue</Name>
+        <Value>True</Value>
       </PropertyElementName>
       <PropertyElementName>
         <Name>ScriptDatabaseCollation</Name>
@@ -293,11 +338,11 @@
       </PropertyElementName>
       <PropertyElementName>
         <Name>TargetDatabaseName</Name>
-        <Value>Fiszki</Value>
+        <Value>DateBase</Value>
       </PropertyElementName>
       <PropertyElementName>
         <Name>TargetConnectionString</Name>
-        <Value>Data Source=DESKTOP-NO39NB8;Initial Catalog=Fiszki;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False;Application Name="Microsoft SQL Server Data Tools, Schema Compare"</Value>
+        <Value>Integrated Security=True;Pooling=False;Connect Timeout=30</Value>
       </PropertyElementName>
       <PropertyElementName>
         <Name>TreatVerificationErrorsAsWarnings</Name>
@@ -322,6 +367,10 @@
       <PropertyElementName>
         <Name>AllowDropBlockingAssemblies</Name>
         <Value>False</Value>
+      </PropertyElementName>
+      <PropertyElementName>
+        <Name>DoNotEvaluateSqlCmdVariables</Name>
+        <Value>True</Value>
       </PropertyElementName>
       <PropertyElementName>
         <Name>DoNotDropAggregates</Name>
@@ -392,6 +441,22 @@
         <Value>False</Value>
       </PropertyElementName>
       <PropertyElementName>
+        <Name>IgnoreDatabaseWorkloadGroups</Name>
+        <Value>False</Value>
+      </PropertyElementName>
+      <PropertyElementName>
+        <Name>DoNotDropDatabaseWorkloadGroups</Name>
+        <Value>False</Value>
+      </PropertyElementName>
+      <PropertyElementName>
+        <Name>IgnoreWorkloadClassifiers</Name>
+        <Value>False</Value>
+      </PropertyElementName>
+      <PropertyElementName>
+        <Name>DoNotDropWorkloadClassifiers</Name>
+        <Value>False</Value>
+      </PropertyElementName>
+      <PropertyElementName>
         <Name>DoNotDropDefaults</Name>
         <Value>False</Value>
       </PropertyElementName>
@@ -424,7 +489,23 @@
         <Value>False</Value>
       </PropertyElementName>
       <PropertyElementName>
+        <Name>DoNotDropExternalLanguages</Name>
+        <Value>False</Value>
+      </PropertyElementName>
+      <PropertyElementName>
+        <Name>DoNotDropExternalLibraries</Name>
+        <Value>False</Value>
+      </PropertyElementName>
+      <PropertyElementName>
+        <Name>DoNotDropExternalStreamingJobs</Name>
+        <Value>False</Value>
+      </PropertyElementName>
+      <PropertyElementName>
         <Name>DoNotDropExternalTables</Name>
+        <Value>False</Value>
+      </PropertyElementName>
+      <PropertyElementName>
+        <Name>DoNotDropExternalStreams</Name>
         <Value>False</Value>
       </PropertyElementName>
       <PropertyElementName>
@@ -668,7 +749,23 @@
         <Value>False</Value>
       </PropertyElementName>
       <PropertyElementName>
+        <Name>ExcludeExternalLanguages</Name>
+        <Value>False</Value>
+      </PropertyElementName>
+      <PropertyElementName>
+        <Name>ExcludeExternalLibraries</Name>
+        <Value>False</Value>
+      </PropertyElementName>
+      <PropertyElementName>
+        <Name>ExcludeExternalStreamingJobs</Name>
+        <Value>False</Value>
+      </PropertyElementName>
+      <PropertyElementName>
         <Name>ExcludeExternalTables</Name>
+        <Value>False</Value>
+      </PropertyElementName>
+      <PropertyElementName>
+        <Name>ExcludeExternalStreams</Name>
         <Value>False</Value>
       </PropertyElementName>
       <PropertyElementName>
@@ -813,6 +910,14 @@
       </PropertyElementName>
       <PropertyElementName>
         <Name>ExcludeXmlSchemaCollections</Name>
+        <Value>False</Value>
+      </PropertyElementName>
+      <PropertyElementName>
+        <Name>AllowExternalLibraryPaths</Name>
+        <Value>False</Value>
+      </PropertyElementName>
+      <PropertyElementName>
+        <Name>AllowExternalLanguagePaths</Name>
         <Value>False</Value>
       </PropertyElementName>
       <PropertyElementName>

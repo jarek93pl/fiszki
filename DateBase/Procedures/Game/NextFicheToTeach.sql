@@ -22,7 +22,7 @@ WHERE [ts].[Id]= @IdTeachSet
 INSERT INTO @Fiches([IdFiche],[NumberAnswer])
 SELECT [f].[Id],[ts].[NumberCorect]
 FROM [Fiche] [f] 
-LEFT JOIN [FicheTeachState] [ts] ON [ts].IdFiche =[f].[Id]
+LEFT JOIN [FicheTeachState] [ts] ON  ([ts].IdFiche =[f].[Id] and [ts].[IdTeachSet]= @IdTeachSet)
 WHERE 
 ([ts].[IdFiche] IS NULL OR
 ( [ts].[NextTry]<GETDATE() AND [ts].[IsDone]=0 ))AND 
